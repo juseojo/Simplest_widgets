@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
+
+	@AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
+
 	var body: some View {
 		NavigationStack {
 			ScrollView() {
@@ -52,6 +55,9 @@ struct ContentView: View {
 						}
 					}
 				}
+			}
+			.fullScreenCover(isPresented: $isFirstLaunching) {
+				OnboardingTabView(isFirstLaunching: $isFirstLaunching)
 			}
 		}
 	}
