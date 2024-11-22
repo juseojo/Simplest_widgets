@@ -7,10 +7,44 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct Get_homeScreen_view: View {
+	@State private var isPickerPresented = false
+	@State private var isFinished = false
+	@State private var selectedImageData = UserDefaults.standard.data(forKey: "HomeScreen_imageData")
 
-	@AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
+	var body: some View {
+		Text("Simplest Widgets")
+			.font(.largeTitle)
+			.fontWeight(.bold)
+			.padding(.bottom)
+		Text("Choice your home screen")
+			.font(.title2)
+			.fontWeight(.semibold)
+			.foregroundColor(Color.gray)
+			.multilineTextAlignment(.center)
+		Button(action: {
+			print("Choice home screen button click")
+			isPickerPresented = true
+		}, label: {
+			Image("Choice home screen")
+				.resizable()
+				.aspectRatio(contentMode: .fit)
+		})
+		.sheet(isPresented: $isPickerPresented) {
+			PhotoPicker(selectedImageData: $selectedImageData) {
+				print("choose image")
+				if self.selectedImageData != nil
+				{
+					self.isFinished = true
+				}
+			}
+		}.fullScreenCover(isPresented: $isFinished) {
+			Main_view()
+		}
+	}
+}
 
+struct Main_view: View {
 	var body: some View {
 		NavigationStack {
 			ScrollView() {
@@ -56,9 +90,24 @@ struct ContentView: View {
 					}
 				}
 			}
-			.fullScreenCover(isPresented: $isFirstLaunching) {
+		}
+	}
+}
+
+struct ContentView: View {
+
+	@AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
+
+	var body: some View {
+		if UserDefaults.shared.data(forKey: "HomeScreen_imageData") == nil
+		{
+			Get_homeScreen_view()
+				.fullScreenCover(isPresented: $isFirstLaunching) {
 				OnboardingTabView(isFirstLaunching: $isFirstLaunching)
-			}
+			   }
+		}
+		else {
+			Main_view()
 		}
 	}
 }
@@ -66,3 +115,13 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
+
+
+extension UserDefaults {
+	static var shared: UserDefaults {
+		let appGroupId = "group.simplest_widgets"
+
+		return UserDefaults(suiteName: appGroupId)!
+	}
+}
+
