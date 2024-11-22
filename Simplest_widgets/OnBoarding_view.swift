@@ -7,6 +7,34 @@
 
 import SwiftUI
 
+struct OnboardingFirstPageView: View {
+	let title: String
+
+	var body: some View {
+		VStack {
+			if #available(iOS 18.0, *) {
+				Image(systemName: "hand.wave.fill")
+					.resizable(resizingMode: .tile)
+					.foregroundColor(Color.white)
+					.frame(width: 100.0, height: 100.0)
+					.symbolEffect(.wiggle, options: .speed(0.5))
+			}
+			else {
+				Image(systemName: "hand.wave.fill")
+					.resizable(resizingMode: .tile)
+					.foregroundColor(Color.white)
+					.frame(width: 100.0, height: 100.0)
+			}
+			Text(title)
+				.font(.title2)
+				.fontWeight(.bold)
+				.foregroundColor(Color.white)
+				.multilineTextAlignment(.center)
+				.padding()
+		}
+	}
+}
+
 struct OnboardingPageView: View {
 	let imageName: String
 	let title: String
@@ -23,6 +51,7 @@ struct OnboardingPageView: View {
 			Image(imageName)
 				.resizable()
 				.aspectRatio(contentMode: .fit)
+				.clipShape(RoundedRectangle(cornerRadius: 15))
 				.padding(.bottom, 40.0)
 		}
 	}
@@ -47,6 +76,7 @@ struct OnboardingLastPageView: View {
 				.resizable()
 				.aspectRatio(contentMode: .fit)
 				.padding(.bottom, 15.0)
+				.cornerRadius(10.0)
 			Button {
 				isFirstLaunching.toggle()
 			} label: {
@@ -67,6 +97,9 @@ struct OnboardingTabView: View {
 
 	var body: some View {
 		TabView {
+			OnboardingFirstPageView(
+				title: "Hi, 😃\n We need home screen image for clear widget background.\n\n This tutorial can help that.\nthank you 😊"
+			)
 			OnboardingPageView(
 				imageName: "Tutorial1",
 				title: "On your home screen,\ntouch the screen for a second"
