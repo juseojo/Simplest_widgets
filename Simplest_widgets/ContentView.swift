@@ -10,7 +10,7 @@ import SwiftUI
 struct Get_homeScreen_view: View {
 	@State private var isPickerPresented = false
 	@State private var isFinished = false
-	@State private var selectedImageData = UserDefaults.standard.data(forKey: "HomeScreen_imageData")
+	@State private var selectedImageData: Data?
 
 	var body: some View {
 		Text("Simplest Widgets")
@@ -35,7 +35,10 @@ struct Get_homeScreen_view: View {
 				print("choose image")
 				if self.selectedImageData != nil
 				{
+					let images_manager = Images_manager()
+
 					self.isFinished = true
+					print(images_manager.save_image(data: selectedImageData!, name: "Home_screen"))
 				}
 			}
 		}.fullScreenCover(isPresented: $isFinished) {
@@ -99,12 +102,12 @@ struct ContentView: View {
 	@AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
 
 	var body: some View {
-		if UserDefaults.shared.data(forKey: "HomeScreen_imageData") == nil
+		if UserDefaults.standard.data(forKey: "HomeScreen_imageData") == nil
 		{
 			Get_homeScreen_view()
 				.fullScreenCover(isPresented: $isFirstLaunching) {
-				OnboardingTabView(isFirstLaunching: $isFirstLaunching)
-			   }
+					OnboardingTabView(isFirstLaunching: $isFirstLaunching)
+				}
 		}
 		else {
 			Main_view()
