@@ -80,7 +80,7 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "_XCWidgetKind"
-            value = ""
+            value = "Temperature_widget"
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
