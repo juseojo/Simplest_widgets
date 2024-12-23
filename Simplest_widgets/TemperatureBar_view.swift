@@ -26,7 +26,7 @@ struct TemperatureBar_view: View {
 
 		NavigationView {
 			ScrollView() {
-				VStack{
+				VStack(spacing: 0) {
 					ZStack{
 						// screen image
 						Image(uiImage: homeScreen_image)
@@ -39,62 +39,89 @@ struct TemperatureBar_view: View {
 						Image(uiImage: bazel_image ?? UIImage(systemName: "xmark")!)
 							.resizable()
 							.aspectRatio(contentMode: .fit)
-						VStack{
-							HStack{
-								Widget_button(title: "1", size: widget_length) {
-									UserDefaults.shared.set("11", forKey: "widget_position")
-									WidgetCenter.shared.reloadAllTimelines()
-								}
-								.padding(.trailing, widget_inform.trail_padding * ratio_num)
 
-								Widget_button(title: "2", size: widget_length) {
-									UserDefaults.shared.set("12", forKey: "widget_position")
-									WidgetCenter.shared.reloadAllTimelines()
-								}
-							}
-							.padding(.top, ratio_num * bazel.top_paddings + widget_inform.top_padding * ratio_num)
-							HStack{
-								Widget_button(title: "3", size: widget_length) {
-									UserDefaults.shared.set("13", forKey: "widget_position")
-									WidgetCenter.shared.reloadAllTimelines()
-								}
-								.padding(.trailing, widget_inform.trail_padding * ratio_num)
+						if selected_size == "2 X 2"
+						{
+							// VStack for 2 X 2 widget buttons
+							VStack(spacing: 0) {
+								HStack(spacing: 0) {
+									Widget_button(title: "1", width: widget_length, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
+										UserDefaults.shared.set("11", forKey: "widget_position")
+										WidgetCenter.shared.reloadAllTimelines()
+									}
+									.padding(.trailing, widget_inform.trail_padding * ratio_num)
 
-								Widget_button(title: "4", size: widget_length) {
-									UserDefaults.shared.set("14", forKey: "widget_position")
-									WidgetCenter.shared.reloadAllTimelines()
+									Widget_button(title: "2", width: widget_length, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
+										UserDefaults.shared.set("12", forKey: "widget_position")
+										WidgetCenter.shared.reloadAllTimelines()
+									}
 								}
-							}
-							.padding(.top, ratio_num * widget_inform.bottom_padding)
-							HStack{
-								Widget_button(title: "5", size: widget_length) {
-									UserDefaults.shared.set("15", forKey: "widget_position")
-									WidgetCenter.shared.reloadAllTimelines()
-								}
-								.padding(.trailing, widget_inform.trail_padding * ratio_num)
+								.padding(.top, ratio_num * bazel.top_paddings + widget_inform.top_padding * ratio_num)
 
-								Widget_button(title: "6", size: widget_length) {
-									UserDefaults.shared.set("16", forKey: "widget_position")
-									WidgetCenter.shared.reloadAllTimelines()
+								HStack(spacing: 0) {
+									Widget_button(title: "3", width: widget_length, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
+										UserDefaults.shared.set("13", forKey: "widget_position")
+										WidgetCenter.shared.reloadAllTimelines()
+									}
+									.padding(.trailing, widget_inform.trail_padding * ratio_num)
+
+									Widget_button(title: "4", width: widget_length, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
+										UserDefaults.shared.set("14", forKey: "widget_position")
+										WidgetCenter.shared.reloadAllTimelines()
+									}
 								}
+								.padding(.top, ratio_num * widget_inform.bottom_padding)
+
+								HStack(spacing: 0) {
+									Widget_button(title: "5", width: widget_length, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
+										UserDefaults.shared.set("15", forKey: "widget_position")
+										WidgetCenter.shared.reloadAllTimelines()
+									}
+									.padding(.trailing, widget_inform.trail_padding * ratio_num)
+
+									Widget_button(title: "6", width: widget_length, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
+										UserDefaults.shared.set("16", forKey: "widget_position")
+										WidgetCenter.shared.reloadAllTimelines()
+									}
+								}
+								.padding(.top, ratio_num * widget_inform.bottom_padding)
+								Spacer()
 							}
-							.padding(.top, ratio_num * widget_inform.bottom_padding)
-							Spacer()
+						}
+						else {
+							// VStack for 2 X 4 widget buttons
+							VStack(spacing: 0) {
+								HStack(spacing: 0) {
+									Widget_button(title: "1", width: widget_length * 2 + widget_inform.trail_padding * ratio_num, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
+										UserDefaults.shared.set("21", forKey: "widget_position")
+										WidgetCenter.shared.reloadAllTimelines()
+									}
+								}
+								.padding(.top, ratio_num * bazel.top_paddings + widget_inform.top_padding * ratio_num)
+
+								HStack(spacing: 0) {
+									Widget_button(title: "2", width: widget_length * 2 + widget_inform.trail_padding * ratio_num, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
+										UserDefaults.shared.set("22", forKey: "widget_position")
+										WidgetCenter.shared.reloadAllTimelines()
+									}
+								}
+								.padding(.top, ratio_num * widget_inform.bottom_padding)
+
+								HStack(spacing: 0) {
+									Widget_button(title: "3", width: widget_length * 2 + widget_inform.trail_padding * ratio_num, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
+										UserDefaults.shared.set("23", forKey: "widget_position")
+										WidgetCenter.shared.reloadAllTimelines()
+									}
+								}
+								.padding(.top, ratio_num * widget_inform.bottom_padding)
+								Spacer()
+							}
 						}
 					}
 					.padding(.horizontal, 60)
-					.onAppear() {
-						print(ratio_num)
-						print(UIScreen.main.scale)
-						print(UIScreen.main.bounds.width)
-						print(homeScreen_image.size.width)
-						print(bazel_image!.size)
-						print(bazel)
-						print(widget_inform)
-						print(deviceModel_name)
-						print(ProcessInfo.processInfo.environment["SIMULATOR_DEVICE_NAME"])
-					}
+
 					Text("Choice your widget's option")
+						.padding(.vertical, 20)
 					HStack{
 						Text("Size: ")
 						Picker("Options", selection: $selected_size) {
@@ -140,17 +167,19 @@ struct TemperatureBar_view: View {
 
 struct Widget_button: View {
 	let title: String
-	let size: CGFloat
+	let width: CGFloat
+	let height: CGFloat
+	let radius: CGFloat
 	let action: () -> Void
 
 	var body: some View {
 		Button(action: action) {
 			Text(title)
-				.frame(width: size, height: size, alignment: .center)
+				.frame(width: width, height: height, alignment: .center)
 		}
-		.frame(width: size, height: size)
+		.frame(width: width, height: height)
 		.overlay(
-			RoundedRectangle(cornerRadius: 21)
+			RoundedRectangle(cornerRadius: radius)
 				.stroke(Color.gray, lineWidth: 1)
 		)
 	}
