@@ -10,6 +10,10 @@
 		E99659422CE86B520093E8BA /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99659412CE86B520093E8BA /* WidgetKit.framework */; };
 		E99659442CE86B520093E8BA /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99659432CE86B520093E8BA /* SwiftUI.framework */; };
 		E99659552CE86B540093E8BA /* Temperature_widgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E996593F2CE86B520093E8BA /* Temperature_widgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E99C68A22D0C192D009B9738 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C689C2D0C192D009B9738 /* Utils.swift */; };
+		E99C68B52D0D4C0F009B9738 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C689C2D0C192D009B9738 /* Utils.swift */; };
+		E99C68B82D1006F5009B9738 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C68B72D1006F2009B9738 /* Model.swift */; };
+		E99C68B92D1006F5009B9738 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C68B72D1006F2009B9738 /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +45,9 @@
 		E996593F2CE86B520093E8BA /* Temperature_widgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Temperature_widgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E99659412CE86B520093E8BA /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		E99659432CE86B520093E8BA /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		E99C689C2D0C192D009B9738 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		E99C68B62D0D5902009B9738 /* Temperature_widgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Temperature_widgetExtension.entitlements; sourceTree = "<group>"; };
+		E99C68B72D1006F2009B9738 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -105,8 +112,11 @@
 		E976147A2CE5DD4B00C90A58 = {
 			isa = PBXGroup;
 			children = (
+				E99C68B62D0D5902009B9738 /* Temperature_widgetExtension.entitlements */,
 				E97614852CE5DD4B00C90A58 /* Simplest_widgets */,
 				E99659452CE86B520093E8BA /* Temperature_widget */,
+				E99C689C2D0C192D009B9738 /* Utils.swift */,
+				E99C68B72D1006F2009B9738 /* Model.swift */,
 				E99659402CE86B520093E8BA /* Frameworks */,
 				E97614842CE5DD4B00C90A58 /* Products */,
 			);
@@ -239,6 +249,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E99C68B92D1006F5009B9738 /* Model.swift in Sources */,
+				E99C68A22D0C192D009B9738 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,6 +258,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E99C68B82D1006F5009B9738 /* Model.swift in Sources */,
+				E99C68B52D0D4C0F009B9738 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,6 +472,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = Temperature_widgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 95366L65VG;
@@ -474,9 +489,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "sj-dev.Simplest-widgets.Temperature-widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -485,6 +504,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = Temperature_widgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 95366L65VG;
@@ -501,9 +521,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "sj-dev.Simplest-widgets.Temperature-widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
