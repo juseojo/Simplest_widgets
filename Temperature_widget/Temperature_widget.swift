@@ -77,6 +77,21 @@ private func get_widget_Rect(position: String) -> CGRect {
 					  y: widget_inform.top_padding + 2.0 * Double(widget_inform.length) + 2 * widget_inform.bottom_padding,
 					  width: CGFloat(widget_inform.length),
 					  height: CGFloat(widget_inform.length))
+	case "21":
+		return CGRect(x: widget_inform.lead_padding,
+					  y: widget_inform.top_padding,
+					  width: Double(widget_inform.length * 2) + widget_inform.trail_padding,
+					  height: CGFloat(widget_inform.length))
+	case "22":
+		return CGRect(x: widget_inform.lead_padding,
+					  y: widget_inform.top_padding + Double(widget_inform.length) + widget_inform.bottom_padding,
+					  width: Double(widget_inform.length * 2) + widget_inform.trail_padding,
+					  height: CGFloat(widget_inform.length))
+	case "23":
+		return CGRect(x: widget_inform.lead_padding,
+					  y: widget_inform.top_padding + 2.0 * Double(widget_inform.length) + 2 * widget_inform.bottom_padding,
+					  width: Double(widget_inform.length * 2) + widget_inform.trail_padding,
+					  height: CGFloat(widget_inform.length))
 	default:
 		print("position error")
 		return CGRect(x: 0, y: 0, width: 0, height: 0)
