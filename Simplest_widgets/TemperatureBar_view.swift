@@ -13,6 +13,8 @@ struct TemperatureBar_view: View {
 	@State var selected_temperature = "normal"
 	@State var selected_type = "Vertical"
 	@State var selected_position = "1"
+	@State var time = "1 Day"
+
 	let model = Model()
 
 	var body: some View {
@@ -92,7 +94,7 @@ struct TemperatureBar_view: View {
 							// VStack for 2 X 4 widget buttons
 							VStack(spacing: 0) {
 								HStack(spacing: 0) {
-									Widget_button(title: "1", width: widget_length * 2 + widget_inform.trail_padding * ratio_num, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
+									Widget_button(title: "1", width: widget_length * 2.0 + widget_inform.trail_padding * ratio_num, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
 										UserDefaults.shared.set("21", forKey: "widget_position")
 										WidgetCenter.shared.reloadAllTimelines()
 									}
@@ -100,7 +102,7 @@ struct TemperatureBar_view: View {
 								.padding(.top, ratio_num * bazel.top_paddings + widget_inform.top_padding * ratio_num)
 
 								HStack(spacing: 0) {
-									Widget_button(title: "2", width: widget_length * 2 + widget_inform.trail_padding * ratio_num, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
+									Widget_button(title: "2", width: widget_length * 2.0 + widget_inform.trail_padding * ratio_num, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
 										UserDefaults.shared.set("22", forKey: "widget_position")
 										WidgetCenter.shared.reloadAllTimelines()
 									}
@@ -108,7 +110,7 @@ struct TemperatureBar_view: View {
 								.padding(.top, ratio_num * widget_inform.bottom_padding)
 
 								HStack(spacing: 0) {
-									Widget_button(title: "3", width: widget_length * 2 + widget_inform.trail_padding * ratio_num, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
+									Widget_button(title: "3", width: widget_length * 2.0 + widget_inform.trail_padding * ratio_num, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
 										UserDefaults.shared.set("23", forKey: "widget_position")
 										WidgetCenter.shared.reloadAllTimelines()
 									}
@@ -122,6 +124,7 @@ struct TemperatureBar_view: View {
 
 					Text("Choice your widget's option")
 						.padding(.vertical, 20)
+
 					HStack{
 						Text("Size: ")
 						Picker("Options", selection: $selected_size) {
@@ -130,7 +133,10 @@ struct TemperatureBar_view: View {
 							}
 						}
 						.pickerStyle(.segmented)
-					}.padding(.horizontal, 20.0)
+					}
+					.padding(.horizontal, 30.0)
+					.padding(.bottom, 15.0)
+
 					HStack{
 						Text("Temperature: ")
 						Picker("Options", selection: $selected_temperature) {
@@ -139,7 +145,22 @@ struct TemperatureBar_view: View {
 							}
 						}
 						.pickerStyle(.segmented)
-					}.padding(.horizontal, 20.0)
+					}
+					.padding(.horizontal, 30.0)
+					.padding(.bottom, 15.0)
+
+					HStack{
+						Text("Time: ")
+						Picker("Options", selection: $time) {
+							ForEach(["1 Day", "1 Weekend"], id: \.self) {
+								Text($0)
+							}
+						}
+						.pickerStyle(.segmented)
+					}
+					.padding(.horizontal, 30.0)
+					.padding(.bottom, 15.0)
+
 					HStack{
 						Text("Type: ")
 						Picker("Options", selection: $selected_type) {
@@ -148,7 +169,10 @@ struct TemperatureBar_view: View {
 							}
 						}
 						.pickerStyle(.segmented)
-					}.padding(.horizontal, 20.0)
+					}
+					.padding(.horizontal, 30.0)
+					.padding(.bottom, 15.0)
+
 					HStack{
 						Text("Position: ")
 						Picker("Options", selection: $selected_position) {
@@ -157,7 +181,10 @@ struct TemperatureBar_view: View {
 							}
 						}
 						.pickerStyle(.segmented)
-					}.padding(.horizontal, 20.0)
+					}
+					.padding(.horizontal, 30.0)
+					.padding(.bottom, 15.0)
+
 				}
 				.navigationTitle("Temperature Bar")
 			}
@@ -176,11 +203,12 @@ struct Widget_button: View {
 		Button(action: action) {
 			Text(title)
 				.frame(width: width, height: height, alignment: .center)
+				.bold()
 		}
 		.frame(width: width, height: height)
 		.overlay(
 			RoundedRectangle(cornerRadius: radius)
-				.stroke(Color.gray, lineWidth: 1)
+				.stroke(Color.gray, lineWidth: 2)
 		)
 	}
 }
