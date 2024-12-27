@@ -12,7 +12,5 @@ import SwiftUI
 struct Temperature_widgetBundle: WidgetBundle {
     var body: some Widget {
         Temperature_widget()
-        Temperature_widgetControl()
-        Temperature_widgetLiveActivity()
     }
 }
