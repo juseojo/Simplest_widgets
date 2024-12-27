@@ -109,7 +109,7 @@ class Model
 		Widget_inform(device_name: "iPhone17,4", lead_padding: 114, trail_padding: 72, top_padding: 282, bottom_padding: 126, length: 510, radius: 67),
 
 		// iPhone 15
-		Widget_inform(device_name: "iPhone16,1", lead_padding: 81, trail_padding: 68, top_padding: 240, bottom_padding: 114, length: 474, radius: 65),
+		Widget_inform(device_name: "iPhone16,1", lead_padding: 81, trail_padding: 69, top_padding: 240, bottom_padding: 114, length: 474, radius: 65),
 		Widget_inform(device_name: "iPhone16,2", lead_padding: 93, trail_padding: 83, top_padding: 282, bottom_padding: 126, length: 510, radius: 67),
 		Widget_inform(device_name: "iPhone16,3", lead_padding: 81, trail_padding: 68, top_padding: 270, bottom_padding: 114, length: 474, radius: 65),
 		Widget_inform(device_name: "iPhone16,4", lead_padding: 93, trail_padding: 83, top_padding: 282, bottom_padding: 126, length: 510, radius: 67),
@@ -155,7 +155,7 @@ class Model
 		Widget_inform(device_name: "iPhone10,2", lead_padding: 99, trail_padding: 102, top_padding: 114, bottom_padding: 111, length: 471, radius: 62),
 		Widget_inform(device_name: "iPhone10,5", lead_padding: 99, trail_padding: 102, top_padding: 114, bottom_padding: 111, length: 471, radius: 62),
 
-		Widget_inform(device_name: "arm64",  lead_padding: 81, trail_padding: 68, top_padding: 270, bottom_padding: 114, length: 474, radius: 65)
+		Widget_inform(device_name: "arm64", lead_padding: 81, trail_padding: 68, top_padding: 240, bottom_padding: 114, length: 474, radius: 65),
 
 		]
 
