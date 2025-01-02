@@ -6,20 +6,15 @@
 //
 
 import SwiftUI
+import WidgetKit
+import CoreLocation
 
 struct Get_homeScreen_view: View {
 	@State private var isPickerPresented = false
-	@State private var isFinished = false
 	@State private var selectedImageData: Data?
 	@State private var toast_value = false
-
-	var isFirst: Bool
-	private var shouldShow_mainView: Binding<Bool> {
-		Binding(
-			get: { isFinished && isFirst },
-			set: { isFinished = $0 }
-		)
-	}
+	@State private var isFirst = false
+	@Binding var hasImage: Bool
 
 	var body: some View {
 		ZStack {
@@ -48,27 +43,29 @@ struct Get_homeScreen_view: View {
 						{
 							let images_manager = Images_manager()
 
-							self.isFinished = true
-
 							// menu's button click case
-							if isFirst == false {
+							if hasImage {
 								self.toast_value = true
 								// for closing toast
 								DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
 									self.toast_value = false
 								}
+							} else {
+								isFirst = true
 							}
 							print(images_manager.save_image(data: selectedImageData!, name: "Home_screen"))
+							WidgetCenter.shared.reloadAllTimelines()
+							self.hasImage = true
 						}
 					}
 				}
-				.fullScreenCover(isPresented: shouldShow_mainView) {
-					Main_view()
+				.fullScreenCover(isPresented: $isFirst) { // first : false -> true, other : false
+					Main_view(hasImage: $hasImage)
 				}
 			}.padding(.bottom, 20)
 
 			// toast message case
-			if !isFirst && isFinished && toast_value
+			if hasImage && toast_value
 			{
 				VStack {
 					Text("Change success!")
@@ -85,6 +82,8 @@ struct Get_homeScreen_view: View {
 }
 
 struct Main_view: View {
+	@Binding var hasImage: Bool
+
 	var body: some View {
 		NavigationStack {
 			ScrollView() {
@@ -129,10 +128,36 @@ struct Main_view: View {
 
 						}
 						else if destination == "Change Image" {
-							Get_homeScreen_view(isFirst: false)
+							Get_homeScreen_view(hasImage: $hasImage)
 						}
 					}
 				}
+			}
+		}
+		.onAppear() {
+			let locationManager = CLLocationManager()
+			let authorizationStatus = locationManager.authorizationStatus
+
+			// 위치 사용 권한 항상 허용되어 있음
+			if authorizationStatus == .authorizedAlways {
+				print("always ok")
+			}
+			// 위치 사용 권한 앱 사용 시 허용되어 있음
+			else if authorizationStatus == .authorizedWhenInUse {
+				print("use ok")
+			}
+			// 위치 사용 권한 거부되어 있음
+			else if authorizationStatus == .denied {
+				// 앱 설정화면으로 이동
+				DispatchQueue.main.async {
+					UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+				}
+			}
+			// 위치 사용 권한 대기 상태
+			else if authorizationStatus == .restricted || authorizationStatus == .notDetermined {
+				// 권한 요청 팝업창
+				print("request")
+				locationManager.requestWhenInUseAuthorization()
 			}
 		}
 	}
@@ -141,17 +166,18 @@ struct Main_view: View {
 struct ContentView: View {
 
 	@AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
+	@AppStorage("hasImage") var hasImage: Bool = false
 
 	var body: some View {
-		if UserDefaults.standard.data(forKey: "HomeScreen_imageData") == nil
+		if hasImage == false
 		{
-			Get_homeScreen_view(isFirst: true)
+			Get_homeScreen_view(hasImage: $hasImage)
 				.fullScreenCover(isPresented: $isFirstLaunching) {
 					OnboardingTabView(isFirstLaunching: $isFirstLaunching)
 				}
 		}
 		else {
-			Main_view()
+			Main_view(hasImage: $hasImage)
 		}
 	}
 }
