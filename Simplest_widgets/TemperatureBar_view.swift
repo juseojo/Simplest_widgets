@@ -17,6 +17,20 @@ struct TemperatureBar_view: View {
 
 	let model = Model()
 
+	init(selected_size: String = "2 X 2", selected_temperature: String = "normal", selected_type: String = "Vertical", selected_position: String = "1", time: String = "1 Day") {
+		if UserDefaults.shared.string(forKey: "widget_position") == nil {
+			self.selected_size = "2 X 2"
+		}
+		else if String(UserDefaults.shared.string(forKey: "widget_position")!.first!) == "2" {
+			self.selected_size = "2 X 4"
+		}
+		
+		self.selected_temperature = selected_temperature
+		self.selected_type = selected_type
+		self.selected_position = selected_position
+		self.time = time
+	}
+
 	var body: some View {
 		let homeScreen_image = Images_manager().load_image(name: "Home_screen")
 		let deviceModel_name = get_deviceModel()
@@ -204,11 +218,12 @@ struct Widget_button: View {
 			Text(title)
 				.frame(width: width, height: height, alignment: .center)
 				.bold()
+				.foregroundColor(.white)
 		}
 		.frame(width: width, height: height)
 		.overlay(
 			RoundedRectangle(cornerRadius: radius)
-				.stroke(Color.gray, lineWidth: 2)
+				.stroke(Color.white, lineWidth: 2)
 		)
 	}
 }
