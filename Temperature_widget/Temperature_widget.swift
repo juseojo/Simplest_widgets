@@ -7,6 +7,8 @@
 
 import WidgetKit
 import SwiftUI
+import WeatherKit
+import CoreLocation
 
 struct Provider: AppIntentTimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
@@ -16,19 +18,35 @@ struct Provider: AppIntentTimelineProvider {
     func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
         SimpleEntry(date: Date(), configuration: configuration)
     }
-    
+
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
         var entries: [SimpleEntry] = []
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
-        for hourOffset in 0 ..< 12 {
+		let weather_service = Weather_Service()
+		var weather: Weather?
+
+		// Refresh weather and get temperatures
+		do {
+			try await weather_service.refresh_weather()
+			weather = weather_service.get_wether()
+			configuration.temperatures = weather?.hourlyForecast.forecast.map { data in
+				data.temperature.value } ?? [0.0]
+			print(configuration.temperatures)
+			print(configuration.temperatures.count)
+		}
+		catch {
+			print("Failed to fetch weather: \(error)")
+			configuration.temperatures = [0.0]
+		}
+
+        for hourOffset in 0 ..< 6 {
 			let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
             let entry = SimpleEntry(date: entryDate, configuration: configuration)
-            entries.append(entry)
+
+			entries.append(entry)
         }
 
-        return Timeline(entries: entries, policy: .atEnd)
+		return Timeline(entries: entries, policy: .atEnd)
     }
 
 //    func relevances() async -> WidgetRelevances<ConfigurationAppIntent> {
@@ -41,7 +59,7 @@ struct SimpleEntry: TimelineEntry {
     let configuration: ConfigurationAppIntent
 }
 
-// return CGRect for croping image
+// Return CGRect for croping image
 private func get_widget_Rect(position: String) -> CGRect {
 	let model = Model()
 	let widget_inform = model.get_widget(device_name: get_deviceModel())
@@ -98,15 +116,38 @@ private func get_widget_Rect(position: String) -> CGRect {
 	}
 }
 
+// Return gradation color
+private func make_temperatureColors(temperatures: [Double], isNormal: Bool) -> [Color] {
+	var colors = [Color]()
+
+	if isNormal
+	{
+		for temperature in temperatures {
+			let color = temperature < 10 ? Color.red : Color.blue
+			colors.append(color)
+		}
+	}
+	else
+	{
+		for temperature in temperatures {
+			let color = temperatures[0] - temperature > 0 ? Color.red : Color.blue
+			colors.append(color)
+		}
+	}
+	return colors
+}
+
 struct Temperature_widgetEntryView : View {
     var entry: Provider.Entry
 	var homeScreen_image : CGImage?
 	var widget_position: String
+	let format = DateFormatter()
 
 	init(entry: SimpleEntry) {
 		self.widget_position =  UserDefaults.shared.string(forKey: "widget_position") ?? "none"
 		self.homeScreen_image = Images_manager().load_image(name: "Home_screen").cgImage
 		self.entry = entry
+		self.format.dateFormat = "yyyy-MM-dd HH:mm:ss"
 	}
 
 	// widget body
@@ -119,18 +160,31 @@ struct Temperature_widgetEntryView : View {
 			Image(uiImage: UIImage(cgImage: homeScreen_image?.cropping(to: crop_size) ?? UIImage(systemName: "xmark")!.cgImage!,
 								   scale: UIScreen.main.scale,
 								   orientation: .up))
-				.resizable()
-				.renderingMode(.original)
-				.scaledToFit()
+			.resizable()
+			.renderingMode(.original)
+			.scaledToFit()
 
-			// Your widget content
+			// testing text
 			VStack {
-				Text("Hello, Widget!")
+				Text("\(format.string(from: entry.date))\n \(entry.configuration.temperatures)")
 					.font(.headline)
 					.foregroundColor(.primary)
+				// temperatur Bar
+				Temperature_Bar(temperatures: entry.configuration.temperatures)
 			}
-			.padding()	
 		}
+	}
+}
+
+struct Temperature_Bar: View {
+
+	var temperatures: [Double]
+	var body: some View {
+		ZStack{
+			LinearGradient(gradient: Gradient(colors: make_temperatureColors(temperatures: temperatures, isNormal: false)), startPoint: .leading, endPoint: .trailing)
+		}
+		.frame(height: 15)
+		.cornerRadius(30)
 	}
 }
 
@@ -141,20 +195,18 @@ struct Temperature_widget: Widget {
         AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
             Temperature_widgetEntryView(entry: entry)
 				.containerBackground(.clear, for: .widget)
-		}.contentMarginsDisabled()
+		}
+		.contentMarginsDisabled()
+		.configurationDisplayName("Temperature Bar")
+		.description("Check easily temperature")
     }
 }
 
 extension ConfigurationAppIntent {
-    fileprivate static var smiley: ConfigurationAppIntent {
-        let intent = ConfigurationAppIntent()
-        intent.favoriteEmoji = "😀"
-        return intent
-    }
     
-    fileprivate static var starEyes: ConfigurationAppIntent {
+    fileprivate static var temp: ConfigurationAppIntent {
         let intent = ConfigurationAppIntent()
-        intent.favoriteEmoji = "🤩"
+		intent.temperatures = [0]
         return intent
     }
 }
@@ -174,8 +226,7 @@ struct VisualEffectView: UIViewRepresentable {
 #Preview(as: .systemSmall) {
     Temperature_widget()
 } timeline: {
-    //SimpleEntry(date: .now, configuration: .smiley)
-	SimpleEntry(date: .now, configuration: .starEyes)
+	SimpleEntry(date: .now, configuration: .temp)
 }
 
 extension UserDefaults {
