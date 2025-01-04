@@ -9,27 +9,14 @@ import SwiftUI
 import WidgetKit
 
 struct TemperatureBar_view: View {
-	@State var selected_size = "2 X 2"
-	@State var selected_temperature = "normal"
-	@State var selected_type = "Vertical"
-	@State var selected_position = "1"
-	@State var time = "1 Day"
+	@AppStorage("temperature size", store: UserDefaults.shared) var selected_size: String = "00"
+	@AppStorage("temperature notation", store: UserDefaults.shared) var selected_temperature: String = "normal"
+	@AppStorage("temperature type", store: UserDefaults.shared) var selected_type: String = "Horizon"
+	@AppStorage("temperature position", store: UserDefaults.shared) var selected_position: String = "1"
+	@AppStorage("temperature time", store: UserDefaults.shared) var time: String = "1 Day"
+	@State var selected_box: String = "2 X 2"
 
 	let model = Model()
-
-	init(selected_size: String = "2 X 2", selected_temperature: String = "normal", selected_type: String = "Vertical", selected_position: String = "1", time: String = "1 Day") {
-		if UserDefaults.shared.string(forKey: "widget_position") == nil {
-			self.selected_size = "2 X 2"
-		}
-		else if String(UserDefaults.shared.string(forKey: "widget_position")!.first!) == "2" {
-			self.selected_size = "2 X 4"
-		}
-		
-		self.selected_temperature = selected_temperature
-		self.selected_type = selected_type
-		self.selected_position = selected_position
-		self.time = time
-	}
 
 	var body: some View {
 		let homeScreen_image = Images_manager().load_image(name: "Home_screen")
@@ -56,19 +43,19 @@ struct TemperatureBar_view: View {
 							.resizable()
 							.aspectRatio(contentMode: .fit)
 
-						if selected_size == "2 X 2"
+						if selected_box == "2 X 2"
 						{
 							// VStack for 2 X 2 widget buttons
 							VStack(spacing: 0) {
 								HStack(spacing: 0) {
 									Widget_button(title: "1", width: widget_length, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
-										UserDefaults.shared.set("11", forKey: "widget_position")
+										UserDefaults.shared.set("11", forKey: "temperature size")
 										WidgetCenter.shared.reloadAllTimelines()
 									}
 									.padding(.trailing, widget_inform.trail_padding * ratio_num)
 
 									Widget_button(title: "2", width: widget_length, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
-										UserDefaults.shared.set("12", forKey: "widget_position")
+										UserDefaults.shared.set("12", forKey: "temperature size")
 										WidgetCenter.shared.reloadAllTimelines()
 									}
 								}
@@ -76,13 +63,13 @@ struct TemperatureBar_view: View {
 
 								HStack(spacing: 0) {
 									Widget_button(title: "3", width: widget_length, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
-										UserDefaults.shared.set("13", forKey: "widget_position")
+										UserDefaults.shared.set("13", forKey: "temperature size")
 										WidgetCenter.shared.reloadAllTimelines()
 									}
 									.padding(.trailing, widget_inform.trail_padding * ratio_num)
 
 									Widget_button(title: "4", width: widget_length, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
-										UserDefaults.shared.set("14", forKey: "widget_position")
+										UserDefaults.shared.set("14", forKey: "temperature size")
 										WidgetCenter.shared.reloadAllTimelines()
 									}
 								}
@@ -90,13 +77,13 @@ struct TemperatureBar_view: View {
 
 								HStack(spacing: 0) {
 									Widget_button(title: "5", width: widget_length, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
-										UserDefaults.shared.set("15", forKey: "widget_position")
+										UserDefaults.shared.set("15", forKey: "temperature size")
 										WidgetCenter.shared.reloadAllTimelines()
 									}
 									.padding(.trailing, widget_inform.trail_padding * ratio_num)
 
 									Widget_button(title: "6", width: widget_length, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
-										UserDefaults.shared.set("16", forKey: "widget_position")
+										UserDefaults.shared.set("16", forKey: "temperature size")
 										WidgetCenter.shared.reloadAllTimelines()
 									}
 								}
@@ -109,7 +96,7 @@ struct TemperatureBar_view: View {
 							VStack(spacing: 0) {
 								HStack(spacing: 0) {
 									Widget_button(title: "1", width: widget_length * 2.0 + widget_inform.trail_padding * ratio_num, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
-										UserDefaults.shared.set("21", forKey: "widget_position")
+										UserDefaults.shared.set("21", forKey: "temperature size")
 										WidgetCenter.shared.reloadAllTimelines()
 									}
 								}
@@ -117,7 +104,7 @@ struct TemperatureBar_view: View {
 
 								HStack(spacing: 0) {
 									Widget_button(title: "2", width: widget_length * 2.0 + widget_inform.trail_padding * ratio_num, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
-										UserDefaults.shared.set("22", forKey: "widget_position")
+										UserDefaults.shared.set("22", forKey: "temperature size")
 										WidgetCenter.shared.reloadAllTimelines()
 									}
 								}
@@ -125,7 +112,7 @@ struct TemperatureBar_view: View {
 
 								HStack(spacing: 0) {
 									Widget_button(title: "3", width: widget_length * 2.0 + widget_inform.trail_padding * ratio_num, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
-										UserDefaults.shared.set("23", forKey: "widget_position")
+										UserDefaults.shared.set("23", forKey: "temperature size")
 										WidgetCenter.shared.reloadAllTimelines()
 									}
 								}
@@ -141,7 +128,7 @@ struct TemperatureBar_view: View {
 
 					HStack{
 						Text("Size: ")
-						Picker("Options", selection: $selected_size) {
+						Picker("Options", selection: $selected_box) {
 							ForEach(["2 X 2", "2 X 4"], id: \.self) {
 								Text($0)
 							}
@@ -159,6 +146,11 @@ struct TemperatureBar_view: View {
 							}
 						}
 						.pickerStyle(.segmented)
+						.onChange(of: selected_temperature) { newValue in
+							print("changed to: \(newValue)")
+							UserDefaults.shared.set(newValue, forKey: "temperature notation")
+							WidgetCenter.shared.reloadAllTimelines()
+						}
 					}
 					.padding(.horizontal, 30.0)
 					.padding(.bottom, 15.0)
@@ -166,11 +158,16 @@ struct TemperatureBar_view: View {
 					HStack{
 						Text("Time: ")
 						Picker("Options", selection: $time) {
-							ForEach(["1 Day", "1 Weekend"], id: \.self) {
+							ForEach(["1 Day", "1 Week"], id: \.self) {
 								Text($0)
 							}
 						}
 						.pickerStyle(.segmented)
+						.onChange(of: time) { newValue in
+							print("changed to: \(newValue)")
+							UserDefaults.shared.set(newValue, forKey: "temperature time")
+							WidgetCenter.shared.reloadAllTimelines()
+						}
 					}
 					.padding(.horizontal, 30.0)
 					.padding(.bottom, 15.0)
@@ -178,11 +175,16 @@ struct TemperatureBar_view: View {
 					HStack{
 						Text("Type: ")
 						Picker("Options", selection: $selected_type) {
-							ForEach(["Vertical", "Horizon"], id: \.self) {
+							ForEach(["Horizon", "Vertical"], id: \.self) {
 								Text($0)
 							}
 						}
 						.pickerStyle(.segmented)
+						.onChange(of: selected_type) { newValue in
+							print("changed to: \(newValue)")
+							UserDefaults.shared.set(newValue, forKey: "temperature type")
+							WidgetCenter.shared.reloadAllTimelines()
+						}
 					}
 					.padding(.horizontal, 30.0)
 					.padding(.bottom, 15.0)
@@ -195,12 +197,25 @@ struct TemperatureBar_view: View {
 							}
 						}
 						.pickerStyle(.segmented)
+						.onChange(of: selected_position) { newValue in
+							print("changed to: \(newValue)")
+							UserDefaults.shared.set(newValue, forKey: "temperature position")
+							WidgetCenter.shared.reloadAllTimelines()
+						}
 					}
 					.padding(.horizontal, 30.0)
 					.padding(.bottom, 15.0)
 
 				}
 				.navigationTitle("Temperature Bar")
+			}
+			.onAppear {
+				if UserDefaults.shared.string(forKey: "temperature size") == nil {
+					self.selected_box = "2 X 2"
+				}
+				else if String(UserDefaults.shared.string(forKey: "temperature size")!.first!) == "2" {
+					self.selected_box = "2 X 4"
+				}
 			}
 		}
 	}
