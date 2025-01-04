@@ -31,8 +31,19 @@ struct Provider: AppIntentTimelineProvider {
 			weather = weather_service.get_wether()
 			configuration.temperatures = weather?.hourlyForecast.forecast.map { data in
 				data.temperature.value } ?? [0.0]
+			if UserDefaults.shared.string(forKey: "temperature time") ?? "1 Day" == "1 Day" {
+				for _ in 0 ..< (weather?.hourlyForecast.forecast.count ?? 24) - 24 {
+					configuration.temperatures.popLast()
+				}
+			}
+			else {
+				for _ in 0 ..< (weather?.hourlyForecast.forecast.count ?? 24) - 24 * 7 {
+					configuration.temperatures.popLast()
+				}
+			}
 			print(configuration.temperatures)
 			print(configuration.temperatures.count)
+			print(UserDefaults.shared.string(forKey: "temperature notation"))
 		}
 		catch {
 			print("Failed to fetch weather: \(error)")
@@ -144,7 +155,7 @@ struct Temperature_widgetEntryView : View {
 	let format = DateFormatter()
 
 	init(entry: SimpleEntry) {
-		self.widget_position =  UserDefaults.shared.string(forKey: "widget_position") ?? "none"
+		self.widget_position =  UserDefaults.shared.string(forKey: "temperature size") ?? "none"
 		self.homeScreen_image = Images_manager().load_image(name: "Home_screen").cgImage
 		self.entry = entry
 		self.format.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -153,7 +164,7 @@ struct Temperature_widgetEntryView : View {
 	// widget body
 	var body: some View {
 		let crop_size = get_widget_Rect(position: widget_position)
-
+		let position =  UserDefaults.shared.string(forKey: "temperature position") ?? "1"
 		ZStack {
 			Color.white
 			// background image
@@ -164,13 +175,30 @@ struct Temperature_widgetEntryView : View {
 			.renderingMode(.original)
 			.scaledToFit()
 
-			// testing text
-			VStack {
-				Text("\(format.string(from: entry.date))\n \(entry.configuration.temperatures)")
-					.font(.headline)
-					.foregroundColor(.primary)
-				// temperatur Bar
-				Temperature_Bar(temperatures: entry.configuration.temperatures)
+			if UserDefaults.shared.string(forKey: "temperature type") ?? "Horizon" == "Horizon" {
+				VStack {
+					if position == "1" || position == "2" {
+						Spacer()
+					}
+					// temperatur Bar
+					Temperature_Bar(temperatures: entry.configuration.temperatures)
+					if position == "3" || position == "2" {
+						Spacer()
+					}
+				}
+			}
+			else
+			{
+				HStack {
+					if position == "3" || position == "2" {
+						Spacer()
+					}
+					// temperatur Bar
+					Temperature_Bar(temperatures: entry.configuration.temperatures)
+					if position == "1" || position == "2" {
+						Spacer()
+					}
+				}
 			}
 		}
 	}
@@ -180,11 +208,34 @@ struct Temperature_Bar: View {
 
 	var temperatures: [Double]
 	var body: some View {
-		ZStack{
-			LinearGradient(gradient: Gradient(colors: make_temperatureColors(temperatures: temperatures, isNormal: false)), startPoint: .leading, endPoint: .trailing)
+
+		if UserDefaults.shared.string(forKey: "temperature type") ?? "Horizon" == "Horizon" {
+			ZStack{
+				if UserDefaults.shared.string(forKey: "temperature notation") ?? "normal" == "normal" {
+					LinearGradient(gradient: Gradient(colors: make_temperatureColors(temperatures: temperatures, isNormal: true)), startPoint: .leading, endPoint: .trailing)
+				}
+				else {
+					LinearGradient(gradient: Gradient(colors: make_temperatureColors(temperatures: temperatures, isNormal: false)), startPoint: .leading, endPoint: .trailing)
+				}
+			}
+			.frame(height: 15)
+			.cornerRadius(30)
+			.padding(.horizontal, 10)
 		}
-		.frame(height: 15)
-		.cornerRadius(30)
+		else
+		{
+			ZStack{
+				if UserDefaults.shared.string(forKey: "temperature notation") ?? "normal" == "normal" {
+					LinearGradient(gradient: Gradient(colors: make_temperatureColors(temperatures: temperatures, isNormal: true)), startPoint: .top, endPoint: .bottom)
+				}
+				else {
+					LinearGradient(gradient: Gradient(colors: make_temperatureColors(temperatures: temperatures, isNormal: false)), startPoint: .top, endPoint: .bottom)
+				}
+			}
+			.frame(width: 15)
+			.cornerRadius(30)
+			.padding(.vertical, 10)
+		}
 	}
 }
 
