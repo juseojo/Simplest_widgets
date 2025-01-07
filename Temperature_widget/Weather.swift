@@ -16,9 +16,17 @@ class Weather_Service:  NSObject, CLLocationManagerDelegate {
 
 		return manager
 	}()
-	private var weather: Weather?
+	private var weather: Forecast<HourWeather>?
 
-	func get_wether() -> Weather? {
+	func get_weather(isDay: Bool) -> Forecast<HourWeather>? {
+
+		if isDay {
+			for _ in 0 ..< (weather?.count ?? 24) - 24 {
+				weather?.forecast.popLast()
+			}
+
+			return weather
+		}
 
 		return weather
 	}
@@ -39,16 +47,12 @@ class Weather_Service:  NSObject, CLLocationManagerDelegate {
 				}
 			}
 		case .restricted, .denied:
-			DispatchQueue.main.async {
-				//self.errorMessage = "we need auth, plz set that."
-			}
+			print("loaction denied, restircted")
 		case .authorizedWhenInUse, .authorizedAlways:
 			print("request location")
 			location_manager.requestLocation()
 		@unknown default:
-			DispatchQueue.main.async {
-				//self.errorMessage = "Unknown Auth"
-			}
+			print("location unknown error")
 		}
 
 		/*
@@ -65,7 +69,10 @@ class Weather_Service:  NSObject, CLLocationManagerDelegate {
 			print("refresh fail : location in nil")
 		}
 		else {
-			let weather = try await WeatherService.shared.weather(for: location_manager.location!)
+			let start_date = Date()
+			let end_date = Calendar.current.date(byAdding: .hour, value: 24 * 7, to: start_date)!
+			let weather = try await WeatherService
+				.shared.weather(for: location_manager.location!, including: .hourly(startDate: start_date, endDate: end_date))
 			self.weather = weather
 		}
 
@@ -75,18 +82,14 @@ class Weather_Service:  NSObject, CLLocationManagerDelegate {
 	func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
 		switch manager.authorizationStatus {
 		case .authorizedWhenInUse, .authorizedAlways:
-			self.location_manager.requestLocation() // 위치 요청
+			self.location_manager.requestLocation()
 		case .denied:
 			print("local auth deny")
-			//self.errorMessage = "위치 권한이 거부되었습니다. 설정에서 권한을 허용해주세요."
 		case .restricted:
-			//self.errorMessage = "위치 권한이 제한되었습니다."
 			print("local auth restricted")
 		case .notDetermined:
 			self.location_manager.requestAlwaysAuthorization()
-			//self.errorMessage = "위치 권한이 결정되지 않았습니다."
 		@unknown default:
-			//self.errorMessage = "알 수 없는 권한 상태입니다."
 			break
 		}
 

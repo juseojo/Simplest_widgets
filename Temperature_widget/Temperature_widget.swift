@@ -23,27 +23,21 @@ struct Provider: AppIntentTimelineProvider {
         var entries: [SimpleEntry] = []
         let currentDate = Date()
 		let weather_service = Weather_Service()
-		var weather: Weather?
+		var weathers: Forecast<HourWeather>?
 
 		// Refresh weather and get temperatures
 		do {
 			try await weather_service.refresh_weather()
-			weather = weather_service.get_wether()
-			configuration.temperatures = weather?.hourlyForecast.forecast.map { data in
-				data.temperature.value } ?? [0.0]
 			if UserDefaults.shared.string(forKey: "temperature time") ?? "1 Day" == "1 Day" {
-				for _ in 0 ..< (weather?.hourlyForecast.forecast.count ?? 24) - 24 {
-					configuration.temperatures.popLast()
-				}
+				weathers = weather_service.get_weather(isDay: true)
 			}
 			else {
-				for _ in 0 ..< (weather?.hourlyForecast.forecast.count ?? 24) - 24 * 7 {
-					configuration.temperatures.popLast()
-				}
+				weathers = weather_service.get_weather(isDay: false)
 			}
+			configuration.temperatures = weathers?.forecast.map { data in
+				data.temperature.value } ?? [0.0]
 			print(configuration.temperatures)
 			print(configuration.temperatures.count)
-			print(UserDefaults.shared.string(forKey: "temperature notation"))
 		}
 		catch {
 			print("Failed to fetch weather: \(error)")
@@ -134,18 +128,94 @@ private func make_temperatureColors(temperatures: [Double], isNormal: Bool) -> [
 	if isNormal
 	{
 		for temperature in temperatures {
-			let color = temperature < 10 ? Color.red : Color.blue
+			let color = get_normalColor(for: temperature)
 			colors.append(color)
 		}
 	}
 	else
 	{
 		for temperature in temperatures {
-			let color = temperatures[0] - temperature > 0 ? Color.red : Color.blue
+			let color = get_diffrenceColor(for: abs(temperatures[0]) - abs(temperature))
 			colors.append(color)
 		}
 	}
+
 	return colors
+}
+
+private func get_normalColor(for temperature: Double) -> Color {
+	// Temperature's colors
+	switch temperature {
+	case ...(-15):
+		return interpolateColor(from: .black, to: .indigo, fraction: 1)
+	case -15..<(-10):
+		return interpolateColor(from: .indigo, to: .blue, fraction: (temperature + 15) / 5)
+	case -10..<(-5):
+		return interpolateColor(from: .blue, to: .cyan, fraction: (temperature + 10) / 5)
+	case -5..<(-2):
+		return interpolateColor(from: .cyan, to: Color("skyBlue"), fraction: temperature + 5 / 3)
+	case -2..<2:
+		return interpolateColor(from: Color("skyBlue"), to: .white, fraction: (temperature + 2) / 4)
+	case 2..<10:
+		return interpolateColor(from: .white, to: .yellow, fraction: (temperature - 2) / 8)
+	case 10..<20:
+		return interpolateColor(from: .yellow, to: .orange, fraction: (temperature - 10) / 10)
+	case 20..<30:
+		return interpolateColor(from: .orange, to: .red, fraction: (temperature - 20) / 10)
+	case 30..<40:
+		return interpolateColor(from: .red, to: .pink, fraction: (temperature - 30) / 10)
+	case 40...:
+		return interpolateColor(from: .pink, to: .purple, fraction: 1)
+	default:
+		return .gray
+	}
+}
+
+private func get_diffrenceColor(for temperature: Double) -> Color {
+	// Temperature's colors
+	switch temperature {
+	case ...(-15):
+		return interpolateColor(from: .black, to: .indigo, fraction: 1)
+	case -15..<(-10):
+		return interpolateColor(from: .indigo, to: .blue, fraction: (temperature + 15) / 5)
+	case -10..<(-6):
+		return interpolateColor(from: .blue, to: .cyan, fraction: (temperature + 10) / 4)
+	case -6..<(-3):
+		return interpolateColor(from: .cyan, to: Color("skyBlue"), fraction: (temperature + 6) / 3)
+	case -3..<0:
+		return interpolateColor(from: Color("skyBlue"), to: .white, fraction: (temperature + 3) / 3)
+	case 0..<3:
+		return interpolateColor(from: .white, to: .yellow, fraction: temperature / 3)
+	case 3..<6:
+		return interpolateColor(from: .yellow, to: .orange, fraction: (temperature - 3) / 3)
+	case 6..<10:
+		return interpolateColor(from: .orange, to: .red, fraction: (temperature - 6) / 4)
+	case 10..<15:
+		return interpolateColor(from: .red, to: .pink, fraction: (temperature - 10) / 5)
+	case 15...:
+		return interpolateColor(from: .pink, to: .purple, fraction: 1)
+	default:
+		return .gray
+	}
+}
+
+private func interpolateColor(from: Color, to: Color, fraction: Double) -> Color {
+	// Mix color by near color, fraction
+	let uiFrom = UIColor(from)
+	let uiTo = UIColor(to)
+
+	var r1: CGFloat = 0, g1: CGFloat = 0, b1: CGFloat = 0, a1: CGFloat = 0
+	var r2: CGFloat = 0, g2: CGFloat = 0, b2: CGFloat = 0, a2: CGFloat = 0
+
+	uiFrom.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+	uiTo.getRed(&r2, green: &g2, blue: &b2, alpha: &a2)
+
+	let r = r1 + CGFloat(fraction) * (r2 - r1)
+	let g = g1 + CGFloat(fraction) * (g2 - g1)
+	let b = b1 + CGFloat(fraction) * (b2 - b1)
+	let a = a1 + CGFloat(fraction) * (a2 - a1)
+
+	return Color(UIColor(red: r, green: g, blue: b, alpha: a))
 }
 
 struct Temperature_widgetEntryView : View {
@@ -165,16 +235,39 @@ struct Temperature_widgetEntryView : View {
 	var body: some View {
 		let crop_size = get_widget_Rect(position: widget_position)
 		let position =  UserDefaults.shared.string(forKey: "temperature position") ?? "1"
+		let location_manager = CLLocationManager()
+		let crop_image: CGImage? = homeScreen_image?.cropping(to:crop_size)
+
 		ZStack {
 			Color.white
-			// background image
-			Image(uiImage: UIImage(cgImage: homeScreen_image?.cropping(to: crop_size) ?? UIImage(systemName: "xmark")!.cgImage!,
-								   scale: UIScreen.main.scale,
-								   orientation: .up))
-			.resizable()
-			.renderingMode(.original)
-			.scaledToFit()
 
+			// background image
+			if crop_image != nil {
+				Image(uiImage: UIImage(cgImage: crop_image!,
+									   scale: UIScreen.main.scale,
+									   orientation: .up))
+				.resizable()
+				.renderingMode(.original)
+				.scaledToFit()
+
+				// case: Location auth X
+				if location_manager.authorizationStatus != .authorizedAlways ||
+					 location_manager.authorizationStatus != .authorizedWhenInUse {
+					Text("Please allow location authorization").background(.white)
+				}
+			} else {
+				// case: image nil, Location auth X
+				VStack {
+					Text("Please set correct image").padding(.bottom, 10).onAppear()
+
+					if location_manager.authorizationStatus != .authorizedAlways ||
+						 location_manager.authorizationStatus != .authorizedWhenInUse {
+						Text("Please allow location authorization")
+					}
+				}
+			}
+
+			// Decide Temperature Bar Shape & postion
 			if UserDefaults.shared.string(forKey: "temperature type") ?? "Horizon" == "Horizon" {
 				VStack {
 					if position == "1" || position == "2" {
