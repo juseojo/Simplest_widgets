@@ -9,7 +9,7 @@ import SwiftUI
 import WidgetKit
 
 struct TemperatureBar_view: View {
-	@AppStorage("temperature size", store: UserDefaults.shared) var selected_size: String = "00"
+	@AppStorage("temperature widget position", store: UserDefaults.shared) var selected_widget_position: String = "00"
 	@AppStorage("temperature notation", store: UserDefaults.shared) var selected_temperature: String = "normal"
 	@AppStorage("temperature type", store: UserDefaults.shared) var selected_type: String = "Horizon"
 	@AppStorage("temperature position", store: UserDefaults.shared) var selected_position: String = "1"
@@ -49,13 +49,13 @@ struct TemperatureBar_view: View {
 							VStack(spacing: 0) {
 								HStack(spacing: 0) {
 									Widget_button(title: "1", width: widget_length, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
-										UserDefaults.shared.set("11", forKey: "temperature size")
+										UserDefaults.shared.set("11", forKey: "temperature widget position")
 										WidgetCenter.shared.reloadAllTimelines()
 									}
 									.padding(.trailing, widget_inform.trail_padding * ratio_num)
 
 									Widget_button(title: "2", width: widget_length, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
-										UserDefaults.shared.set("12", forKey: "temperature size")
+										UserDefaults.shared.set("12", forKey: "temperature widget position")
 										WidgetCenter.shared.reloadAllTimelines()
 									}
 								}
@@ -63,13 +63,13 @@ struct TemperatureBar_view: View {
 
 								HStack(spacing: 0) {
 									Widget_button(title: "3", width: widget_length, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
-										UserDefaults.shared.set("13", forKey: "temperature size")
+										UserDefaults.shared.set("13", forKey: "temperature widget position")
 										WidgetCenter.shared.reloadAllTimelines()
 									}
 									.padding(.trailing, widget_inform.trail_padding * ratio_num)
 
 									Widget_button(title: "4", width: widget_length, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
-										UserDefaults.shared.set("14", forKey: "temperature size")
+										UserDefaults.shared.set("14", forKey: "temperature widget position")
 										WidgetCenter.shared.reloadAllTimelines()
 									}
 								}
@@ -77,13 +77,13 @@ struct TemperatureBar_view: View {
 
 								HStack(spacing: 0) {
 									Widget_button(title: "5", width: widget_length, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
-										UserDefaults.shared.set("15", forKey: "temperature size")
+										UserDefaults.shared.set("15", forKey: "temperature widget position")
 										WidgetCenter.shared.reloadAllTimelines()
 									}
 									.padding(.trailing, widget_inform.trail_padding * ratio_num)
 
 									Widget_button(title: "6", width: widget_length, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
-										UserDefaults.shared.set("16", forKey: "temperature size")
+										UserDefaults.shared.set("16", forKey: "temperature widget position")
 										WidgetCenter.shared.reloadAllTimelines()
 									}
 								}
@@ -96,7 +96,7 @@ struct TemperatureBar_view: View {
 							VStack(spacing: 0) {
 								HStack(spacing: 0) {
 									Widget_button(title: "1", width: widget_length * 2.0 + widget_inform.trail_padding * ratio_num, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
-										UserDefaults.shared.set("21", forKey: "temperature size")
+										UserDefaults.shared.set("21", forKey: "temperature widget position")
 										WidgetCenter.shared.reloadAllTimelines()
 									}
 								}
@@ -104,7 +104,7 @@ struct TemperatureBar_view: View {
 
 								HStack(spacing: 0) {
 									Widget_button(title: "2", width: widget_length * 2.0 + widget_inform.trail_padding * ratio_num, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
-										UserDefaults.shared.set("22", forKey: "temperature size")
+										UserDefaults.shared.set("22", forKey: "temperature widget position")
 										WidgetCenter.shared.reloadAllTimelines()
 									}
 								}
@@ -112,7 +112,7 @@ struct TemperatureBar_view: View {
 
 								HStack(spacing: 0) {
 									Widget_button(title: "3", width: widget_length * 2.0 + widget_inform.trail_padding * ratio_num, height: widget_length, radius: CGFloat(widget_inform.radius) * ratio_num) {
-										UserDefaults.shared.set("23", forKey: "temperature size")
+										UserDefaults.shared.set("23", forKey: "temperature widget position")
 										WidgetCenter.shared.reloadAllTimelines()
 									}
 								}
@@ -210,10 +210,10 @@ struct TemperatureBar_view: View {
 				.navigationTitle("Temperature Bar")
 			}
 			.onAppear {
-				if UserDefaults.shared.string(forKey: "temperature size") == nil {
+				if UserDefaults.shared.string(forKey: "temperature widget position") == nil {
 					self.selected_box = "2 X 2"
 				}
-				else if String(UserDefaults.shared.string(forKey: "temperature size")!.first!) == "2" {
+				else if String(UserDefaults.shared.string(forKey: "temperature widget position")!.first!) == "2" {
 					self.selected_box = "2 X 4"
 				}
 			}

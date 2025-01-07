@@ -220,13 +220,15 @@ private func interpolateColor(from: Color, to: Color, fraction: Double) -> Color
 
 struct Temperature_widgetEntryView : View {
     var entry: Provider.Entry
-	var homeScreen_image : CGImage?
+	var homeScreen_image: CGImage?
 	var widget_position: String
+	let position: String
 	let format = DateFormatter()
 
 	init(entry: SimpleEntry) {
-		self.widget_position =  UserDefaults.shared.string(forKey: "temperature size") ?? "none"
+		self.widget_position =  UserDefaults.shared.string(forKey: "temperature widget position") ?? "00"
 		self.homeScreen_image = Images_manager().load_image(name: "Home_screen").cgImage
+		self.position =  UserDefaults.shared.string(forKey: "temperature position") ?? "1"
 		self.entry = entry
 		self.format.dateFormat = "yyyy-MM-dd HH:mm:ss"
 	}
@@ -234,7 +236,6 @@ struct Temperature_widgetEntryView : View {
 	// widget body
 	var body: some View {
 		let crop_size = get_widget_Rect(position: widget_position)
-		let position =  UserDefaults.shared.string(forKey: "temperature position") ?? "1"
 		let location_manager = CLLocationManager()
 		let crop_image: CGImage? = homeScreen_image?.cropping(to:crop_size)
 
