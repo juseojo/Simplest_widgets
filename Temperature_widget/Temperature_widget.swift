@@ -252,17 +252,24 @@ struct Temperature_widgetEntryView : View {
 				.scaledToFit()
 
 				// case: Location auth X
-				if location_manager.authorizationStatus != .authorizedAlways ||
-					 location_manager.authorizationStatus != .authorizedWhenInUse {
+				if location_manager.authorizationStatus == .notDetermined ||
+					location_manager.authorizationStatus == .restricted ||
+					   location_manager.authorizationStatus == .denied {
 					Text("Please allow location authorization").background(.white)
 				}
 			} else {
 				// case: image nil, Location auth X
 				VStack {
-					Text("Please set correct image").padding(.bottom, 10).onAppear()
+					if UserDefaults.shared.string(forKey: "temperature widget position") ?? "00" == "00" {
+						Text("Please choice widget position").padding(.bottom, 10)
+					}
+					else {
+						Text("Please set correct image").padding(.bottom, 10)
+					}
 
-					if location_manager.authorizationStatus != .authorizedAlways ||
-						 location_manager.authorizationStatus != .authorizedWhenInUse {
+					if location_manager.authorizationStatus == .notDetermined ||
+						location_manager.authorizationStatus == .restricted ||
+						location_manager.authorizationStatus == .denied {
 						Text("Please allow location authorization")
 					}
 				}
