@@ -19,13 +19,8 @@ class Weather_Service:  NSObject, CLLocationManagerDelegate {
 	private var weather: Forecast<HourWeather>?
 
 	func get_weather(isDay: Bool) -> Forecast<HourWeather>? {
-
-		if isDay {
-			for _ in 0 ..< (weather?.count ?? 24) - 24 {
-				weather?.forecast.popLast()
-			}
-
-			return weather
+		if isDay && weather != nil {
+			weather!.forecast.removeSubrange(24..<weather!.count)
 		}
 
 		return weather
