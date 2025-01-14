@@ -15,6 +15,7 @@ struct Get_homeScreen_view: View {
 	@State private var toast_value = false
 	@State private var isFirst = false
 	@Binding var hasImage: Bool
+	@Binding var link_id: String? // widget's deeplink
 
 	var body: some View {
 		ZStack {
@@ -60,7 +61,7 @@ struct Get_homeScreen_view: View {
 					}
 				}
 				.fullScreenCover(isPresented: $isFirst) { // first : false -> true, other : false
-					Main_view(hasImage: $hasImage)
+					Main_view(hasImage: $hasImage, link_id: $link_id)
 				}
 			}.padding(.bottom, 20)
 
@@ -83,6 +84,7 @@ struct Get_homeScreen_view: View {
 
 struct Main_view: View {
 	@Binding var hasImage: Bool
+	@Binding var link_id: String? // widget's deeplink
 
 	var body: some View {
 		NavigationStack {
@@ -122,40 +124,49 @@ struct Main_view: View {
 							TemperatureBar_view()
 						}
 						else if destination == "Memo" {
-
+							Memo_view()
 						}
 						else if destination == "D - Day" {
 
 						}
 						else if destination == "Change Image" {
-							Get_homeScreen_view(hasImage: $hasImage)
+							Get_homeScreen_view(hasImage: $hasImage, link_id: $link_id)
 						}
 					}
 				}
+			}
+		}
+		.onChange(of: link_id) {
+			print(link_id)
+			switch link_id {
+			case "Temperature":
+				navigateTo(view: TemperatureBar_view())
+			case "Memo":
+				navigateTo(view: Memo_view())
+			case "D-Day":
+				break
+			default:
+				break
 			}
 		}
 		.onAppear() {
 			let locationManager = CLLocationManager()
 			let authorizationStatus = locationManager.authorizationStatus
 
-			// 위치 사용 권한 항상 허용되어 있음
 			if authorizationStatus == .authorizedAlways {
 				print("always ok")
 			}
-			// 위치 사용 권한 앱 사용 시 허용되어 있음
 			else if authorizationStatus == .authorizedWhenInUse {
 				print("use ok")
 			}
-			// 위치 사용 권한 거부되어 있음
 			else if authorizationStatus == .denied {
-				// 앱 설정화면으로 이동
+				// move to app setting
 				DispatchQueue.main.async {
 					UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
 				}
 			}
-			// 위치 사용 권한 대기 상태
 			else if authorizationStatus == .restricted || authorizationStatus == .notDetermined {
-				// 권한 요청 팝업창
+				// request auth
 				print("request")
 				locationManager.requestWhenInUseAuthorization()
 			}
@@ -167,17 +178,40 @@ struct ContentView: View {
 
 	@AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
 	@AppStorage("hasImage") var hasImage: Bool = false
+	@State private var link_id: String? // widget's deep link
 
 	var body: some View {
-		if hasImage == false
-		{
-			Get_homeScreen_view(hasImage: $hasImage)
-				.fullScreenCover(isPresented: $isFirstLaunching) {
-					OnboardingTabView(isFirstLaunching: $isFirstLaunching)
-				}
+		NavigationView {
+			if hasImage == false
+			{
+				Get_homeScreen_view(hasImage: $hasImage, link_id: $link_id)
+					.fullScreenCover(isPresented: $isFirstLaunching) {
+						OnboardingTabView(isFirstLaunching: $isFirstLaunching)
+					}
+			}
+			else {
+				Main_view(hasImage: $hasImage, link_id: $link_id)
+			}
 		}
-		else {
-			Main_view(hasImage: $hasImage)
+		.onOpenURL { url in
+			print(url)
+			guard url.scheme == "simplestWidgets", url.host == "widget" else {
+				print("widget url is not valid")
+				return
+			}
+
+			if let id = url.pathComponents.last {
+				link_id = id
+			}
+		}
+	}
+}
+
+private func navigateTo<V: View>(view: V) {
+	if let windowScene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+		if let window = windowScene.windows.first {
+			window.rootViewController = UIHostingController(rootView: view)
+			window.makeKeyAndVisible()
 		}
 	}
 }
@@ -185,13 +219,3 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
-
-
-extension UserDefaults {
-	static var shared: UserDefaults {
-		let appGroupId = "group.simplest_widgets"
-
-		return UserDefaults(suiteName: appGroupId)!
-	}
-}
-
