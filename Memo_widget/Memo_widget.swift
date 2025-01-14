@@ -8,81 +8,93 @@
 import WidgetKit
 import SwiftUI
 
-struct Provider: AppIntentTimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: ConfigurationAppIntent())
-    }
+struct Provider: TimelineProvider {
 
-    func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: configuration)
-    }
-    
-    func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
-        var entries: [SimpleEntry] = []
+	func placeholder(in context: Context) -> SimpleEntry {
+		SimpleEntry(date: Date())
+	}
 
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, configuration: configuration)
-            entries.append(entry)
-        }
+	func getSnapshot(in context: Context, completion: @escaping @Sendable (SimpleEntry) -> Void) {
+		completion(SimpleEntry(date: Date()))
+	}
+	
+	func getTimeline(in context: Context, completion: @escaping @Sendable (Timeline<SimpleEntry>) -> Void) {
+		var entries: [SimpleEntry] = []
 
-        return Timeline(entries: entries, policy: .atEnd)
-    }
+		let currentDate = Date()
+		for hourOffset in 0 ..< 5 {
+			let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
+			let entry = SimpleEntry(date: entryDate)
+			entries.append(entry)
+		}
+		let timeline = Timeline(entries: entries, policy: .atEnd)
 
-//    func relevances() async -> WidgetRelevances<ConfigurationAppIntent> {
-//        // Generate a list containing the contexts this widget is relevant in.
-//    }
+		completion(timeline)
+	}
 }
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
-    let configuration: ConfigurationAppIntent
 }
 
 struct Memo_widgetEntryView : View {
-    var entry: Provider.Entry
+	var entry: Provider.Entry
+	var homeScreen_image: CGImage?
+	var widget_position: String
+	let position: String
+	let format = DateFormatter()
 
-    var body: some View {
-        VStack {
-            Text("Time:")
-            Text(entry.date, style: .time)
+	init(entry: SimpleEntry) {
+		self.widget_position =  UserDefaults.shared.string(forKey: "temperature widget position") ?? "00"
+		self.homeScreen_image = Images_manager().load_image(name: "Home_screen").cgImage
+		self.position =  UserDefaults.shared.string(forKey: "temperature position") ?? "1"
+		self.entry = entry
+		self.format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+	}
+	
+	var body: some View {
+		let model = Model()
+		let crop_size = model.get_widget_Rect(position: widget_position)
+		let crop_image: CGImage? = homeScreen_image?.cropping(to:crop_size)
 
-            Text("Favorite Emoji:")
-            Text(entry.configuration.favoriteEmoji)
-        }
-    }
+		ZStack {
+			Image(uiImage: UIImage(cgImage: crop_image!,
+								   scale: UIScreen.main.scale,
+								   orientation: .up))
+			.resizable()
+			.renderingMode(.original)
+			.scaledToFit()
+
+			HStack {
+				Link(destination: URL(string: "simplestWidgets://widget/Memo")!) {
+					Image(systemName: "pencil.and.list.clipboard")
+				}
+				Spacer()
+				Link(destination: URL(string: "simplestWidgets://widget/Memo")!) {
+					Image(systemName: "microphone")
+				}
+			}
+		}
+	}
 }
 
 struct Memo_widget: Widget {
     let kind: String = "Memo_widget"
 
     var body: some WidgetConfiguration {
-        AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
+		StaticConfiguration(kind: kind, provider: Provider()) { entry in
             Memo_widgetEntryView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
         }
-    }
-}
-
-extension ConfigurationAppIntent {
-    fileprivate static var smiley: ConfigurationAppIntent {
-        let intent = ConfigurationAppIntent()
-        intent.favoriteEmoji = "😀"
-        return intent
-    }
-    
-    fileprivate static var starEyes: ConfigurationAppIntent {
-        let intent = ConfigurationAppIntent()
-        intent.favoriteEmoji = "🤩"
-        return intent
+		.contentMarginsDisabled()
+		.configurationDisplayName("Memo")
+		.description("Memo short things")
     }
 }
 
 #Preview(as: .systemSmall) {
     Memo_widget()
 } timeline: {
-    SimpleEntry(date: .now, configuration: .smiley)
-    SimpleEntry(date: .now, configuration: .starEyes)
+    SimpleEntry(date: .now)
+    SimpleEntry(date: .now)
 }
