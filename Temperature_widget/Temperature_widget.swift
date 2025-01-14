@@ -64,63 +64,6 @@ struct SimpleEntry: TimelineEntry {
     let configuration: ConfigurationAppIntent
 }
 
-// Return CGRect for croping image
-private func get_widget_Rect(position: String) -> CGRect {
-	let model = Model()
-	let widget_inform = model.get_widget(device_name: get_deviceModel())
-
-	switch position {
-	case "11":
-		return CGRect(x: widget_inform.lead_padding,
-					  y: widget_inform.top_padding,
-					  width: CGFloat(widget_inform.length),
-					  height: CGFloat(widget_inform.length))
-	case "12":
-		return CGRect(x: widget_inform.lead_padding + Double(widget_inform.length) + widget_inform.trail_padding,
-					  y: widget_inform.top_padding,
-					  width: CGFloat(widget_inform.length),
-					  height: CGFloat(widget_inform.length))
-	case "13":
-		return CGRect(x: widget_inform.lead_padding,
-					  y: widget_inform.top_padding + Double(widget_inform.length) + widget_inform.bottom_padding,
-					  width: CGFloat(widget_inform.length),
-					  height: CGFloat(widget_inform.length))
-	case "14":
-		return CGRect(x: widget_inform.lead_padding + Double(widget_inform.length) + widget_inform.trail_padding,
-					  y: widget_inform.top_padding + Double(widget_inform.length) + widget_inform.bottom_padding,
-					  width: CGFloat(widget_inform.length),
-					  height: CGFloat(widget_inform.length))
-	case "15":
-		return CGRect(x: widget_inform.lead_padding,
-					  y: widget_inform.top_padding + 2.0 * Double(widget_inform.length) + 2 * widget_inform.bottom_padding,
-					  width: CGFloat(widget_inform.length),
-					  height: CGFloat(widget_inform.length))
-	case "16":
-		return CGRect(x: widget_inform.lead_padding + Double(widget_inform.length) + widget_inform.trail_padding,
-					  y: widget_inform.top_padding + 2.0 * Double(widget_inform.length) + 2 * widget_inform.bottom_padding,
-					  width: CGFloat(widget_inform.length),
-					  height: CGFloat(widget_inform.length))
-	case "21":
-		return CGRect(x: widget_inform.lead_padding,
-					  y: widget_inform.top_padding,
-					  width: Double(widget_inform.length * 2) + widget_inform.trail_padding,
-					  height: CGFloat(widget_inform.length))
-	case "22":
-		return CGRect(x: widget_inform.lead_padding,
-					  y: widget_inform.top_padding + Double(widget_inform.length) + widget_inform.bottom_padding,
-					  width: Double(widget_inform.length * 2) + widget_inform.trail_padding,
-					  height: CGFloat(widget_inform.length))
-	case "23":
-		return CGRect(x: widget_inform.lead_padding,
-					  y: widget_inform.top_padding + 2.0 * Double(widget_inform.length) + 2 * widget_inform.bottom_padding,
-					  width: Double(widget_inform.length * 2) + widget_inform.trail_padding,
-					  height: CGFloat(widget_inform.length))
-	default:
-		print("position error")
-		return CGRect(x: 0, y: 0, width: 0, height: 0)
-	}
-}
-
 // Return gradation color
 private func make_temperatureColors(temperatures: [Double], isNormal: Bool) -> [Color] {
 	var colors = [Color]()
@@ -235,7 +178,8 @@ struct Temperature_widgetEntryView : View {
 
 	// widget body
 	var body: some View {
-		let crop_size = get_widget_Rect(position: widget_position)
+		let model = Model()
+		let crop_size = model.get_widget_Rect(position: widget_position)
 		let location_manager = CLLocationManager()
 		let crop_image: CGImage? = homeScreen_image?.cropping(to:crop_size)
 
@@ -302,6 +246,7 @@ struct Temperature_widgetEntryView : View {
 				}
 			}
 		}
+		.widgetURL(URL(string: "simplestWidgets://widget/Temperature"))
 	}
 }
 
@@ -379,11 +324,4 @@ struct VisualEffectView: UIViewRepresentable {
     Temperature_widget()
 } timeline: {
 	SimpleEntry(date: .now, configuration: .temp)
-}
-
-extension UserDefaults {
-	static var shared: UserDefaults {
-		let groupIdentifier = "group.simplest_widgets"
-		return UserDefaults(suiteName: groupIdentifier)!
-	}
 }
