@@ -15,7 +15,26 @@
 	</array>
 	<key>CFBundleURLTypes</key>
 	<array>
-		<dict/>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>None</string>
+			<key>CFBundleURLName</key>
+			<string>SimplestWidgets</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>simplestWidgets</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string></string>
+		</dict>
+	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>simplest_widgets</string>
 	</array>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
