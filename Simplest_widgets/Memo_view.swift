@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+
+import CoreData
 import WidgetKit
 
 struct Memo_view: View {
@@ -13,7 +15,7 @@ struct Memo_view: View {
 	@AppStorage("memo type", store: UserDefaults.shared) var selected_type: String = "Horizon"
 	@AppStorage("memo position", store: UserDefaults.shared) var selected_position: String = "1"
 	@State var selected_box: String = "2 X 2"
-
+	@State var isPresented = false
 	let model = Model()
 
 	var body: some View {
@@ -148,6 +150,19 @@ struct Memo_view: View {
 
 				}
 				.navigationTitle("Memo")
+				.toolbar {
+					/*
+					Button {} label: {
+						Image(systemName: "folder")
+					}
+					.fullScreenCover(isPresented: $isPresented) {
+							Memo_view()
+						}
+					 */
+					NavigationLink(destination: Memo_storage()) {
+						Image(systemName: "folder")
+					}
+				}
 			}
 			.onAppear {
 				if UserDefaults.shared.string(forKey: "memo widget position") == nil {
@@ -187,9 +202,9 @@ struct Memo: View {
 				}
 
 				HStack {
-					Image(systemName: "pencil.and.list.clipboard")
+					Image(systemName: "pencil.and.list.clipboard").foregroundStyle(.white)
 					Spacer()
-					Image(systemName: "microphone")
+					Image(systemName: "microphone").foregroundStyle(.white)
 				}
 
 				if position == "3" || position == "2" {
@@ -198,6 +213,86 @@ struct Memo: View {
 			}
 			.frame(width: width, height: height)
 			.cornerRadius(30)
+		}
+	}
+}
+
+struct Memo_storage: View {
+	@State var isWriting: Bool = false
+	@State var text: String = ""
+
+	@Environment(\.managedObjectContext) var viewContext
+	@FetchRequest(
+		entity: Memos.entity(),
+		sortDescriptors: [NSSortDescriptor(keyPath: \Memos.date, ascending: true)]
+	  )
+	private var memos: FetchedResults<Memos>
+
+	var body: some View {
+		VStack {
+			HStack {
+				Text("Memo storage")
+					.font(.largeTitle)
+					.bold()
+					.padding(.leading, 20)
+					.padding(.top, 20)
+				Spacer()
+			}
+			if isWriting {
+				TextField("Enter your memo", text: $text).padding(.horizontal, 20).onSubmit {
+					if text == "" || text.isEmpty {
+						return
+					}
+					do {
+						let memo = Memos(context: viewContext)
+						memo.date = Date()
+						memo.text = text
+						try viewContext.save()
+					} catch {
+						print("memo save error")
+					}
+
+					isWriting = false
+					text = ""
+				}
+				Divider().background(Color.black).padding(.horizontal, 10)
+			}
+
+			if memos.isEmpty {
+				Spacer()
+				ZStack {
+					Color(.secondarySystemBackground)
+
+					Text("Memo is empty.")
+				}
+				.frame(width: 200, height: 50)
+				.cornerRadius(10)
+				Spacer()
+			}
+			else {
+				List {
+					ForEach(memos) { data in
+						Text(data.text ?? "memo text error")
+					}
+				}
+				.listStyle(.plain)
+				.padding(.trailing, 20)
+			}
+		}
+		.toolbar {
+			Button {
+				isWriting = true
+			} label: {
+				Image(systemName: "pencil.and.list.clipboard")
+			}
+			Button {
+				isWriting = true
+			} label: {
+				Image(systemName: "microphone")
+			}
+			Button {} label: {
+				Image(systemName: "trash")
+			}
 		}
 	}
 }
