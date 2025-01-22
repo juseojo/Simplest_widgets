@@ -45,9 +45,9 @@ struct Memo_widgetEntryView : View {
 	let format = DateFormatter()
 
 	init(entry: SimpleEntry) {
-		self.widget_position =  UserDefaults.shared.string(forKey: "temperature widget position") ?? "00"
+		self.widget_position =  UserDefaults.shared.string(forKey: "memo widget position") ?? "00"
 		self.homeScreen_image = Images_manager().load_image(name: "Home_screen").cgImage
-		self.position =  UserDefaults.shared.string(forKey: "temperature position") ?? "1"
+		self.position =  UserDefaults.shared.string(forKey: "memo position") ?? "1"
 		self.entry = entry
 		self.format.dateFormat = "yyyy-MM-dd HH:mm:ss"
 	}
@@ -58,20 +58,28 @@ struct Memo_widgetEntryView : View {
 		let crop_image: CGImage? = homeScreen_image?.cropping(to:crop_size)
 
 		ZStack {
-			Image(uiImage: UIImage(cgImage: crop_image!,
-								   scale: UIScreen.main.scale,
-								   orientation: .up))
-			.resizable()
-			.renderingMode(.original)
-			.scaledToFit()
-
+			if crop_image == nil {
+				Text("Please set correct image").padding(.bottom, 10)
+			}
+			else {
+				Image(uiImage: UIImage(cgImage: crop_image!,
+									   scale: UIScreen.main.scale,
+									   orientation: .up))
+				.resizable()
+				.renderingMode(.original)
+				.scaledToFit()
+			}
 			HStack {
 				Link(destination: URL(string: "simplestWidgets://widget/Memo")!) {
 					Image(systemName: "pencil.and.list.clipboard")
+						.foregroundStyle(.white)
+						.font(.system(size: 30))
 				}
 				Spacer()
 				Link(destination: URL(string: "simplestWidgets://widget/Memo")!) {
 					Image(systemName: "microphone")
+						.foregroundStyle(.white)
+						.font(.system(size: 30))
 				}
 			}
 		}

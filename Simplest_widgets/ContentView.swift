@@ -15,7 +15,6 @@ struct Get_homeScreen_view: View {
 	@State private var toast_value = false
 	@State private var isFirst = false
 	@Binding var hasImage: Bool
-	@Binding var link_id: String? // widget's deeplink
 
 	var body: some View {
 		ZStack {
@@ -61,7 +60,7 @@ struct Get_homeScreen_view: View {
 					}
 				}
 				.fullScreenCover(isPresented: $isFirst) { // first : false -> true, other : false
-					Main_view(hasImage: $hasImage, link_id: $link_id)
+					Main_view(hasImage: $hasImage)
 				}
 			}.padding(.bottom, 20)
 
@@ -84,7 +83,6 @@ struct Get_homeScreen_view: View {
 
 struct Main_view: View {
 	@Binding var hasImage: Bool
-	@Binding var link_id: String? // widget's deeplink
 
 	var body: some View {
 		NavigationStack {
@@ -130,23 +128,10 @@ struct Main_view: View {
 
 						}
 						else if destination == "Change Image" {
-							Get_homeScreen_view(hasImage: $hasImage, link_id: $link_id)
+							Get_homeScreen_view(hasImage: $hasImage)
 						}
 					}
 				}
-			}
-		}
-		.onChange(of: link_id) {
-			print(link_id)
-			switch link_id {
-			case "Temperature":
-				navigateTo(view: TemperatureBar_view())
-			case "Memo":
-				navigateTo(view: Memo_view())
-			case "D-Day":
-				break
-			default:
-				break
 			}
 		}
 		.onAppear() {
@@ -182,15 +167,27 @@ struct ContentView: View {
 
 	var body: some View {
 		NavigationView {
-			if hasImage == false
+			if link_id != nil
 			{
-				Get_homeScreen_view(hasImage: $hasImage, link_id: $link_id)
+				if link_id! == "Temperature" {
+					TemperatureBar_view()
+				}
+				else if link_id! == "Memo" {
+					Memo_view()
+				}
+				else if link_id! == "D - Day" {
+
+				}
+			}
+			else if hasImage == false
+			{
+				Get_homeScreen_view(hasImage: $hasImage)
 					.fullScreenCover(isPresented: $isFirstLaunching) {
 						OnboardingTabView(isFirstLaunching: $isFirstLaunching)
 					}
 			}
 			else {
-				Main_view(hasImage: $hasImage, link_id: $link_id)
+				Main_view(hasImage: $hasImage)
 			}
 		}
 		.onOpenURL { url in
@@ -207,14 +204,6 @@ struct ContentView: View {
 	}
 }
 
-private func navigateTo<V: View>(view: V) {
-	if let windowScene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
-		if let window = windowScene.windows.first {
-			window.rootViewController = UIHostingController(rootView: view)
-			window.makeKeyAndVisible()
-		}
-	}
-}
 
 #Preview {
     ContentView()

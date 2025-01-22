@@ -12,6 +12,15 @@
 		E9220FB72D2FDCCC005AD332 /* Memo_widgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E9220FA82D2FDCCA005AD332 /* Memo_widgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E92210132D368BC6005AD332 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C68B72D1006F2009B9738 /* Model.swift */; };
 		E92210142D368BDA005AD332 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C689C2D0C192D009B9738 /* Utils.swift */; };
+		E95389512D40DF06003B25CC /* Memo_dataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E953894F2D40DF06003B25CC /* Memo_dataModel.xcdatamodeld */; };
+		E95389522D40DF06003B25CC /* Memo_dataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E953894F2D40DF06003B25CC /* Memo_dataModel.xcdatamodeld */; };
+		E95389532D40DF06003B25CC /* Memo_dataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E953894F2D40DF06003B25CC /* Memo_dataModel.xcdatamodeld */; };
+		E953896A2D40ECDE003B25CC /* Memos+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95389692D40ECDE003B25CC /* Memos+CoreDataProperties.swift */; };
+		E953896B2D40ECDE003B25CC /* Memos+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95389682D40ECDE003B25CC /* Memos+CoreDataClass.swift */; };
+		E953896C2D40ECDE003B25CC /* Memos+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95389692D40ECDE003B25CC /* Memos+CoreDataProperties.swift */; };
+		E953896D2D40ECDE003B25CC /* Memos+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95389682D40ECDE003B25CC /* Memos+CoreDataClass.swift */; };
+		E953896E2D40ECDE003B25CC /* Memos+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95389692D40ECDE003B25CC /* Memos+CoreDataProperties.swift */; };
+		E953896F2D40ECDE003B25CC /* Memos+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95389682D40ECDE003B25CC /* Memos+CoreDataClass.swift */; };
 		E99659422CE86B520093E8BA /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99659412CE86B520093E8BA /* WidgetKit.framework */; };
 		E99659442CE86B520093E8BA /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99659432CE86B520093E8BA /* SwiftUI.framework */; };
 		E99659552CE86B540093E8BA /* Temperature_widgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E996593F2CE86B520093E8BA /* Temperature_widgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -55,6 +64,10 @@
 
 /* Begin PBXFileReference section */
 		E9220FA82D2FDCCA005AD332 /* Memo_widgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Memo_widgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		E92210962D37E57D005AD332 /* Memo_widgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Memo_widgetExtension.entitlements; sourceTree = "<group>"; };
+		E95389502D40DF06003B25CC /* Memo_dataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Memo_dataModel.xcdatamodel; sourceTree = "<group>"; };
+		E95389682D40ECDE003B25CC /* Memos+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Memos+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E95389692D40ECDE003B25CC /* Memos+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Memos+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E97614832CE5DD4B00C90A58 /* Simplest_widgets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Simplest_widgets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E996593F2CE86B520093E8BA /* Temperature_widgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Temperature_widgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E99659412CE86B520093E8BA /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -150,12 +163,16 @@
 		E976147A2CE5DD4B00C90A58 = {
 			isa = PBXGroup;
 			children = (
+				E95389682D40ECDE003B25CC /* Memos+CoreDataClass.swift */,
+				E95389692D40ECDE003B25CC /* Memos+CoreDataProperties.swift */,
+				E953894F2D40DF06003B25CC /* Memo_dataModel.xcdatamodeld */,
+				E92210962D37E57D005AD332 /* Memo_widgetExtension.entitlements */,
 				E99C68B62D0D5902009B9738 /* Temperature_widgetExtension.entitlements */,
 				E97614852CE5DD4B00C90A58 /* Simplest_widgets */,
 				E99659452CE86B520093E8BA /* Temperature_widget */,
-				E99C689C2D0C192D009B9738 /* Utils.swift */,
-				E99C68B72D1006F2009B9738 /* Model.swift */,
 				E9220FAB2D2FDCCA005AD332 /* Memo_widget */,
+				E99C68B72D1006F2009B9738 /* Model.swift */,
+				E99C689C2D0C192D009B9738 /* Utils.swift */,
 				E99659402CE86B520093E8BA /* Frameworks */,
 				E97614842CE5DD4B00C90A58 /* Products */,
 			);
@@ -325,6 +342,9 @@
 			files = (
 				E92210142D368BDA005AD332 /* Utils.swift in Sources */,
 				E92210132D368BC6005AD332 /* Model.swift in Sources */,
+				E95389512D40DF06003B25CC /* Memo_dataModel.xcdatamodeld in Sources */,
+				E953896E2D40ECDE003B25CC /* Memos+CoreDataProperties.swift in Sources */,
+				E953896F2D40ECDE003B25CC /* Memos+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,6 +353,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E99C68B92D1006F5009B9738 /* Model.swift in Sources */,
+				E953896C2D40ECDE003B25CC /* Memos+CoreDataProperties.swift in Sources */,
+				E953896D2D40ECDE003B25CC /* Memos+CoreDataClass.swift in Sources */,
+				E95389522D40DF06003B25CC /* Memo_dataModel.xcdatamodeld in Sources */,
 				E99C68A22D0C192D009B9738 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -343,6 +366,9 @@
 			files = (
 				E99C68B82D1006F5009B9738 /* Model.swift in Sources */,
 				E99C68B52D0D4C0F009B9738 /* Utils.swift in Sources */,
+				E95389532D40DF06003B25CC /* Memo_dataModel.xcdatamodeld in Sources */,
+				E953896A2D40ECDE003B25CC /* Memos+CoreDataProperties.swift in Sources */,
+				E953896B2D40ECDE003B25CC /* Memos+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,6 +393,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = Memo_widgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 95366L65VG;
@@ -399,6 +426,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = Memo_widgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 95366L65VG;
@@ -731,6 +759,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E953894F2D40DF06003B25CC /* Memo_dataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E95389502D40DF06003B25CC /* Memo_dataModel.xcdatamodel */,
+			);
+			currentVersion = E95389502D40DF06003B25CC /* Memo_dataModel.xcdatamodel */;
+			path = Memo_dataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = E976147B2CE5DD4B00C90A58 /* Project object */;
 }
