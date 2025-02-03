@@ -54,3 +54,20 @@ func get_deviceModel() -> String {
 		}
 		return modelCode
 }
+
+func date_Localize(date: Date?) -> String
+{
+	// exception
+	if date == nil {
+		return "time data is none"
+	}
+
+	let dateFormatter = DateFormatter()
+
+	dateFormatter.dateStyle = .short
+	dateFormatter.timeStyle = .short
+	dateFormatter.locale = Locale.current
+	dateFormatter.timeZone = TimeZone.current
+
+	return dateFormatter.string(from: date!)
+}
