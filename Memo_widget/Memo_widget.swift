@@ -70,13 +70,13 @@ struct Memo_widgetEntryView : View {
 				.scaledToFit()
 			}
 			HStack {
-				Link(destination: URL(string: "simplestWidgets://widget/Memo")!) {
+				Link(destination: URL(string: "simplestWidgets://widget/Memo_write")!) {
 					Image(systemName: "pencil.and.list.clipboard")
 						.foregroundStyle(.white)
 						.font(.system(size: 30))
 				}
 				Spacer()
-				Link(destination: URL(string: "simplestWidgets://widget/Memo")!) {
+				Link(destination: URL(string: "simplestWidgets://widget/Memo_mic")!) {
 					Image(systemName: "microphone")
 						.foregroundStyle(.white)
 						.font(.system(size: 30))

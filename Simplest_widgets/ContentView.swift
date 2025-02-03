@@ -172,8 +172,11 @@ struct ContentView: View {
 				if link_id! == "Temperature" {
 					TemperatureBar_view()
 				}
-				else if link_id! == "Memo" {
-					Memo_view()
+				else if link_id! == "Memo_write" {
+					Memo_storage(link_type: "write")
+				}
+				else if link_id! == "Memo_mic" {
+					Memo_storage(link_type: "mic")
 				}
 				else if link_id! == "D - Day" {
 
