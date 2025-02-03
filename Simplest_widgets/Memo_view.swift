@@ -202,9 +202,9 @@ struct Memo: View {
 				}
 
 				HStack {
-					Image(systemName: "pencil.and.list.clipboard").foregroundStyle(.white)
+					Image(systemName: "pencil.and.list.clipboard").foregroundStyle(.white).padding(.leading, 15)
 					Spacer()
-					Image(systemName: "microphone").foregroundStyle(.white)
+					Image(systemName: "microphone").foregroundStyle(.white).padding(.trailing, 15)
 				}
 
 				if position == "3" || position == "2" {
@@ -220,13 +220,15 @@ struct Memo: View {
 struct Memo_storage: View {
 	@State var isWriting: Bool = false
 	@State var text: String = ""
+	@FocusState private var isTextFieldFocused: Bool
 
 	@Environment(\.managedObjectContext) var viewContext
 	@FetchRequest(
 		entity: Memos.entity(),
-		sortDescriptors: [NSSortDescriptor(keyPath: \Memos.date, ascending: true)]
+		sortDescriptors: [NSSortDescriptor(keyPath: \Memos.date, ascending: false)]
 	  )
 	private var memos: FetchedResults<Memos>
+	var link_type = "none"
 
 	var body: some View {
 		VStack {
@@ -238,26 +240,36 @@ struct Memo_storage: View {
 					.padding(.top, 20)
 				Spacer()
 			}
-			if isWriting {
-				TextField("Enter your memo", text: $text).padding(.horizontal, 20).onSubmit {
-					if text == "" || text.isEmpty {
-						return
-					}
-					do {
-						let memo = Memos(context: viewContext)
-						memo.date = Date()
-						memo.text = text
-						try viewContext.save()
-					} catch {
-						print("memo save error")
-					}
 
-					isWriting = false
-					text = ""
-				}
-				Divider().background(Color.black).padding(.horizontal, 10)
+			// Open text field, and save text
+			if isWriting {
+				TextField("Enter your memo", text: $text)
+					.transition(.move(edge: .top))
+					.focused($isTextFieldFocused)
+					.padding(.horizontal, 20)
+					.onSubmit {
+						if text == "" || text.isEmpty {
+							return
+						}
+						do {
+							let memo = Memos(context: viewContext)
+							memo.date = Date()
+							memo.text = text
+							try viewContext.save()
+						} catch {
+							print("memo save error")
+						}
+
+						isWriting = false
+						text = ""
+					}
+				Divider()
+					.transition(.opacity)
+					.background(Color.black)
+					.padding(.horizontal, 10)
 			}
 
+			// No memo case
 			if memos.isEmpty {
 				Spacer()
 				ZStack {
@@ -272,26 +284,53 @@ struct Memo_storage: View {
 			else {
 				List {
 					ForEach(memos) { data in
-						Text(data.text ?? "memo text error")
+						HStack {
+							Text(data.text ?? "memo text error").textSelection(.enabled)
+							Spacer()
+							Text(date_Localize(date: data.date))
+								.font(.caption)
+								.foregroundColor(Color.gray)
+								.multilineTextAlignment(.trailing)
+						}
 					}
 				}
 				.listStyle(.plain)
-				.padding(.trailing, 20)
 			}
 		}
 		.toolbar {
 			Button {
-				isWriting = true
+				withAnimation(.easeInOut) {
+					isWriting.toggle()
+					isTextFieldFocused.toggle()
+				}
 			} label: {
 				Image(systemName: "pencil.and.list.clipboard")
 			}
 			Button {
-				isWriting = true
+				withAnimation(.easeInOut) {
+					isWriting.toggle()
+					isTextFieldFocused.toggle()
+				}
 			} label: {
 				Image(systemName: "microphone")
 			}
 			Button {} label: {
 				Image(systemName: "trash")
+			}
+		}
+		.onAppear() {
+			print(Locale.current.identifier)
+
+			if link_type == "write"
+			{
+				withAnimation(.easeInOut) {
+					isWriting.toggle()
+					isTextFieldFocused.toggle()
+				}
+			}
+			else if link_type == "mic"
+			{
+				print("mic")
 			}
 		}
 	}
