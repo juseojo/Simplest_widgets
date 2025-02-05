@@ -9,6 +9,7 @@ import SwiftUI
 
 import CoreData
 import WidgetKit
+import AVFoundation
 
 struct Memo_view: View {
 	@AppStorage("memo widget position", store: UserDefaults.shared) var selected_widget_position: String = "00"
@@ -189,6 +190,7 @@ struct Memo_view: View {
 	}
 }
 
+// Memo_view's subView
 struct Memo: View {
 	let width: CGFloat
 	let height: CGFloat
@@ -205,7 +207,7 @@ struct Memo: View {
 					Image(systemName: "pencil.and.list.clipboard").foregroundStyle(.white).padding(.leading, 15)
 					Spacer()
 					Image(systemName: "microphone").foregroundStyle(.white).padding(.trailing, 15)
-				}
+				}.padding(.bottom, 10)
 
 				if position == "3" || position == "2" {
 					Spacer()
@@ -219,35 +221,116 @@ struct Memo: View {
 
 struct Memo_storage: View {
 	@State var isWriting: Bool = false
+	@State var isRecording: Bool = false
 	@State var text: String = ""
+	@State private var enable_delete = true
+
 	@FocusState private var isTextFieldFocused: Bool
 
+	// for CoreData
 	@Environment(\.managedObjectContext) var viewContext
 	@FetchRequest(
 		entity: Memos.entity(),
 		sortDescriptors: [NSSortDescriptor(keyPath: \Memos.date, ascending: false)]
 	  )
 	private var memos: FetchedResults<Memos>
+
+	// for voice to text
+	//@Binding var scrum: DailyScrum
+	//@StateObject var scrumTimer = ScrumTimer()
+	@StateObject var speechRecognizer = SpeechRecognizer()
+
 	var link_type = "none"
 
 	var body: some View {
-		VStack {
-			HStack {
-				Text("Memo storage")
-					.font(.largeTitle)
-					.bold()
-					.padding(.leading, 20)
-					.padding(.top, 20)
-				Spacer()
-			}
+		ZStack {
+			VStack {
+				HStack {
+					Text("Memo storage")
+						.font(.largeTitle)
+						.bold()
+						.padding(.leading, 20)
+						.padding(.top, 20)
+					Spacer()
+				}
 
-			// Open text field, and save text
-			if isWriting {
-				TextField("Enter your memo", text: $text)
-					.transition(.move(edge: .top))
-					.focused($isTextFieldFocused)
-					.padding(.horizontal, 20)
-					.onSubmit {
+				// Open text field, and save text
+				if isWriting {
+					TextField("Enter your memo", text: $text)
+						.transition(.move(edge: .top))
+						.focused($isTextFieldFocused)
+						.padding(.horizontal, 20)
+						.onReceive(speechRecognizer.$transcript) { newTranscript in
+							text = newTranscript
+						}
+						.onSubmit {
+							if text == "" || text.isEmpty {
+								return
+							}
+							do {
+								let memo = Memos(context: viewContext)
+								memo.date = Date()
+								memo.text = text
+								try viewContext.save()
+							} catch {
+								print("memo save error")
+							}
+
+							isWriting = false
+							text = ""
+						}
+					Divider()
+						.transition(.opacity)
+						.background(Color.black)
+						.padding(.horizontal, 10)
+				}
+
+				// No memo case
+				if memos.isEmpty {
+					Spacer()
+					ZStack {
+						Color(.secondarySystemBackground)
+
+						Text("Memo is empty.")
+					}
+					.frame(width: 200, height: 50)
+					.cornerRadius(10)
+					Spacer()
+				}
+				else { // Memos List
+					List {
+						ForEach(memos) { data in
+							HStack {
+								Text(data.text ?? "memo text error").textSelection(.enabled)
+								Spacer()
+								Text(date_Localize(date: data.date))
+									.font(.caption)
+									.foregroundColor(Color.gray)
+									.multilineTextAlignment(.trailing)
+							}
+						}
+						.onDelete { indexSet in
+							viewContext.delete(memos[indexSet.first!])
+							do {
+									try viewContext.save()
+								} catch {
+									print(error)
+								}
+						}
+					}
+					.listStyle(.plain)
+				}
+			}
+			if isRecording {
+				VStack {
+					Spacer()
+					// Recording button
+					Button {
+						// stop Recording
+						isRecording = false
+						isWriting = false
+						speechRecognizer.stopTranscribing()
+						// save memo
 						if text == "" || text.isEmpty {
 							return
 						}
@@ -260,77 +343,58 @@ struct Memo_storage: View {
 							print("memo save error")
 						}
 
-						isWriting = false
+
 						text = ""
 					}
-				Divider()
-					.transition(.opacity)
-					.background(Color.black)
-					.padding(.horizontal, 10)
-			}
-
-			// No memo case
-			if memos.isEmpty {
-				Spacer()
-				ZStack {
-					Color(.secondarySystemBackground)
-
-					Text("Memo is empty.")
-				}
-				.frame(width: 200, height: 50)
-				.cornerRadius(10)
-				Spacer()
-			}
-			else {
-				List {
-					ForEach(memos) { data in
-						HStack {
-							Text(data.text ?? "memo text error").textSelection(.enabled)
-							Spacer()
-							Text(date_Localize(date: data.date))
-								.font(.caption)
-								.foregroundColor(Color.gray)
-								.multilineTextAlignment(.trailing)
-						}
+					label: {
+						Image(systemName: "waveform.badge.microphone")
+							.symbolEffect(.variableColor.iterative.dimInactiveLayers.nonReversing)
+							.foregroundColor(Color.blue)
+							.font(.system(size: 60))
 					}
+					.padding(.bottom, 50.0)
 				}
-				.listStyle(.plain)
 			}
 		}
-		.toolbar {
+		.toolbar { // Top tool bar
+			// Write button
 			Button {
 				withAnimation(.easeInOut) {
-					isWriting.toggle()
-					isTextFieldFocused.toggle()
+					isWriting = true
+					isTextFieldFocused = true
 				}
 			} label: {
 				Image(systemName: "pencil.and.list.clipboard")
 			}
+			// Record button
 			Button {
 				withAnimation(.easeInOut) {
-					isWriting.toggle()
-					isTextFieldFocused.toggle()
+					if isRecording == false {
+						speechRecognizer.startTranscribing()
+					}
+					isRecording = true
+					isWriting = true
+					isTextFieldFocused = true
 				}
 			} label: {
 				Image(systemName: "microphone")
 			}
-			Button {} label: {
-				Image(systemName: "trash")
-			}
 		}
 		.onAppear() {
-			print(Locale.current.identifier)
-
+			// deep link write case
 			if link_type == "write"
 			{
 				withAnimation(.easeInOut) {
-					isWriting.toggle()
-					isTextFieldFocused.toggle()
+					isWriting = true
+					isTextFieldFocused = true
 				}
-			}
+			} // deep link mic case
 			else if link_type == "mic"
 			{
-				print("mic")
+				isRecording = true
+				isWriting = true
+				isTextFieldFocused = true
+				speechRecognizer.startTranscribing()
 			}
 		}
 	}
