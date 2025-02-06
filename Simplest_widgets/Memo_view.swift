@@ -15,6 +15,8 @@ struct Memo_view: View {
 	@AppStorage("memo widget position", store: UserDefaults.shared) var selected_widget_position: String = "00"
 	@AppStorage("memo type", store: UserDefaults.shared) var selected_type: String = "Horizon"
 	@AppStorage("memo position", store: UserDefaults.shared) var selected_position: String = "1"
+	@AppStorage("memo color", store: UserDefaults.shared) var selected_color: String = "White"
+
 	@State var selected_box: String = "2 X 2"
 	@State var isPresented = false
 	let model = Model()
@@ -125,7 +127,6 @@ struct Memo_view: View {
 						.pickerStyle(.segmented)
 						.onChange(of: selected_type) { newValue in
 							print("changed to: \(newValue)")
-							UserDefaults.shared.set(newValue, forKey: "memo type")
 							WidgetCenter.shared.reloadAllTimelines()
 						}
 					}
@@ -142,13 +143,27 @@ struct Memo_view: View {
 						.pickerStyle(.segmented)
 						.onChange(of: selected_position) { newValue in
 							print("changed to: \(newValue)")
-							UserDefaults.shared.set(newValue, forKey: "memo position")
 							WidgetCenter.shared.reloadAllTimelines()
 						}
 					}
 					.padding(.horizontal, 30.0)
 					.padding(.bottom, 15.0)
 
+					HStack{
+						Text("Color: ")
+						Picker("Options", selection: $selected_color) {
+							ForEach(["White", "Black"], id: \.self) {
+								Text($0)
+							}
+						}
+						.pickerStyle(.segmented)
+						.onChange(of: selected_color) { newValue in
+							print("changed to: \(newValue)")
+							WidgetCenter.shared.reloadAllTimelines()
+						}
+					}
+					.padding(.horizontal, 30.0)
+					.padding(.bottom, 15.0)
 				}
 				.navigationTitle("Memo")
 				.toolbar {
@@ -195,26 +210,51 @@ struct Memo: View {
 	let width: CGFloat
 	let height: CGFloat
 	let position = UserDefaults.shared.string(forKey: "memo position") ?? "1"
+	let color: Color = (UserDefaults.shared.string(forKey: "memo color") ?? "White") == "White" ? Color.white : Color.black
+	let type = UserDefaults.shared.string(forKey: "memo type") ?? "Horizon"
 
 	var body: some View {
 		ZStack {
-			VStack {
-				if position == "1" || position == "2" {
-					Spacer()
-				}
+			if type == "Horizon"
+			{
+				VStack {
+					if position == "1" || position == "2" {
+						Spacer()
+					}
 
-				HStack {
-					Image(systemName: "pencil.and.list.clipboard").foregroundStyle(.white).padding(.leading, 15)
-					Spacer()
-					Image(systemName: "microphone").foregroundStyle(.white).padding(.trailing, 15)
-				}.padding(.bottom, 10)
+					HStack {
+						Image(systemName: "pencil.and.list.clipboard").foregroundStyle(color).padding(.leading, 15)
+						Spacer()
+						Image(systemName: "microphone").foregroundStyle(color).padding(.trailing, 15)
+					}.padding(.bottom, 10)
 
-				if position == "3" || position == "2" {
-					Spacer()
+					if position == "3" || position == "2" {
+						Spacer()
+					}
 				}
+				.frame(width: width, height: height)
+				.cornerRadius(30)
 			}
-			.frame(width: width, height: height)
-			.cornerRadius(30)
+			else
+			{
+				HStack {
+					if position == "3" || position == "2" {
+						Spacer()
+					}
+
+					VStack {
+						Image(systemName: "pencil.and.list.clipboard").foregroundStyle(color).padding(.top, 15)
+						Spacer()
+						Image(systemName: "microphone").foregroundStyle(color).padding(.bottom, 15)
+					}.padding(.bottom, 10)
+
+					if position == "1" || position == "2" {
+						Spacer()
+					}
+				}
+				.frame(width: width, height: height)
+				.cornerRadius(30)
+			}
 		}
 	}
 }
@@ -342,7 +382,6 @@ struct Memo_storage: View {
 						} catch {
 							print("memo save error")
 						}
-
 
 						text = ""
 					}
