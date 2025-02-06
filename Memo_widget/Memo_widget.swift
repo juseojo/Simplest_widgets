@@ -43,6 +43,8 @@ struct Memo_widgetEntryView : View {
 	var widget_position: String
 	let position: String
 	let format = DateFormatter()
+	let color: Color
+	let type: String
 
 	init(entry: SimpleEntry) {
 		self.widget_position =  UserDefaults.shared.string(forKey: "memo widget position") ?? "00"
@@ -50,6 +52,8 @@ struct Memo_widgetEntryView : View {
 		self.position =  UserDefaults.shared.string(forKey: "memo position") ?? "1"
 		self.entry = entry
 		self.format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+		self.color = (UserDefaults.shared.string(forKey: "memo color") ?? "White") == "White" ? Color.white : Color.black
+		self.type = UserDefaults.shared.string(forKey: "memo type") ?? "Horizon"
 	}
 	
 	var body: some View {
@@ -69,17 +73,57 @@ struct Memo_widgetEntryView : View {
 				.renderingMode(.original)
 				.scaledToFit()
 			}
-			HStack {
-				Link(destination: URL(string: "simplestWidgets://widget/Memo_write")!) {
-					Image(systemName: "pencil.and.list.clipboard")
-						.foregroundStyle(.white)
-						.font(.system(size: 30))
+
+			if type == "Horizon"
+			{
+				VStack {
+					if position == "1" || position == "2" {
+						Spacer()
+					}
+
+					HStack {
+						Link(destination: URL(string: "simplestWidgets://widget/Memo_write")!) {
+							Image(systemName: "pencil.and.list.clipboard")
+								.foregroundStyle(color)
+								.font(.system(size: 30))
+						}
+						Spacer()
+						Link(destination: URL(string: "simplestWidgets://widget/Memo_mic")!) {
+							Image(systemName: "microphone")
+								.foregroundStyle(color)
+								.font(.system(size: 30))
+						}
+					}.padding(.bottom, 10)
+
+					if position == "3" || position == "2" {
+						Spacer()
+					}
 				}
-				Spacer()
-				Link(destination: URL(string: "simplestWidgets://widget/Memo_mic")!) {
-					Image(systemName: "microphone")
-						.foregroundStyle(.white)
-						.font(.system(size: 30))
+			}
+			else
+			{
+				HStack {
+					if position == "3" || position == "2" {
+						Spacer()
+					}
+
+					VStack {
+						Link(destination: URL(string: "simplestWidgets://widget/Memo_write")!) {
+							Image(systemName: "pencil.and.list.clipboard")
+								.foregroundStyle(color)
+								.font(.system(size: 30))
+						}
+						Spacer()
+						Link(destination: URL(string: "simplestWidgets://widget/Memo_mic")!) {
+							Image(systemName: "microphone")
+								.foregroundStyle(color)
+								.font(.system(size: 30))
+						}
+					}.padding(.bottom, 10)
+
+					if position == "1" || position == "2" {
+						Spacer()
+					}
 				}
 			}
 		}
