@@ -125,7 +125,7 @@ struct Main_view: View {
 							Memo_view()
 						}
 						else if destination == "D - Day" {
-
+							Dday_view()
 						}
 						else if destination == "Change Image" {
 							Get_homeScreen_view(hasImage: $hasImage)
