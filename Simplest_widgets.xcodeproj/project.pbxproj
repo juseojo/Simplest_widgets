@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E92015F02D549BF600BF7033 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99659412CE86B520093E8BA /* WidgetKit.framework */; };
+		E92015F12D549BF600BF7033 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99659432CE86B520093E8BA /* SwiftUI.framework */; };
+		E92015FC2D549BF800BF7033 /* Dday_widgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E92015EF2D549BF600BF7033 /* Dday_widgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E9220FA92D2FDCCA005AD332 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99659412CE86B520093E8BA /* WidgetKit.framework */; };
 		E9220FAA2D2FDCCA005AD332 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99659432CE86B520093E8BA /* SwiftUI.framework */; };
 		E9220FB72D2FDCCC005AD332 /* Memo_widgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E9220FA82D2FDCCA005AD332 /* Memo_widgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -31,6 +34,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		E92015FA2D549BF800BF7033 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E976147B2CE5DD4B00C90A58 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E92015EE2D549BF600BF7033;
+			remoteInfo = Dday_widgetExtension;
+		};
 		E9220FB52D2FDCCC005AD332 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E976147B2CE5DD4B00C90A58 /* Project object */;
@@ -56,6 +66,7 @@
 			files = (
 				E9220FB72D2FDCCC005AD332 /* Memo_widgetExtension.appex in Embed Foundation Extensions */,
 				E99659552CE86B540093E8BA /* Temperature_widgetExtension.appex in Embed Foundation Extensions */,
+				E92015FC2D549BF800BF7033 /* Dday_widgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -63,6 +74,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E92015EF2D549BF600BF7033 /* Dday_widgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Dday_widgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9220FA82D2FDCCA005AD332 /* Memo_widgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Memo_widgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E92210962D37E57D005AD332 /* Memo_widgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Memo_widgetExtension.entitlements; sourceTree = "<group>"; };
 		E95389502D40DF06003B25CC /* Memo_dataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Memo_dataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -78,6 +90,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		E92015FF2D549BF800BF7033 /* Exceptions for "Dday_widget" folder in "Dday_widgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = E92015EE2D549BF600BF7033 /* Dday_widgetExtension */;
+		};
 		E9220FB82D2FDCCC005AD332 /* Exceptions for "Memo_widget" folder in "Memo_widgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -105,6 +124,14 @@
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		E92015F22D549BF600BF7033 /* Dday_widget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				E92015FF2D549BF800BF7033 /* Exceptions for "Dday_widget" folder in "Dday_widgetExtension" target */,
+			);
+			path = Dday_widget;
+			sourceTree = "<group>";
+		};
 		E9220FAB2D2FDCCA005AD332 /* Memo_widget */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -132,6 +159,15 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		E92015EC2D549BF600BF7033 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E92015F12D549BF600BF7033 /* SwiftUI.framework in Frameworks */,
+				E92015F02D549BF600BF7033 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E9220FA52D2FDCCA005AD332 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -173,6 +209,7 @@
 				E9220FAB2D2FDCCA005AD332 /* Memo_widget */,
 				E99C68B72D1006F2009B9738 /* Model.swift */,
 				E99C689C2D0C192D009B9738 /* Utils.swift */,
+				E92015F22D549BF600BF7033 /* Dday_widget */,
 				E99659402CE86B520093E8BA /* Frameworks */,
 				E97614842CE5DD4B00C90A58 /* Products */,
 			);
@@ -184,6 +221,7 @@
 				E97614832CE5DD4B00C90A58 /* Simplest_widgets.app */,
 				E996593F2CE86B520093E8BA /* Temperature_widgetExtension.appex */,
 				E9220FA82D2FDCCA005AD332 /* Memo_widgetExtension.appex */,
+				E92015EF2D549BF600BF7033 /* Dday_widgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -200,6 +238,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		E92015EE2D549BF600BF7033 /* Dday_widgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E92016002D549BF800BF7033 /* Build configuration list for PBXNativeTarget "Dday_widgetExtension" */;
+			buildPhases = (
+				E92015EB2D549BF600BF7033 /* Sources */,
+				E92015EC2D549BF600BF7033 /* Frameworks */,
+				E92015ED2D549BF600BF7033 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				E92015F22D549BF600BF7033 /* Dday_widget */,
+			);
+			name = Dday_widgetExtension;
+			packageProductDependencies = (
+			);
+			productName = Dday_widgetExtension;
+			productReference = E92015EF2D549BF600BF7033 /* Dday_widgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		E9220FA72D2FDCCA005AD332 /* Memo_widgetExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E9220FB92D2FDCCC005AD332 /* Build configuration list for PBXNativeTarget "Memo_widgetExtension" */;
@@ -236,6 +296,7 @@
 			dependencies = (
 				E99659542CE86B540093E8BA /* PBXTargetDependency */,
 				E9220FB62D2FDCCC005AD332 /* PBXTargetDependency */,
+				E92015FB2D549BF800BF7033 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				E97614852CE5DD4B00C90A58 /* Simplest_widgets */,
@@ -279,6 +340,9 @@
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1610;
 				TargetAttributes = {
+					E92015EE2D549BF600BF7033 = {
+						CreatedOnToolsVersion = 16.2;
+					};
 					E9220FA72D2FDCCA005AD332 = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -307,11 +371,19 @@
 				E97614822CE5DD4B00C90A58 /* Simplest_widgets */,
 				E996593E2CE86B520093E8BA /* Temperature_widgetExtension */,
 				E9220FA72D2FDCCA005AD332 /* Memo_widgetExtension */,
+				E92015EE2D549BF600BF7033 /* Dday_widgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		E92015ED2D549BF600BF7033 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E9220FA62D2FDCCA005AD332 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -336,6 +408,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		E92015EB2D549BF600BF7033 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E9220FA42D2FDCCA005AD332 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -375,6 +454,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		E92015FB2D549BF800BF7033 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E92015EE2D549BF600BF7033 /* Dday_widgetExtension */;
+			targetProxy = E92015FA2D549BF800BF7033 /* PBXContainerItemProxy */;
+		};
 		E9220FB62D2FDCCC005AD332 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E9220FA72D2FDCCA005AD332 /* Memo_widgetExtension */;
@@ -388,6 +472,62 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		E92015FD2D549BF800BF7033 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 95366L65VG;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Dday_widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Dday_widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "sj-dev.Simplest-widgets.Dday-widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E92015FE2D549BF800BF7033 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 95366L65VG;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Dday_widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Dday_widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "sj-dev.Simplest-widgets.Dday-widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		E9220FBA2D2FDCCC005AD332 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -728,6 +868,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		E92016002D549BF800BF7033 /* Build configuration list for PBXNativeTarget "Dday_widgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E92015FD2D549BF800BF7033 /* Debug */,
+				E92015FE2D549BF800BF7033 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E9220FB92D2FDCCC005AD332 /* Build configuration list for PBXNativeTarget "Memo_widgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
