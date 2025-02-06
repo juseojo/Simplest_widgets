@@ -9,10 +9,6 @@ import UIKit
 
 class Images_manager
 {
-	init() {
-
-	}
-
 	func save_image(data: Data, name: String) -> String {
 		guard
 			let path = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.simplest_widgets")?
@@ -70,4 +66,31 @@ func date_Localize(date: Date?) -> String
 	dateFormatter.timeZone = TimeZone.current
 
 	return dateFormatter.string(from: date!)
+}
+
+func str_to_date(_ str: String) -> Date?
+{
+	let dateFormatter = DateFormatter()
+
+	dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+	dateFormatter.timeZone = Locale.current.timeZone
+
+	if let date = dateFormatter.date(from: str) {
+		return date
+	} else {
+		print("Fail change str to date")
+		return nil
+	}
+}
+
+func date_to_str(_ date: Date) -> String?
+{
+	let dateFormatter = DateFormatter()
+
+	dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+	dateFormatter.timeZone = Locale.current.timeZone
+
+	let str = dateFormatter.string(from: date)
+
+	return str
 }
