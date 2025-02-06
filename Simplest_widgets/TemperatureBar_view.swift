@@ -124,7 +124,6 @@ struct TemperatureBar_view: View {
 						.pickerStyle(.segmented)
 						.onChange(of: selected_temperature) { newValue in
 							print("changed to: \(newValue)")
-							UserDefaults.shared.set(newValue, forKey: "temperature notation")
 							WidgetCenter.shared.reloadAllTimelines()
 						}
 					}
@@ -141,7 +140,6 @@ struct TemperatureBar_view: View {
 						.pickerStyle(.segmented)
 						.onChange(of: time) { newValue in
 							print("changed to: \(newValue)")
-							UserDefaults.shared.set(newValue, forKey: "temperature time")
 							WidgetCenter.shared.reloadAllTimelines()
 						}
 					}
@@ -158,7 +156,6 @@ struct TemperatureBar_view: View {
 						.pickerStyle(.segmented)
 						.onChange(of: selected_type) { newValue in
 							print("changed to: \(newValue)")
-							UserDefaults.shared.set(newValue, forKey: "temperature type")
 							WidgetCenter.shared.reloadAllTimelines()
 						}
 					}
@@ -175,7 +172,6 @@ struct TemperatureBar_view: View {
 						.pickerStyle(.segmented)
 						.onChange(of: selected_position) { newValue in
 							print("changed to: \(newValue)")
-							UserDefaults.shared.set(newValue, forKey: "temperature position")
 							WidgetCenter.shared.reloadAllTimelines()
 						}
 					}
