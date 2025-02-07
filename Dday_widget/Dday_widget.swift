@@ -9,76 +9,124 @@ import WidgetKit
 import SwiftUI
 
 struct Provider: TimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), emoji: "😀")
-    }
 
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), emoji: "😀")
-        completion(entry)
-    }
+	func placeholder(in context: Context) -> SimpleEntry {
+		SimpleEntry(date: Date())
+	}
 
-    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        var entries: [SimpleEntry] = []
+	func getSnapshot(in context: Context, completion: @escaping @Sendable (SimpleEntry) -> Void) {
+		completion(SimpleEntry(date: Date()))
+	}
 
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, emoji: "😀")
-            entries.append(entry)
-        }
+	func getTimeline(in context: Context, completion: @escaping @Sendable (Timeline<SimpleEntry>) -> Void) {
+		let timeline = Timeline(entries: [SimpleEntry(date: Calendar.current.startOfDay(for: Date()))], policy: .atEnd)
 
-        let timeline = Timeline(entries: entries, policy: .atEnd)
-        completion(timeline)
-    }
-
-//    func relevances() async -> WidgetRelevances<Void> {
-//        // Generate a list containing the contexts this widget is relevant in.
-//    }
+		completion(timeline)
+	}
 }
 
 struct SimpleEntry: TimelineEntry {
-    let date: Date
-    let emoji: String
+	let date: Date
 }
 
 struct Dday_widgetEntryView : View {
-    var entry: Provider.Entry
+	var entry: Provider.Entry
+	var homeScreen_image: CGImage?
+	var widget_position: String
+	let position: String
+	let color: Color
+	let date_str: String
 
-    var body: some View {
-        VStack {
-            Text("Time:")
-            Text(entry.date, style: .time)
+	init(entry: SimpleEntry) {
+		self.widget_position =  UserDefaults.shared.string(forKey: "Dday widget position") ?? "00"
+		self.homeScreen_image = Images_manager().load_image(name: "Home_screen").cgImage
+		self.position =  UserDefaults.shared.string(forKey: "Dday position") ?? "1"
+		self.entry = entry
+		self.color = (UserDefaults.shared.string(forKey: "Dday color") ?? "White") == "White" ? Color.white : Color.black
+		self.date_str = UserDefaults.shared.string(forKey: "Dday date") ?? date_to_str(Date())!
+	}
 
-            Text("Emoji:")
-            Text(entry.emoji)
-        }
-    }
+	var body: some View {
+		let model = Model()
+		let crop_size = model.get_widget_Rect(position: widget_position)
+		let crop_image: CGImage? = homeScreen_image?.cropping(to:crop_size)
+		let dday = str_to_date(date_str) ?? Date()
+		let dday_num = calculate_dday(date: dday)
+
+		let text: String = {
+			if dday_num < 0 {
+				return "D - \(-dday_num)"
+			}
+			else if dday_num == 0 {
+				return "D - day"
+			}
+			else {
+				return "D + \(dday_num)"
+			}
+		}()
+
+		ZStack {
+			// exceoption control
+			if crop_image == nil {
+				Text("Please set correct image").padding(.bottom, 10)
+			}
+			else {
+				Image(uiImage: UIImage(cgImage: crop_image!,
+									   scale: UIScreen.main.scale,
+									   orientation: .up))
+				.resizable()
+				.renderingMode(.original)
+				.scaledToFit()
+			}
+
+			// dday
+			HStack {
+				if position == "2" {
+					Spacer()
+				}
+
+				VStack {
+					Spacer()
+					Text(text)
+						.font(.title)
+						.fontWeight(.bold)
+						.foregroundStyle(color)
+				}.padding(.bottom, 15)
+
+				if position == "1" {
+					Spacer()
+				}
+			}.padding(.horizontal, 10)
+		}.widgetURL(URL(string: "simplestWidgets://widget/Dday"))
+	}
 }
 
 struct Dday_widget: Widget {
-    let kind: String = "Dday_widget"
+	let kind: String = "dday_widget"
 
-    var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider()) { entry in
-            if #available(iOS 17.0, *) {
-                Dday_widgetEntryView(entry: entry)
-                    .containerBackground(.fill.tertiary, for: .widget)
-            } else {
-                Dday_widgetEntryView(entry: entry)
-                    .padding()
-                    .background()
-            }
-        }
-        .configurationDisplayName("My Widget")
-        .description("This is an example widget.")
-    }
+	var body: some WidgetConfiguration {
+		StaticConfiguration(kind: kind, provider: Provider()) { entry in
+			Dday_widgetEntryView(entry: entry)
+				.containerBackground(.fill.tertiary, for: .widget)
+		}
+		.contentMarginsDisabled()
+		.configurationDisplayName("D-day")
+		.description("Check easily d-day")
+	}
+}
+
+func calculate_dday(date: Date) -> Int
+{
+	let calendar = Calendar.current
+	let startDate = calendar.startOfDay(for: date)
+	let startToday = calendar.startOfDay(for: Date())
+	let components = calendar.dateComponents([.day], from: startDate, to: startToday)
+
+	return components.day ?? 0
 }
 
 #Preview(as: .systemSmall) {
-    Dday_widget()
+	Dday_widget()
 } timeline: {
-    SimpleEntry(date: .now, emoji: "😀")
-    SimpleEntry(date: .now, emoji: "🤩")
+	SimpleEntry(date: .now)
 }
