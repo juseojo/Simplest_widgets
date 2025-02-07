@@ -19,15 +19,7 @@ struct Provider: TimelineProvider {
 	}
 	
 	func getTimeline(in context: Context, completion: @escaping @Sendable (Timeline<SimpleEntry>) -> Void) {
-		var entries: [SimpleEntry] = []
-
-		let currentDate = Date()
-		for hourOffset in 0 ..< 5 {
-			let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-			let entry = SimpleEntry(date: entryDate)
-			entries.append(entry)
-		}
-		let timeline = Timeline(entries: entries, policy: .atEnd)
+		let timeline = Timeline(entries: [SimpleEntry(date: Date())], policy: .atEnd)
 
 		completion(timeline)
 	}
@@ -42,7 +34,6 @@ struct Memo_widgetEntryView : View {
 	var homeScreen_image: CGImage?
 	var widget_position: String
 	let position: String
-	let format = DateFormatter()
 	let color: Color
 	let type: String
 
@@ -51,7 +42,6 @@ struct Memo_widgetEntryView : View {
 		self.homeScreen_image = Images_manager().load_image(name: "Home_screen").cgImage
 		self.position =  UserDefaults.shared.string(forKey: "memo position") ?? "1"
 		self.entry = entry
-		self.format.dateFormat = "yyyy-MM-dd HH:mm:ss"
 		self.color = (UserDefaults.shared.string(forKey: "memo color") ?? "White") == "White" ? Color.white : Color.black
 		self.type = UserDefaults.shared.string(forKey: "memo type") ?? "Horizon"
 	}
@@ -93,7 +83,7 @@ struct Memo_widgetEntryView : View {
 								.foregroundStyle(color)
 								.font(.system(size: 30))
 						}
-					}.padding(.bottom, 10)
+					}.padding(.vertical, 10)
 
 					if position == "3" || position == "2" {
 						Spacer()
@@ -119,14 +109,14 @@ struct Memo_widgetEntryView : View {
 								.foregroundStyle(color)
 								.font(.system(size: 30))
 						}
-					}.padding(.bottom, 10)
+					}.padding(.vertical, 10)
 
 					if position == "1" || position == "2" {
 						Spacer()
 					}
 				}
 			}
-		}
+		}.widgetURL(URL(string: "simplestWidgets://widget/Memo"))
 	}
 }
 
@@ -147,6 +137,5 @@ struct Memo_widget: Widget {
 #Preview(as: .systemSmall) {
     Memo_widget()
 } timeline: {
-    SimpleEntry(date: .now)
     SimpleEntry(date: .now)
 }
