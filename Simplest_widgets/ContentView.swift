@@ -166,6 +166,7 @@ struct ContentView: View {
 	@State private var link_id: String? // widget's deep link
 
 	var body: some View {
+		// case: Deep link
 		NavigationView {
 			if link_id != nil
 			{
@@ -178,10 +179,14 @@ struct ContentView: View {
 				else if link_id! == "Memo_mic" {
 					Memo_storage(link_type: "mic")
 				}
-				else if link_id! == "D - Day" {
-
+				else if link_id! == "Memo" {
+					Memo_view()
+				}
+				else if link_id! == "Dday" {
+					Dday_view()
 				}
 			}
+			// case: First launch || not image
 			else if hasImage == false
 			{
 				Get_homeScreen_view(hasImage: $hasImage)
@@ -189,6 +194,7 @@ struct ContentView: View {
 						OnboardingTabView(isFirstLaunching: $isFirstLaunching)
 					}
 			}
+			// case Nomal
 			else {
 				Main_view(hasImage: $hasImage)
 			}
@@ -201,6 +207,7 @@ struct ContentView: View {
 			}
 
 			if let id = url.pathComponents.last {
+				print("deep link id: \(id)")
 				link_id = id
 			}
 		}
