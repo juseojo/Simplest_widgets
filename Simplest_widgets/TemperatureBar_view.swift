@@ -232,10 +232,11 @@ struct TemperatureBar: View {
 	let width: CGFloat
 	let height: CGFloat
 	let position = UserDefaults.shared.string(forKey: "temperature position") ?? "1"
+	let type = UserDefaults.shared.string(forKey: "temperature type") ?? "Horizon"
 
 	var body: some View {
 		ZStack {
-			if UserDefaults.shared.string(forKey: "temperature type") ?? "Horizon" == "Horizon"
+			if type == "Horizon"
 			{
 				VStack {
 					if position == "1" || position == "2" {
