@@ -13,9 +13,9 @@ import AVFoundation
 
 struct Memo_view: View {
 	@AppStorage("memo widget position", store: UserDefaults.shared) var selected_widget_position: String = "00"
-	@AppStorage("memo type", store: UserDefaults.shared) var selected_type: String = "Horizon"
+	@AppStorage("memo type", store: UserDefaults.shared) var selected_type: String = String(localized:"Horizon")
 	@AppStorage("memo position", store: UserDefaults.shared) var selected_position: String = "1"
-	@AppStorage("memo color", store: UserDefaults.shared) var selected_color: String = "White"
+	@AppStorage("memo color", store: UserDefaults.shared) var selected_color: String = String(localized:"White")
 
 	@State var selected_box: String = "2 X 2"
 	@State var isPresented = false
@@ -120,7 +120,7 @@ struct Memo_view: View {
 					HStack{
 						Text("Type: ")
 						Picker("Options", selection: $selected_type) {
-							ForEach(["Horizon", "Vertical"], id: \.self) {
+							ForEach([String(localized:"Horizon"), String(localized:"Vertical")], id: \.self) {
 								Text($0)
 							}
 						}
@@ -152,7 +152,7 @@ struct Memo_view: View {
 					HStack{
 						Text("Color: ")
 						Picker("Options", selection: $selected_color) {
-							ForEach(["White", "Black"], id: \.self) {
+							ForEach([String(localized:"White"), String(localized:"Black")], id: \.self) {
 								Text($0)
 							}
 						}
@@ -165,7 +165,7 @@ struct Memo_view: View {
 					.padding(.horizontal, 30.0)
 					.padding(.bottom, 15.0)
 				}
-				.navigationTitle("Memo")
+				.navigationTitle(String(localized:"Memo"))
 				.toolbar {
 					/*
 					Button {} label: {
@@ -210,12 +210,12 @@ struct Memo: View {
 	let width: CGFloat
 	let height: CGFloat
 	let position = UserDefaults.shared.string(forKey: "memo position") ?? "1"
-	let color: Color = (UserDefaults.shared.string(forKey: "memo color") ?? "White") == "White" ? Color.white : Color.black
-	let type = UserDefaults.shared.string(forKey: "memo type") ?? "Horizon"
+	let color: Color = (UserDefaults.shared.string(forKey: "memo color") ?? String(localized:"White")) == String(localized:"White") ? Color.white : Color.black
+	let type = UserDefaults.shared.string(forKey: "memo type") ?? String(localized:"Horizon")
 
 	var body: some View {
 		ZStack {
-			if type == "Horizon"
+			if type == String(localized:"Horizon")
 			{
 				VStack {
 					if position == "1" || position == "2" {

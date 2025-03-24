@@ -42,8 +42,8 @@ struct Memo_widgetEntryView : View {
 		self.homeScreen_image = Images_manager().load_image(name: "Home_screen").cgImage
 		self.position =  UserDefaults.shared.string(forKey: "memo position") ?? "1"
 		self.entry = entry
-		self.color = (UserDefaults.shared.string(forKey: "memo color") ?? "White") == "White" ? Color.white : Color.black
-		self.type = UserDefaults.shared.string(forKey: "memo type") ?? "Horizon"
+		self.color = (UserDefaults.shared.string(forKey: "memo color") ?? String(localized:"White")) == String(localized:"White") ? Color.white : Color.black
+		self.type = UserDefaults.shared.string(forKey: "memo type") ?? String(localized:"Horizon")
 	}
 	
 	var body: some View {
@@ -64,7 +64,7 @@ struct Memo_widgetEntryView : View {
 				.scaledToFit()
 			}
 
-			if type == "Horizon"
+			if type == String(localized:"Horizon")
 			{
 				VStack {
 					if position == "1" || position == "2" {
@@ -131,6 +131,8 @@ struct Memo_widget: Widget {
 		.contentMarginsDisabled()
 		.configurationDisplayName("Memo")
 		.description("Memo short things")
+		.supportedFamilies([.systemSmall,
+							.systemMedium])
     }
 }
 

@@ -28,7 +28,7 @@ struct Provider: AppIntentTimelineProvider {
 		// Refresh weather and get temperatures
 		do {
 			try await weather_service.refresh_weather()
-			if UserDefaults.shared.string(forKey: "temperature time") ?? "1 Day" == "1 Day" {
+			if UserDefaults.shared.string(forKey: "temperature time") ?? String(localized:"1 Day") == String(localized:"1 Day") {
 				weathers = weather_service.get_weather(isDay: true)
 			}
 			else {
@@ -220,7 +220,7 @@ struct Temperature_widgetEntryView : View {
 			}
 
 			// Decide Temperature Bar Shape & postion
-			if UserDefaults.shared.string(forKey: "temperature type") ?? "Horizon" == "Horizon" {
+			if UserDefaults.shared.string(forKey: "temperature type") ?? String(localized:"Horizon") == String(localized:"Horizon") {
 				VStack {
 					if position == "1" || position == "2" {
 						Spacer()
@@ -255,9 +255,9 @@ struct Temperature_Bar: View {
 	var temperatures: [Double]
 	var body: some View {
 
-		if UserDefaults.shared.string(forKey: "temperature type") ?? "Horizon" == "Horizon" {
+		if UserDefaults.shared.string(forKey: "temperature type") ?? String(localized:"Horizon") == String(localized:"Horizon") {
 			ZStack{
-				if UserDefaults.shared.string(forKey: "temperature notation") ?? "normal" == "normal" {
+				if UserDefaults.shared.string(forKey: "temperature notation") ?? String(localized:"normal") == String(localized:"normal") {
 					LinearGradient(gradient: Gradient(colors: make_temperatureColors(temperatures: temperatures, isNormal: true)), startPoint: .leading, endPoint: .trailing)
 				}
 				else {
@@ -271,7 +271,7 @@ struct Temperature_Bar: View {
 		else
 		{
 			ZStack{
-				if UserDefaults.shared.string(forKey: "temperature notation") ?? "normal" == "normal" {
+				if UserDefaults.shared.string(forKey: "temperature notation") ?? String(localized:"normal") == String(localized:"normal") {
 					LinearGradient(gradient: Gradient(colors: make_temperatureColors(temperatures: temperatures, isNormal: true)), startPoint: .top, endPoint: .bottom)
 				}
 				else {
@@ -296,6 +296,8 @@ struct Temperature_widget: Widget {
 		.contentMarginsDisabled()
 		.configurationDisplayName("Temperature Bar")
 		.description("Check easily temperature")
+		.supportedFamilies([.systemSmall,
+							.systemMedium])
     }
 }
 

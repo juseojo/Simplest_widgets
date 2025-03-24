@@ -42,7 +42,7 @@ struct Dday_widgetEntryView : View {
 		self.homeScreen_image = Images_manager().load_image(name: "Home_screen").cgImage
 		self.position =  UserDefaults.shared.string(forKey: "Dday position") ?? "1"
 		self.entry = entry
-		self.color = (UserDefaults.shared.string(forKey: "Dday color") ?? "White") == "White" ? Color.white : Color.black
+		self.color = (UserDefaults.shared.string(forKey: "Dday color") ?? String(localized:"White")) == String(localized:"White") ? Color.white : Color.black
 		self.date_str = UserDefaults.shared.string(forKey: "Dday date") ?? date_to_str(Date())!
 	}
 
@@ -112,6 +112,8 @@ struct Dday_widget: Widget {
 		.contentMarginsDisabled()
 		.configurationDisplayName("D-day")
 		.description("Check easily d-day")
+		.supportedFamilies([.systemSmall,
+							.systemMedium])
 	}
 }
 

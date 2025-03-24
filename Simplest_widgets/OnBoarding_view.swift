@@ -127,21 +127,21 @@ struct OnboardingTabView: View {
 	var body: some View {
 		TabView {
 			OnboardingFirstPageView(
-				title: "Hi, 😃\n We need home screen image for clear widget background.\n\n This tutorial can help that.\nthank you 😊"
+				title: String(localized:"Hi, 😃\n We need home screen image for clear widget background.\n\n This tutorial can help that.\nthank you 😊")
 			)
 			OnboardingPageView(
 				imageName: "Tutorial1",
-				title: "On your home screen,\ntouch the screen for a second"
+				title: String(localized:"On your home screen,\ntouch the screen for a second")
 			)
 
 			OnboardingPageView(
 				imageName: "Tutorial2",
-				title: "In edit mode, swipe the screen\nto the right until empty page"
+				title: String(localized:"In edit mode, swipe the screen\nto the right until empty page")
 			)
 
 			OnboardingLastPageView(
 				imageName: "Tutorial3",
-				title: "Capture your screen",
+				title: String(localized:"Capture your screen"),
 				isFirstLaunching: $isFirstLaunching
 			)
 		}
