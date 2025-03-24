@@ -13,7 +13,7 @@ import WidgetKit
 struct Dday_view: View {
 	@AppStorage("Dday widget position", store: UserDefaults.shared) var selected_widget_position: String = "00"
 	@AppStorage("Dday position", store: UserDefaults.shared) var selected_position: String = "1"
-	@AppStorage("Dday color", store: UserDefaults.shared) var selected_color: String = "White"
+	@AppStorage("Dday color", store: UserDefaults.shared) var selected_color: String = String(localized:"White")
 	@AppStorage("Dday date", store: UserDefaults.shared) var selected_date: String = date_to_str(Date())!
 	// iOS 18.0 < version can save Date at UserDefault
 
@@ -138,7 +138,7 @@ struct Dday_view: View {
 					HStack{
 						Text("Color: ")
 						Picker("Options", selection: $selected_color) {
-							ForEach(["White", "Black"], id: \.self) {
+							ForEach([String(localized:"White"), String(localized:"Black")], id: \.self) {
 								Text($0)
 							}
 						}
@@ -152,7 +152,7 @@ struct Dday_view: View {
 					.padding(.bottom, 15.0)
 
 					HStack {
-						Text("D-day: ")
+						Text(String(localized:"D-day: "))
 						DatePicker("", selection: $dday_date, displayedComponents: [.date])
 						.onChange(of: dday_date) { newValue in
 							print("changed to: \(newValue.description)")
@@ -163,7 +163,7 @@ struct Dday_view: View {
 					.padding(.horizontal, 30.0)
 					.padding(.bottom, 15.0)
 				}
-				.navigationTitle("D-day")
+				.navigationTitle(String(localized:"D-day"))
 			}
 			.onAppear {
 				if UserDefaults.shared.string(forKey: "Dday widget position") == nil {
@@ -197,7 +197,7 @@ struct Dday: View {
 	let width: CGFloat
 	let height: CGFloat
 	let position = UserDefaults.shared.string(forKey: "Dday position") ?? "1"
-	let color: Color = (UserDefaults.shared.string(forKey: "Dday color") ?? "White") == "White" ? Color.white : Color.black
+	let color: Color = (UserDefaults.shared.string(forKey: "Dday color") ?? String(localized:"White")) == String(localized:"White") ? Color.white : Color.black
 	let dday: Date
 
 	var body: some View {

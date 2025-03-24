@@ -10,10 +10,10 @@ import WidgetKit
 
 struct TemperatureBar_view: View {
 	@AppStorage("temperature widget position", store: UserDefaults.shared) var selected_widget_position: String = "00"
-	@AppStorage("temperature notation", store: UserDefaults.shared) var selected_temperature: String = "normal"
-	@AppStorage("temperature type", store: UserDefaults.shared) var selected_type: String = "Horizon"
+	@AppStorage("temperature notation", store: UserDefaults.shared) var selected_temperature: String = String(localized:"normal")
+	@AppStorage("temperature type", store: UserDefaults.shared) var selected_type: String = String(localized:"Horizon")
 	@AppStorage("temperature position", store: UserDefaults.shared) var selected_position: String = "1"
-	@AppStorage("temperature time", store: UserDefaults.shared) var time: String = "1 Day"
+	@AppStorage("temperature time", store: UserDefaults.shared) var time: String = String(localized:"1 Day")
 	@State var selected_box: String = "2 X 2"
 
 	let model = Model()
@@ -117,7 +117,7 @@ struct TemperatureBar_view: View {
 					HStack{
 						Text("Temperature: ")
 						Picker("Options", selection: $selected_temperature) {
-							ForEach(["normal", "diffrence now"], id: \.self) {
+							ForEach([String(localized:"normal"), String(localized:"diffrence now")], id: \.self) {
 								Text($0)
 							}
 						}
@@ -133,7 +133,7 @@ struct TemperatureBar_view: View {
 					HStack{
 						Text("Time: ")
 						Picker("Options", selection: $time) {
-							ForEach(["1 Day", "1 Week"], id: \.self) {
+							ForEach([String(localized:"1 Day"), String(localized:"1 Week")], id: \.self) {
 								Text($0)
 							}
 						}
@@ -149,7 +149,7 @@ struct TemperatureBar_view: View {
 					HStack{
 						Text("Type: ")
 						Picker("Options", selection: $selected_type) {
-							ForEach(["Horizon", "Vertical"], id: \.self) {
+							ForEach([String(localized:"Horizon"), String(localized:"Vertical")], id: \.self) {
 								Text($0)
 							}
 						}
@@ -179,7 +179,7 @@ struct TemperatureBar_view: View {
 					.padding(.bottom, 15.0)
 
 				}
-				.navigationTitle("Temperature Bar")
+				.navigationTitle(String(localized:"Temperature Bar"))
 			}
 			.onAppear {
 				if UserDefaults.shared.string(forKey: "temperature widget position") == nil {
@@ -232,11 +232,11 @@ struct TemperatureBar: View {
 	let width: CGFloat
 	let height: CGFloat
 	let position = UserDefaults.shared.string(forKey: "temperature position") ?? "1"
-	let type = UserDefaults.shared.string(forKey: "temperature type") ?? "Horizon"
+	let type = UserDefaults.shared.string(forKey: "temperature type") ?? String(localized:"Horizon")
 
 	var body: some View {
 		ZStack {
-			if type == "Horizon"
+			if type == String(localized:"Horizon")
 			{
 				VStack {
 					if position == "1" || position == "2" {

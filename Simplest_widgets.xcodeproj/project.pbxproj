@@ -33,6 +33,10 @@
 		E99C68B52D0D4C0F009B9738 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C689C2D0C192D009B9738 /* Utils.swift */; };
 		E99C68B82D1006F5009B9738 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C68B72D1006F2009B9738 /* Model.swift */; };
 		E99C68B92D1006F5009B9738 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C68B72D1006F2009B9738 /* Model.swift */; };
+		E9AAC5FA2D9169A8006ACFCD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = E9AAC5F92D9169A8006ACFCD /* Localizable.xcstrings */; };
+		E9AAC5FB2D9169A8006ACFCD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = E9AAC5F92D9169A8006ACFCD /* Localizable.xcstrings */; };
+		E9AAC5FC2D9169A8006ACFCD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = E9AAC5F92D9169A8006ACFCD /* Localizable.xcstrings */; };
+		E9AAC5FD2D9169A8006ACFCD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = E9AAC5F92D9169A8006ACFCD /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +94,7 @@
 		E99C689C2D0C192D009B9738 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		E99C68B62D0D5902009B9738 /* Temperature_widgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Temperature_widgetExtension.entitlements; sourceTree = "<group>"; };
 		E99C68B72D1006F2009B9738 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		E9AAC5F92D9169A8006ACFCD /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -202,6 +207,7 @@
 		E976147A2CE5DD4B00C90A58 = {
 			isa = PBXGroup;
 			children = (
+				E9AAC5F92D9169A8006ACFCD /* Localizable.xcstrings */,
 				E920163D2D55E6E900BF7033 /* Dday_widgetExtension.entitlements */,
 				E95389682D40ECDE003B25CC /* Memos+CoreDataClass.swift */,
 				E95389692D40ECDE003B25CC /* Memos+CoreDataProperties.swift */,
@@ -364,6 +370,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"ko-KR",
 			);
 			mainGroup = E976147A2CE5DD4B00C90A58;
 			minimizedProjectReferenceProxies = 1;
@@ -385,6 +392,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9AAC5FD2D9169A8006ACFCD /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,6 +400,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9AAC5FC2D9169A8006ACFCD /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,6 +408,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9AAC5FA2D9169A8006ACFCD /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,6 +416,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9AAC5FB2D9169A8006ACFCD /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -670,6 +681,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -727,6 +739,7 @@
 				NEW_SETTING = "";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

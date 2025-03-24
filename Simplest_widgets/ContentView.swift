@@ -111,6 +111,7 @@ struct Main_view: View {
 					Spacer()
 
 					let widgets = ["Temperature Bar", "Memo", "D - Day", "Change Image"]
+					let widgets_localized = [String(localized:"Temperature Bar"), String(localized:"Memo"), String(localized:"D - Day"), String(localized:"Change Image")]
 
 					// widget buttons
 					ForEach(0..<widgets.count) { num in
@@ -120,7 +121,7 @@ struct Main_view: View {
 									.resizable()
 									.frame(width: UIScreen.main.bounds.width - 70, height: 125)
 									.cornerRadius(10)
-								Text(widgets[num])
+								Text(widgets_localized[num])
 									.font(.largeTitle)
 									.fontWeight(.bold)
 									.foregroundColor(Color.white)
