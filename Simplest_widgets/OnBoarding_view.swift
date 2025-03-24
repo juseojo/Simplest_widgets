@@ -38,8 +38,14 @@ struct OnboardingFirstPageView: View {
 struct OnboardingPageView: View {
 	let imageName: String
 	let title: String
+	let deviceModel_name = get_deviceModel()
+	let model = Model()
 
 	var body: some View {
+		let bazel_image = UIImage(named: model.iphones_name_dic[deviceModel_name] ?? "error") ?? UIImage(systemName: "xmark")!
+		let bazel = model.get_bazel(device_name: deviceModel_name)
+		let ratio_num =  (UIScreen.main.bounds.width - 100) / bazel_image.size.width
+
 		VStack {
 			Text(title)
 				.font(.title2)
@@ -48,11 +54,19 @@ struct OnboardingPageView: View {
 				.multilineTextAlignment(.center)
 				.padding()
 			Spacer()
-			Image(imageName)
-				.resizable()
-				.aspectRatio(contentMode: .fit)
-				.clipShape(RoundedRectangle(cornerRadius: 15))
-				.padding(.bottom, 40.0)
+			ZStack {
+				Image(imageName)
+					.resizable()
+					.aspectRatio(contentMode: .fit)
+					.cornerRadius(CGFloat(bazel.radius) * ratio_num)
+					.padding(.horizontal, bazel.left_padding * ratio_num) // frame length
+					.padding(.vertical, bazel.top_paddings * ratio_num)
+				Image(uiImage: bazel_image)
+					.resizable()
+					.aspectRatio(contentMode: .fit)
+			}
+			.padding(.bottom, 40.0)
+			.padding(.horizontal, 50.0)
 		}
 	}
 }
@@ -60,10 +74,17 @@ struct OnboardingPageView: View {
 struct OnboardingLastPageView: View {
 	let imageName: String
 	let title: String
+	let deviceModel_name = get_deviceModel()
+	let model = Model()
+
 
 	@Binding var isFirstLaunching: Bool
 
 	var body: some View {
+		let bazel_image = UIImage(named: model.iphones_name_dic[deviceModel_name] ?? "error") ?? UIImage(systemName: "xmark")!
+		let bazel = model.get_bazel(device_name: deviceModel_name)
+		let ratio_num =  (UIScreen.main.bounds.width - 100) / bazel_image.size.width
+
 		VStack {
 			Text(title)
 				.font(.title2)
@@ -72,11 +93,19 @@ struct OnboardingLastPageView: View {
 				.multilineTextAlignment(.center)
 				.padding()
 			Spacer()
-			Image(imageName)
-				.resizable()
-				.aspectRatio(contentMode: .fit)
-				.padding(.bottom, 15.0)
-				.cornerRadius(10.0)
+			ZStack {
+				Image(imageName)
+					.resizable()
+					.aspectRatio(contentMode: .fit)
+					.cornerRadius(CGFloat(bazel.radius) * ratio_num)
+					.padding(.horizontal, bazel.left_padding * ratio_num) // frame length
+					.padding(.vertical, bazel.top_paddings * ratio_num - 1.0)
+				Image(uiImage: bazel_image)
+					.resizable()
+					.aspectRatio(contentMode: .fit)
+			}
+			.padding(.bottom, 20.0)
+			.padding(.horizontal, 50.0)
 			Button {
 				isFirstLaunching.toggle()
 			} label: {
@@ -124,6 +153,6 @@ struct OnboardingTabView: View {
 
 #Preview
 {
-	@AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
+	@Previewable @AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
 	OnboardingTabView(isFirstLaunching: $isFirstLaunching)
 }

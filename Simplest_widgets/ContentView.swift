@@ -16,7 +16,11 @@ struct Get_homeScreen_view: View {
 	@State private var isFirst = false
 	@Binding var hasImage: Bool
 
+	let model = Model()
+
 	var body: some View {
+		let bazel_image = UIImage(named: model.iphones_name_dic[get_deviceModel()] ?? "error")
+
 		ZStack {
 			VStack {
 				Text("Simplest Widgets")
@@ -28,14 +32,20 @@ struct Get_homeScreen_view: View {
 					.fontWeight(.semibold)
 					.foregroundColor(Color.gray)
 					.multilineTextAlignment(.center)
-				Button(action: {
-					print("Choice home screen button click")
-					isPickerPresented = true
-				}, label: {
-					Image("Choice home screen")
-						.resizable()
-						.aspectRatio(contentMode: .fit)
-				})
+				ZStack {
+					Image(systemName: "photo.badge.plus")
+						.foregroundColor(Color.blue)
+						.font(.system(size: 60))
+					Button(action: {
+						print("Choice home screen button click")
+						isPickerPresented = true
+					}, label: {
+						Image(uiImage: bazel_image ?? UIImage(systemName: "xmark")!)
+							.resizable()
+							.aspectRatio(contentMode: .fit)
+							.padding(.top, 25.0)
+					})
+				}
 				.sheet(isPresented: $isPickerPresented) {
 					PhotoPicker(selectedImageData: $selectedImageData) {
 						print("choose image")
