@@ -12,7 +12,7 @@ class Weather_Service:  NSObject, CLLocationManagerDelegate {
 	private let location_manager: CLLocationManager = {
 		let manager = CLLocationManager()
 
-		manager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
+		manager.desiredAccuracy = kCLLocationAccuracyReduced
 
 		return manager
 	}()
@@ -61,7 +61,7 @@ class Weather_Service:  NSObject, CLLocationManagerDelegate {
 		 */
 
 		if location_manager.location == nil {
-			print("refresh fail : location in nil")
+			print("refresh fail : location is nil")
 		}
 		else {
 			let start_date = Date()
