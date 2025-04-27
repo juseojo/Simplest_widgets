@@ -18,10 +18,7 @@ class Weather_Service:  NSObject, CLLocationManagerDelegate {
 	}()
 	private var weather: Forecast<HourWeather>?
 
-	func get_weather(isDay: Bool) -> Forecast<HourWeather>? {
-		if isDay && weather != nil {
-			weather!.forecast.removeSubrange(24..<weather!.count)
-		}
+	func get_weather() -> Forecast<HourWeather>? {
 
 		return weather
 	}
@@ -47,7 +44,7 @@ class Weather_Service:  NSObject, CLLocationManagerDelegate {
 			print("request location")
 			location_manager.requestLocation()
 		@unknown default:
-			print("location unknown error")
+			print("file: Weather, class: Weather_Service, error: location unknown error")
 		}
 
 		/*
@@ -65,7 +62,7 @@ class Weather_Service:  NSObject, CLLocationManagerDelegate {
 		}
 		else {
 			let start_date = Date()
-			let end_date = Calendar.current.date(byAdding: .hour, value: 24 * 7, to: start_date)!
+			let end_date = Calendar.current.date(byAdding: .hour, value: 24 * 7 + 3, to: start_date)!
 			let weather = try await WeatherService
 				.shared.weather(for: location_manager.location!, including: .hourly(startDate: start_date, endDate: end_date))
 			self.weather = weather
@@ -99,7 +96,7 @@ class Weather_Service:  NSObject, CLLocationManagerDelegate {
 
 	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
 
-		print("UpdateLocations fail")
+		print("file: Weather, class: Weather_Service, error: UpdateLocations fail")
 		//NotificationCenter.default.post(name: .didUpdateLocations, object: nil)
 		print(error)
 	}

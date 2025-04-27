@@ -24,29 +24,33 @@ struct Provider: AppIntentTimelineProvider {
         let currentDate = Date()
 		let weather_service = Weather_Service()
 		var weathers: Forecast<HourWeather>?
+		let isDay = (UserDefaults.shared.string(forKey: "temperature time") ?? String(localized:"1 Day")) == String(localized:"1 Day")
 
 		// Refresh weather and get temperatures
 		do {
 			try await weather_service.refresh_weather()
-			if UserDefaults.shared.string(forKey: "temperature time") ?? String(localized:"1 Day") == String(localized:"1 Day") {
-				weathers = weather_service.get_weather(isDay: true)
-			}
-			else {
-				weathers = weather_service.get_weather(isDay: false)
-			}
+			weathers = weather_service.get_weather()
 			configuration.temperatures = weathers?.forecast.map { data in
 				data.temperature.value } ?? [0.0]
-			print(configuration.temperatures)
-			print(configuration.temperatures.count)
 		}
 		catch {
 			print("Failed to fetch weather: \(error)")
 			configuration.temperatures = [0.0]
 		}
 
-        for hourOffset in 0 ..< 6 {
-			let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset * 2, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, configuration: configuration)
+		let temperatures = configuration.temperatures
+
+        for hourOffset in 1 ..< 3 {
+			let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
+
+			if isDay {
+				configuration.temperatures = Array(temperatures[hourOffset...(24 + hourOffset)])
+			}
+			else {
+				configuration.temperatures = Array(temperatures[hourOffset...(24 * 7 + hourOffset)])
+			}
+
+			let entry = SimpleEntry(date: entryDate, configuration: configuration)
 
 			entries.append(entry)
         }
