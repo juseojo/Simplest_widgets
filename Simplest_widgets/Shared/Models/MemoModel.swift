@@ -6,6 +6,9 @@
 //
 
 import Foundation
+import SwiftUI
+
+// MARK: - Memo Model
 
 struct Memo: Equatable, Identifiable {
     let id: UUID
@@ -19,51 +22,128 @@ struct Memo: Equatable, Identifiable {
     }
 }
 
-// MARK: - Memo Widget Type
+// MARK: - Widget Orientation Type (Horizon/Vertical)
 
-enum MemoWidgetType: String, CaseIterable, Codable, Equatable {
-    case normal = "normal"
-    case compact = "compact"
+enum WidgetOrientationType: String, CaseIterable, Equatable {
+    case horizon = "Horizon"
+    case vertical = "Vertical"
 
-    var displayName: String {
+    var localizedName: String {
         switch self {
-        case .normal: return "일반"
-        case .compact: return "컴팩트"
+        case .horizon: return String(localized: "Horizon")
+        case .vertical: return String(localized: "Vertical")
+        }
+    }
+
+    init(localizedString: String) {
+        if localizedString == String(localized: "Vertical") {
+            self = .vertical
+        } else {
+            self = .horizon
         }
     }
 }
 
-// MARK: - Temperature Widget Type
+// MARK: - Widget Color Type (White/Black)
 
-enum TemperatureWidgetType: String, CaseIterable, Codable, Equatable {
-    case normal = "normal"
-    case reverse = "reverse"
+enum WidgetColorType: String, CaseIterable, Equatable {
+    case white = "White"
+    case black = "Black"
 
-    var displayName: String {
+    var localizedName: String {
         switch self {
-        case .normal: return "일반"
-        case .reverse: return "반전"
+        case .white: return String(localized: "White")
+        case .black: return String(localized: "Black")
+        }
+    }
+
+    var color: Color {
+        switch self {
+        case .white: return .white
+        case .black: return .black
+        }
+    }
+
+    init(localizedString: String) {
+        if localizedString == String(localized: "Black") {
+            self = .black
+        } else {
+            self = .white
         }
     }
 }
 
-// MARK: - Temperature Notation
+// MARK: - Widget Inner Position (1/2/3)
 
-enum TemperatureNotation: String, CaseIterable, Codable, Equatable {
-    case celsius = "celsius"
-    case fahrenheit = "fahrenheit"
+enum WidgetInnerPosition: String, CaseIterable, Equatable {
+    case position1 = "1"
+    case position2 = "2"
+    case position3 = "3"
 
-    var displayName: String {
+    var displayName: String { rawValue }
+}
+
+// MARK: - Temperature Notation Type
+
+enum TemperatureNotationType: String, CaseIterable, Equatable {
+    case normal = "normal"
+    case differenceNow = "diffrence now"
+
+    var localizedName: String {
         switch self {
-        case .celsius: return "섭씨 (°C)"
-        case .fahrenheit: return "화씨 (°F)"
+        case .normal: return String(localized: "normal")
+        case .differenceNow: return String(localized: "diffrence now")
         }
     }
 
-    var symbol: String {
-        switch self {
-        case .celsius: return "°C"
-        case .fahrenheit: return "°F"
+    init(localizedString: String) {
+        if localizedString == String(localized: "diffrence now") {
+            self = .differenceNow
+        } else {
+            self = .normal
         }
     }
+}
+
+// MARK: - Temperature Time Range
+
+enum TemperatureTimeRange: String, CaseIterable, Equatable {
+    case oneDay = "1 Day"
+    case oneWeek = "1 Week"
+
+    var localizedName: String {
+        switch self {
+        case .oneDay: return String(localized: "1 Day")
+        case .oneWeek: return String(localized: "1 Week")
+        }
+    }
+
+    init(localizedString: String) {
+        if localizedString == String(localized: "1 Week") {
+            self = .oneWeek
+        } else {
+            self = .oneDay
+        }
+    }
+}
+
+// MARK: - D-Day Inner Position (1/2 only)
+
+enum DdayInnerPosition: String, CaseIterable, Equatable {
+    case position1 = "1"
+    case position2 = "2"
+
+    var displayName: String { rawValue }
+}
+
+// MARK: - Widget Size Type
+
+enum WidgetSizeType: String, CaseIterable, Equatable {
+    case small = "2 X 2"
+    case medium = "2 X 4"
+
+    var displayName: String { rawValue }
+
+    var isSmall: Bool { self == .small }
+    var isMedium: Bool { self == .medium }
 }

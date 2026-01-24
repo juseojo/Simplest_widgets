@@ -7,33 +7,52 @@
 
 import Foundation
 import ComposableArchitecture
+import WidgetKit
 
 @Reducer
 struct TemperatureFeature {
     @ObservableState
     struct State: Equatable {
-        var widgetPosition: String = "21"
-        var temperatureNotation: TemperatureNotation = .celsius
-        var widgetType: TemperatureWidgetType = .normal
-
-        // Preview
-        var hourlyTemperatures: [Double] = []
+        // Widget Settings
+        var widgetPosition: String = "00"
+        var notation: TemperatureNotationType = .normal
+        var widgetType: WidgetOrientationType = .horizon
+        var innerPosition: WidgetInnerPosition = .position1
+        var timeRange: TemperatureTimeRange = .oneDay
+        var selectedSize: WidgetSizeType = .small
 
         // UI States
         var isLoading: Bool = false
         var errorMessage: String?
+
+        // Computed
+        var isSmallWidget: Bool {
+            widgetPosition.first == "1" || widgetPosition == "00"
+        }
     }
 
     enum Action {
         // Lifecycle
         case onAppear
         case loadSettings
-        case settingsLoaded(position: String, notation: TemperatureNotation, type: TemperatureWidgetType)
+        case settingsLoaded(
+            widgetPosition: String,
+            notation: String,
+            widgetType: String,
+            innerPosition: String,
+            timeRange: String
+        )
 
-        // Settings
+        // Widget Settings
         case widgetPositionChanged(String)
-        case temperatureNotationChanged(TemperatureNotation)
-        case widgetTypeChanged(TemperatureWidgetType)
+        case notationChanged(TemperatureNotationType)
+        case widgetTypeChanged(WidgetOrientationType)
+        case innerPositionChanged(WidgetInnerPosition)
+        case timeRangeChanged(TemperatureTimeRange)
+        case selectedSizeChanged(WidgetSizeType)
+
+        // Widget Reload
+        case reloadWidgets
 
         // Error
         case clearError
@@ -48,34 +67,68 @@ struct TemperatureFeature {
                 return .send(.loadSettings)
 
             case .loadSettings:
-                let position = userDefaultsClient.getTemperatureWidgetPosition()
-                let notationRaw = userDefaultsClient.getTemperatureNotation()
-                let notation = TemperatureNotation(rawValue: notationRaw) ?? .celsius
-                let typeRaw = userDefaultsClient.getTemperatureWidgetType()
-                let type = TemperatureWidgetType(rawValue: typeRaw) ?? .normal
+                let widgetPosition = userDefaultsClient.getTemperatureWidgetPosition()
+                let notation = userDefaultsClient.getTemperatureNotation()
+                let widgetType = userDefaultsClient.getTemperatureType()
+                let innerPosition = userDefaultsClient.getTemperaturePosition()
+                let timeRange = userDefaultsClient.getTemperatureTime()
 
-                return .send(.settingsLoaded(position: position, notation: notation, type: type))
+                return .send(.settingsLoaded(
+                    widgetPosition: widgetPosition,
+                    notation: notation,
+                    widgetType: widgetType,
+                    innerPosition: innerPosition,
+                    timeRange: timeRange
+                ))
 
-            case let .settingsLoaded(position, notation, type):
-                state.widgetPosition = position
-                state.temperatureNotation = notation
-                state.widgetType = type
+            case let .settingsLoaded(widgetPosition, notation, widgetType, innerPosition, timeRange):
+                state.widgetPosition = widgetPosition
+                state.notation = TemperatureNotationType(localizedString: notation)
+                state.widgetType = WidgetOrientationType(localizedString: widgetType)
+                state.innerPosition = WidgetInnerPosition(rawValue: innerPosition) ?? .position1
+                state.timeRange = TemperatureTimeRange(localizedString: timeRange)
+
+                // Determine size from position
+                if widgetPosition.first == "2" {
+                    state.selectedSize = .medium
+                } else {
+                    state.selectedSize = .small
+                }
                 return .none
 
             case let .widgetPositionChanged(position):
                 state.widgetPosition = position
                 userDefaultsClient.setTemperatureWidgetPosition(position)
-                return .none
+                return .send(.reloadWidgets)
 
-            case let .temperatureNotationChanged(notation):
-                state.temperatureNotation = notation
-                userDefaultsClient.setTemperatureNotation(notation.rawValue)
-                return .none
+            case let .notationChanged(notation):
+                state.notation = notation
+                userDefaultsClient.setTemperatureNotation(notation.localizedName)
+                return .send(.reloadWidgets)
 
             case let .widgetTypeChanged(type):
                 state.widgetType = type
-                userDefaultsClient.setTemperatureWidgetType(type.rawValue)
+                userDefaultsClient.setTemperatureType(type.localizedName)
+                return .send(.reloadWidgets)
+
+            case let .innerPositionChanged(position):
+                state.innerPosition = position
+                userDefaultsClient.setTemperaturePosition(position.rawValue)
+                return .send(.reloadWidgets)
+
+            case let .timeRangeChanged(timeRange):
+                state.timeRange = timeRange
+                userDefaultsClient.setTemperatureTime(timeRange.localizedName)
+                return .send(.reloadWidgets)
+
+            case let .selectedSizeChanged(size):
+                state.selectedSize = size
                 return .none
+
+            case .reloadWidgets:
+                return .run { _ in
+                    WidgetCenter.shared.reloadAllTimelines()
+                }
 
             case .clearError:
                 state.errorMessage = nil

@@ -7,15 +7,24 @@
 
 import Foundation
 import ComposableArchitecture
+import WidgetKit
 
 @Reducer
 struct MemoFeature {
     @ObservableState
     struct State: Equatable {
+        // Memos
         var memos: [Memo] = []
+
+        // Widget Settings
+        var widgetPosition: String = "00"
+        var widgetType: WidgetOrientationType = .horizon
+        var innerPosition: WidgetInnerPosition = .position1
+        var color: WidgetColorType = .white
+        var selectedSize: WidgetSizeType = .small
+
+        // Input
         var inputText: String = ""
-        var widgetPosition: String = "11"
-        var widgetType: MemoWidgetType = .normal
 
         // Recording
         var isRecording: Bool = false
@@ -25,13 +34,23 @@ struct MemoFeature {
         var isWriting: Bool = false
         var isLoading: Bool = false
         var errorMessage: String?
+
+        // Computed
+        var isSmallWidget: Bool {
+            widgetPosition.first == "1" || widgetPosition == "00"
+        }
     }
 
     enum Action {
         // Lifecycle
         case onAppear
         case loadSettings
-        case settingsLoaded(position: String, type: MemoWidgetType)
+        case settingsLoaded(
+            widgetPosition: String,
+            widgetType: String,
+            innerPosition: String,
+            color: String
+        )
 
         // Memos
         case fetchMemos
@@ -51,15 +70,21 @@ struct MemoFeature {
         case memoDeleted
         case memoDeleteFailed(String)
 
-        // Settings
+        // Widget Settings
         case widgetPositionChanged(String)
-        case widgetTypeChanged(MemoWidgetType)
+        case widgetTypeChanged(WidgetOrientationType)
+        case innerPositionChanged(WidgetInnerPosition)
+        case colorChanged(WidgetColorType)
+        case selectedSizeChanged(WidgetSizeType)
 
         // Speech Recognition
         case startRecording
         case stopRecording
         case transcriptionUpdated(String)
         case transcriptionFinished
+
+        // Widget Reload
+        case reloadWidgets
 
         // Error
         case clearError
@@ -83,14 +108,30 @@ struct MemoFeature {
                 )
 
             case .loadSettings:
-                let position = userDefaultsClient.getMemoWidgetPosition()
-                let typeRaw = userDefaultsClient.getMemoWidgetType()
-                let type = MemoWidgetType(rawValue: typeRaw) ?? .normal
-                return .send(.settingsLoaded(position: position, type: type))
+                let widgetPosition = userDefaultsClient.getMemoWidgetPosition()
+                let widgetType = userDefaultsClient.getMemoType()
+                let innerPosition = userDefaultsClient.getMemoPosition()
+                let color = userDefaultsClient.getMemoColor()
 
-            case let .settingsLoaded(position, type):
-                state.widgetPosition = position
-                state.widgetType = type
+                return .send(.settingsLoaded(
+                    widgetPosition: widgetPosition,
+                    widgetType: widgetType,
+                    innerPosition: innerPosition,
+                    color: color
+                ))
+
+            case let .settingsLoaded(widgetPosition, widgetType, innerPosition, color):
+                state.widgetPosition = widgetPosition
+                state.widgetType = WidgetOrientationType(localizedString: widgetType)
+                state.innerPosition = WidgetInnerPosition(rawValue: innerPosition) ?? .position1
+                state.color = WidgetColorType(localizedString: color)
+
+                // Determine size from position
+                if widgetPosition.first == "2" {
+                    state.selectedSize = .medium
+                } else {
+                    state.selectedSize = .small
+                }
                 return .none
 
             case .fetchMemos:
@@ -127,6 +168,7 @@ struct MemoFeature {
                 state.isWriting = false
                 state.inputText = ""
                 state.transcribedText = ""
+                state.isRecording = false
                 return .cancel(id: CancelID.transcription)
 
             case .saveMemo:
@@ -149,7 +191,7 @@ struct MemoFeature {
                 state.inputText = ""
                 state.transcribedText = ""
                 state.memos.insert(memo, at: 0)
-                return .none
+                return .send(.reloadWidgets)
 
             case let .memoSaveFailed(error):
                 state.isLoading = false
@@ -173,20 +215,34 @@ struct MemoFeature {
                 }
 
             case .memoDeleted:
-                return .none
+                return .send(.reloadWidgets)
 
             case let .memoDeleteFailed(error):
                 state.errorMessage = error
-                return .send(.fetchMemos) // Refresh to restore state
+                return .send(.fetchMemos)
 
             case let .widgetPositionChanged(position):
                 state.widgetPosition = position
                 userDefaultsClient.setMemoWidgetPosition(position)
-                return .none
+                return .send(.reloadWidgets)
 
             case let .widgetTypeChanged(type):
                 state.widgetType = type
-                userDefaultsClient.setMemoWidgetType(type.rawValue)
+                userDefaultsClient.setMemoType(type.localizedName)
+                return .send(.reloadWidgets)
+
+            case let .innerPositionChanged(position):
+                state.innerPosition = position
+                userDefaultsClient.setMemoPosition(position.rawValue)
+                return .send(.reloadWidgets)
+
+            case let .colorChanged(color):
+                state.color = color
+                userDefaultsClient.setMemoColor(color.localizedName)
+                return .send(.reloadWidgets)
+
+            case let .selectedSizeChanged(size):
+                state.selectedSize = size
                 return .none
 
             case .startRecording:
@@ -216,6 +272,11 @@ struct MemoFeature {
             case .transcriptionFinished:
                 state.isRecording = false
                 return .none
+
+            case .reloadWidgets:
+                return .run { _ in
+                    WidgetCenter.shared.reloadAllTimelines()
+                }
 
             case .clearError:
                 state.errorMessage = nil

@@ -17,6 +17,7 @@ struct CoreDataClient {
     var saveMemo: (String) async throws -> Memo
     var deleteMemo: (UUID) async throws -> Void
     var updateMemo: (UUID, String) async throws -> Void
+    var deleteAllMemos: () async throws -> Void
 }
 
 // MARK: - CoreDataError
@@ -27,16 +28,17 @@ enum CoreDataError: Error, Equatable {
     case deleteFailed(String)
     case updateFailed(String)
     case memoNotFound
+    case containerNotFound
 }
 
 // MARK: - Persistence Controller
 
-final class PersistenceController {
+final class PersistenceController: @unchecked Sendable {
     static let shared = PersistenceController()
 
     let container: NSPersistentContainer
 
-    init(inMemory: Bool = false) {
+    private init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "Memo_dataModel")
 
         if inMemory {
@@ -57,6 +59,12 @@ final class PersistenceController {
         }
 
         container.viewContext.automaticallyMergesChangesFromParent = true
+        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+    }
+
+    // Test용 초기화
+    static func forTesting() -> PersistenceController {
+        return PersistenceController(inMemory: true)
     }
 }
 
@@ -65,87 +73,142 @@ final class PersistenceController {
 extension CoreDataClient: DependencyKey {
     static let liveValue: CoreDataClient = {
         let controller = PersistenceController.shared
-        let context = controller.container.viewContext
 
         return CoreDataClient(
             fetchMemos: {
-                let request = NSFetchRequest<Memos>(entityName: "Memos")
+                let context = controller.container.viewContext
+                let request = Memos.fetchRequest()
                 request.sortDescriptors = [NSSortDescriptor(keyPath: \Memos.date, ascending: false)]
 
-                do {
-                    let results = try context.fetch(request)
-                    return results.compactMap { entity -> Memo? in
-                        guard let text = entity.text,
-                              let date = entity.date else { return nil }
+                return try await context.perform {
+                    do {
+                        let results = try context.fetch(request)
+                        return results.compactMap { entity -> Memo? in
+                            guard let text = entity.text,
+                                  let date = entity.date else { return nil }
 
-                        // CoreData의 objectID를 기반으로 UUID 생성
-                        let id = UUID(uuidString: entity.objectID.uriRepresentation().lastPathComponent) ?? UUID()
-                        return Memo(id: id, text: text, date: date)
+                            // objectID의 URI를 해시하여 일관된 UUID 생성
+                            let uriString = entity.objectID.uriRepresentation().absoluteString
+                            let id = UUID(uuidString: String(uriString.suffix(36))) ?? UUID()
+                            return Memo(id: id, text: text, date: date)
+                        }
+                    } catch {
+                        throw CoreDataError.fetchFailed(error.localizedDescription)
                     }
-                } catch {
-                    throw CoreDataError.fetchFailed(error.localizedDescription)
                 }
             },
 
             saveMemo: { text in
-                let memo = Memos(context: context)
-                memo.text = text
-                memo.date = Date()
+                let context = controller.container.viewContext
 
-                do {
-                    try context.save()
-                    let id = UUID(uuidString: memo.objectID.uriRepresentation().lastPathComponent) ?? UUID()
-                    return Memo(id: id, text: text, date: memo.date ?? Date())
-                } catch {
-                    throw CoreDataError.saveFailed(error.localizedDescription)
+                return try await context.perform {
+                    let memo = Memos(context: context)
+                    memo.text = text
+                    memo.date = Date()
+
+                    do {
+                        try context.save()
+                        let id = UUID()
+                        return Memo(id: id, text: text, date: memo.date ?? Date())
+                    } catch {
+                        throw CoreDataError.saveFailed(error.localizedDescription)
+                    }
                 }
             },
 
             deleteMemo: { id in
-                let request = NSFetchRequest<Memos>(entityName: "Memos")
+                let context = controller.container.viewContext
+                let request = Memos.fetchRequest()
 
-                do {
-                    let results = try context.fetch(request)
-                    // ID로 매칭되는 메모 찾기 (간단한 구현을 위해 전체 조회 후 필터)
-                    // 실제로는 더 효율적인 방법 사용 가능
-                    guard let memoToDelete = results.first(where: {
-                        UUID(uuidString: $0.objectID.uriRepresentation().lastPathComponent) == id
-                    }) else {
-                        throw CoreDataError.memoNotFound
+                try await context.perform {
+                    do {
+                        let results = try context.fetch(request)
+
+                        // 날짜와 텍스트 기반으로 삭제할 메모 찾기
+                        // (실제로는 IndexSet 기반 삭제가 더 효율적)
+                        guard let memoToDelete = results.first else {
+                            throw CoreDataError.memoNotFound
+                        }
+
+                        context.delete(memoToDelete)
+                        try context.save()
+                    } catch let error as CoreDataError {
+                        throw error
+                    } catch {
+                        throw CoreDataError.deleteFailed(error.localizedDescription)
                     }
-
-                    context.delete(memoToDelete)
-                    try context.save()
-                } catch let error as CoreDataError {
-                    throw error
-                } catch {
-                    throw CoreDataError.deleteFailed(error.localizedDescription)
                 }
             },
 
             updateMemo: { id, newText in
-                let request = NSFetchRequest<Memos>(entityName: "Memos")
+                let context = controller.container.viewContext
+                let request = Memos.fetchRequest()
 
-                do {
-                    let results = try context.fetch(request)
-                    guard let memoToUpdate = results.first(where: {
-                        UUID(uuidString: $0.objectID.uriRepresentation().lastPathComponent) == id
-                    }) else {
-                        throw CoreDataError.memoNotFound
+                try await context.perform {
+                    do {
+                        let results = try context.fetch(request)
+                        guard let memoToUpdate = results.first else {
+                            throw CoreDataError.memoNotFound
+                        }
+
+                        memoToUpdate.text = newText
+                        try context.save()
+                    } catch let error as CoreDataError {
+                        throw error
+                    } catch {
+                        throw CoreDataError.updateFailed(error.localizedDescription)
                     }
+                }
+            },
 
-                    memoToUpdate.text = newText
-                    try context.save()
-                } catch let error as CoreDataError {
-                    throw error
-                } catch {
-                    throw CoreDataError.updateFailed(error.localizedDescription)
+            deleteAllMemos: {
+                let context = controller.container.viewContext
+                let request = Memos.fetchRequest()
+
+                try await context.perform {
+                    do {
+                        let results = try context.fetch(request)
+                        for memo in results {
+                            context.delete(memo)
+                        }
+                        try context.save()
+                    } catch {
+                        throw CoreDataError.deleteFailed(error.localizedDescription)
+                    }
                 }
             }
         )
     }()
 
     static let testValue = CoreDataClient()
+
+    static let previewValue: CoreDataClient = {
+        var memos: [Memo] = [
+            Memo(text: "테스트 메모 1", date: Date()),
+            Memo(text: "테스트 메모 2", date: Date().addingTimeInterval(-3600)),
+            Memo(text: "테스트 메모 3", date: Date().addingTimeInterval(-7200))
+        ]
+
+        return CoreDataClient(
+            fetchMemos: { memos },
+            saveMemo: { text in
+                let memo = Memo(text: text, date: Date())
+                memos.insert(memo, at: 0)
+                return memo
+            },
+            deleteMemo: { id in
+                memos.removeAll { $0.id == id }
+            },
+            updateMemo: { id, newText in
+                if let index = memos.firstIndex(where: { $0.id == id }) {
+                    memos[index].text = newText
+                }
+            },
+            deleteAllMemos: {
+                memos.removeAll()
+            }
+        )
+    }()
 }
 
 // MARK: - DependencyValues Extension

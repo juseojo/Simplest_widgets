@@ -8,54 +8,74 @@
 import Foundation
 import ComposableArchitecture
 
-// MARK: - UserDefaults Keys
+// MARK: - UserDefaults Keys (실제 사용되는 키들)
 
 enum UserDefaultsKey {
+    // App Global
+    static let isFirstLaunching = "_isFirstLaunching"
+    static let hasImage = "hasImage"
+
+    // Memo Widget
     static let memoWidgetPosition = "memo widget position"
-    static let memoWidgetType = "memo widget type"
+    static let memoType = "memo type"
+    static let memoPosition = "memo position"
+    static let memoColor = "memo color"
+
+    // Temperature Widget
     static let temperatureWidgetPosition = "temperature widget position"
     static let temperatureNotation = "temperature notation"
-    static let temperatureWidgetType = "temperature widget type"
-    static let ddayDate = "Dday date"
-    static let ddayTitle = "Dday title"
+    static let temperatureType = "temperature type"
+    static let temperaturePosition = "temperature position"
+    static let temperatureTime = "temperature time"
+
+    // D-Day Widget
     static let ddayWidgetPosition = "Dday widget position"
-    static let isOnboardingCompleted = "is onboarding completed"
-    static let hasHomeScreenImage = "has home screen image"
+    static let ddayPosition = "Dday position"
+    static let ddayColor = "Dday color"
+    static let ddayDate = "Dday date"
 }
 
 // MARK: - UserDefaultsClient
 
 @DependencyClient
 struct UserDefaultsClient {
-    // MARK: - Memo
-    var getMemoWidgetPosition: () -> String = { "11" }
-    var setMemoWidgetPosition: (String) -> Void
-    var getMemoWidgetType: () -> String = { "normal" }
-    var setMemoWidgetType: (String) -> Void
-
-    // MARK: - Temperature
-    var getTemperatureWidgetPosition: () -> String = { "21" }
-    var setTemperatureWidgetPosition: (String) -> Void
-    var getTemperatureNotation: () -> String = { "celsius" }
-    var setTemperatureNotation: (String) -> Void
-    var getTemperatureWidgetType: () -> String = { "normal" }
-    var setTemperatureWidgetType: (String) -> Void
-
-    // MARK: - D-day
-    var getDdayDate: () -> Date? = { nil }
-    var setDdayDate: (Date) -> Void
-    var getDdayTitle: () -> String = { "" }
-    var setDdayTitle: (String) -> Void
-    var getDdayWidgetPosition: () -> String = { "11" }
-    var setDdayWidgetPosition: (String) -> Void
-
-    // MARK: - Onboarding
-    var isOnboardingCompleted: () -> Bool = { false }
-    var setOnboardingCompleted: (Bool) -> Void
-
-    // MARK: - Home Screen Image
+    // MARK: - App Global
+    var isFirstLaunching: () -> Bool = { true }
+    var setFirstLaunching: (Bool) -> Void
     var hasHomeScreenImage: () -> Bool = { false }
     var setHasHomeScreenImage: (Bool) -> Void
+
+    // MARK: - Memo Widget
+    var getMemoWidgetPosition: () -> String = { "00" }
+    var setMemoWidgetPosition: (String) -> Void
+    var getMemoType: () -> String = { "Horizon" }
+    var setMemoType: (String) -> Void
+    var getMemoPosition: () -> String = { "1" }
+    var setMemoPosition: (String) -> Void
+    var getMemoColor: () -> String = { "White" }
+    var setMemoColor: (String) -> Void
+
+    // MARK: - Temperature Widget
+    var getTemperatureWidgetPosition: () -> String = { "00" }
+    var setTemperatureWidgetPosition: (String) -> Void
+    var getTemperatureNotation: () -> String = { "normal" }
+    var setTemperatureNotation: (String) -> Void
+    var getTemperatureType: () -> String = { "Horizon" }
+    var setTemperatureType: (String) -> Void
+    var getTemperaturePosition: () -> String = { "1" }
+    var setTemperaturePosition: (String) -> Void
+    var getTemperatureTime: () -> String = { "1 Day" }
+    var setTemperatureTime: (String) -> Void
+
+    // MARK: - D-Day Widget
+    var getDdayWidgetPosition: () -> String = { "00" }
+    var setDdayWidgetPosition: (String) -> Void
+    var getDdayPosition: () -> String = { "1" }
+    var setDdayPosition: (String) -> Void
+    var getDdayColor: () -> String = { "White" }
+    var setDdayColor: (String) -> Void
+    var getDdayDate: () -> String? = { nil }
+    var setDdayDate: (String) -> Void
 }
 
 // MARK: - DependencyKey
@@ -65,79 +85,151 @@ extension UserDefaultsClient: DependencyKey {
         let defaults = UserDefaults(suiteName: "group.simplest_widgets")!
 
         return UserDefaultsClient(
-            // Memo
+            // App Global
+            isFirstLaunching: {
+                // 키가 없으면 true (첫 실행)
+                if defaults.object(forKey: UserDefaultsKey.isFirstLaunching) == nil {
+                    return true
+                }
+                return defaults.bool(forKey: UserDefaultsKey.isFirstLaunching)
+            },
+            setFirstLaunching: { value in
+                defaults.set(value, forKey: UserDefaultsKey.isFirstLaunching)
+            },
+            hasHomeScreenImage: {
+                defaults.bool(forKey: UserDefaultsKey.hasImage)
+            },
+            setHasHomeScreenImage: { value in
+                defaults.set(value, forKey: UserDefaultsKey.hasImage)
+            },
+
+            // Memo Widget
             getMemoWidgetPosition: {
-                defaults.string(forKey: UserDefaultsKey.memoWidgetPosition) ?? "11"
+                defaults.string(forKey: UserDefaultsKey.memoWidgetPosition) ?? "00"
             },
             setMemoWidgetPosition: { value in
                 defaults.set(value, forKey: UserDefaultsKey.memoWidgetPosition)
             },
-            getMemoWidgetType: {
-                defaults.string(forKey: UserDefaultsKey.memoWidgetType) ?? "normal"
+            getMemoType: {
+                defaults.string(forKey: UserDefaultsKey.memoType) ?? String(localized: "Horizon")
             },
-            setMemoWidgetType: { value in
-                defaults.set(value, forKey: UserDefaultsKey.memoWidgetType)
+            setMemoType: { value in
+                defaults.set(value, forKey: UserDefaultsKey.memoType)
+            },
+            getMemoPosition: {
+                defaults.string(forKey: UserDefaultsKey.memoPosition) ?? "1"
+            },
+            setMemoPosition: { value in
+                defaults.set(value, forKey: UserDefaultsKey.memoPosition)
+            },
+            getMemoColor: {
+                defaults.string(forKey: UserDefaultsKey.memoColor) ?? String(localized: "White")
+            },
+            setMemoColor: { value in
+                defaults.set(value, forKey: UserDefaultsKey.memoColor)
             },
 
-            // Temperature
+            // Temperature Widget
             getTemperatureWidgetPosition: {
-                defaults.string(forKey: UserDefaultsKey.temperatureWidgetPosition) ?? "21"
+                defaults.string(forKey: UserDefaultsKey.temperatureWidgetPosition) ?? "00"
             },
             setTemperatureWidgetPosition: { value in
                 defaults.set(value, forKey: UserDefaultsKey.temperatureWidgetPosition)
             },
             getTemperatureNotation: {
-                defaults.string(forKey: UserDefaultsKey.temperatureNotation) ?? "celsius"
+                defaults.string(forKey: UserDefaultsKey.temperatureNotation) ?? String(localized: "normal")
             },
             setTemperatureNotation: { value in
                 defaults.set(value, forKey: UserDefaultsKey.temperatureNotation)
             },
-            getTemperatureWidgetType: {
-                defaults.string(forKey: UserDefaultsKey.temperatureWidgetType) ?? "normal"
+            getTemperatureType: {
+                defaults.string(forKey: UserDefaultsKey.temperatureType) ?? String(localized: "Horizon")
             },
-            setTemperatureWidgetType: { value in
-                defaults.set(value, forKey: UserDefaultsKey.temperatureWidgetType)
+            setTemperatureType: { value in
+                defaults.set(value, forKey: UserDefaultsKey.temperatureType)
+            },
+            getTemperaturePosition: {
+                defaults.string(forKey: UserDefaultsKey.temperaturePosition) ?? "1"
+            },
+            setTemperaturePosition: { value in
+                defaults.set(value, forKey: UserDefaultsKey.temperaturePosition)
+            },
+            getTemperatureTime: {
+                defaults.string(forKey: UserDefaultsKey.temperatureTime) ?? String(localized: "1 Day")
+            },
+            setTemperatureTime: { value in
+                defaults.set(value, forKey: UserDefaultsKey.temperatureTime)
             },
 
-            // D-day
-            getDdayDate: {
-                defaults.object(forKey: UserDefaultsKey.ddayDate) as? Date
-            },
-            setDdayDate: { value in
-                defaults.set(value, forKey: UserDefaultsKey.ddayDate)
-            },
-            getDdayTitle: {
-                defaults.string(forKey: UserDefaultsKey.ddayTitle) ?? ""
-            },
-            setDdayTitle: { value in
-                defaults.set(value, forKey: UserDefaultsKey.ddayTitle)
-            },
+            // D-Day Widget
             getDdayWidgetPosition: {
-                defaults.string(forKey: UserDefaultsKey.ddayWidgetPosition) ?? "11"
+                defaults.string(forKey: UserDefaultsKey.ddayWidgetPosition) ?? "00"
             },
             setDdayWidgetPosition: { value in
                 defaults.set(value, forKey: UserDefaultsKey.ddayWidgetPosition)
             },
-
-            // Onboarding
-            isOnboardingCompleted: {
-                defaults.bool(forKey: UserDefaultsKey.isOnboardingCompleted)
+            getDdayPosition: {
+                defaults.string(forKey: UserDefaultsKey.ddayPosition) ?? "1"
             },
-            setOnboardingCompleted: { value in
-                defaults.set(value, forKey: UserDefaultsKey.isOnboardingCompleted)
+            setDdayPosition: { value in
+                defaults.set(value, forKey: UserDefaultsKey.ddayPosition)
             },
-
-            // Home Screen Image
-            hasHomeScreenImage: {
-                defaults.bool(forKey: UserDefaultsKey.hasHomeScreenImage)
+            getDdayColor: {
+                defaults.string(forKey: UserDefaultsKey.ddayColor) ?? String(localized: "White")
             },
-            setHasHomeScreenImage: { value in
-                defaults.set(value, forKey: UserDefaultsKey.hasHomeScreenImage)
+            setDdayColor: { value in
+                defaults.set(value, forKey: UserDefaultsKey.ddayColor)
+            },
+            getDdayDate: {
+                defaults.string(forKey: UserDefaultsKey.ddayDate)
+            },
+            setDdayDate: { value in
+                defaults.set(value, forKey: UserDefaultsKey.ddayDate)
             }
         )
     }()
 
     static let testValue = UserDefaultsClient()
+
+    static let previewValue: UserDefaultsClient = {
+        var memoPosition = "11"
+        var memoType = "Horizon"
+        var memoPositionInWidget = "1"
+        var memoColor = "White"
+
+        return UserDefaultsClient(
+            isFirstLaunching: { false },
+            setFirstLaunching: { _ in },
+            hasHomeScreenImage: { true },
+            setHasHomeScreenImage: { _ in },
+            getMemoWidgetPosition: { memoPosition },
+            setMemoWidgetPosition: { memoPosition = $0 },
+            getMemoType: { memoType },
+            setMemoType: { memoType = $0 },
+            getMemoPosition: { memoPositionInWidget },
+            setMemoPosition: { memoPositionInWidget = $0 },
+            getMemoColor: { memoColor },
+            setMemoColor: { memoColor = $0 },
+            getTemperatureWidgetPosition: { "21" },
+            setTemperatureWidgetPosition: { _ in },
+            getTemperatureNotation: { "normal" },
+            setTemperatureNotation: { _ in },
+            getTemperatureType: { "Horizon" },
+            setTemperatureType: { _ in },
+            getTemperaturePosition: { "1" },
+            setTemperaturePosition: { _ in },
+            getTemperatureTime: { "1 Day" },
+            setTemperatureTime: { _ in },
+            getDdayWidgetPosition: { "11" },
+            setDdayWidgetPosition: { _ in },
+            getDdayPosition: { "1" },
+            setDdayPosition: { _ in },
+            getDdayColor: { "White" },
+            setDdayColor: { _ in },
+            getDdayDate: { nil },
+            setDdayDate: { _ in }
+        )
+    }()
 }
 
 // MARK: - DependencyValues Extension

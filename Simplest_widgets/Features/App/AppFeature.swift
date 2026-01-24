@@ -11,9 +11,25 @@ import ComposableArchitecture
 // MARK: - Tab
 
 enum AppTab: String, CaseIterable, Equatable {
-    case memo = "Memo"
     case temperature = "Temperature"
+    case memo = "Memo"
     case dday = "Dday"
+
+    var title: String {
+        switch self {
+        case .temperature: return String(localized: "Temperature Bar")
+        case .memo: return String(localized: "Memo")
+        case .dday: return String(localized: "D-day")
+        }
+    }
+
+    var imageName: String {
+        switch self {
+        case .temperature: return "Temperature Bar"
+        case .memo: return "Memo"
+        case .dday: return "D - Day"
+        }
+    }
 }
 
 // MARK: - DeepLink
@@ -55,21 +71,27 @@ enum DeepLink: Equatable {
 struct AppFeature {
     @ObservableState
     struct State: Equatable {
-        var isOnboardingCompleted: Bool = false
+        var isFirstLaunching: Bool = true
         var hasHomeScreenImage: Bool = false
-        var selectedTab: AppTab = .memo
+        var selectedDestination: AppTab? = nil
+
+        // Child Features
         var memo: MemoFeature.State = MemoFeature.State()
         var temperature: TemperatureFeature.State = TemperatureFeature.State()
         var dday: DdayFeature.State = DdayFeature.State()
+
+        // Deep Link
+        var deepLinkMemoType: String? = nil  // "write" or "mic"
     }
 
     enum Action {
         case onAppear
         case deepLinkReceived(URL)
-        case tabSelected(AppTab)
+        case destinationSelected(AppTab?)
         case onboardingCompleted
         case homeScreenImageSet
 
+        // Child Features
         case memo(MemoFeature.Action)
         case temperature(TemperatureFeature.Action)
         case dday(DdayFeature.Action)
@@ -91,7 +113,7 @@ struct AppFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                state.isOnboardingCompleted = userDefaultsClient.isOnboardingCompleted()
+                state.isFirstLaunching = userDefaultsClient.isFirstLaunching()
                 state.hasHomeScreenImage = userDefaultsClient.hasHomeScreenImage()
                 return .none
 
@@ -99,26 +121,32 @@ struct AppFeature {
                 guard let deepLink = DeepLink(url: url) else { return .none }
 
                 switch deepLink {
-                case .memo, .memoWrite:
-                    state.selectedTab = .memo
+                case .memo:
+                    state.selectedDestination = .memo
+                    state.deepLinkMemoType = nil
+                case .memoWrite:
+                    state.selectedDestination = .memo
+                    state.deepLinkMemoType = "write"
                     return .send(.memo(.startWriting))
                 case .memoMic:
-                    state.selectedTab = .memo
+                    state.selectedDestination = .memo
+                    state.deepLinkMemoType = "mic"
                     return .send(.memo(.startRecording))
                 case .temperature:
-                    state.selectedTab = .temperature
+                    state.selectedDestination = .temperature
                 case .dday:
-                    state.selectedTab = .dday
+                    state.selectedDestination = .dday
                 }
                 return .none
 
-            case let .tabSelected(tab):
-                state.selectedTab = tab
+            case let .destinationSelected(tab):
+                state.selectedDestination = tab
+                state.deepLinkMemoType = nil
                 return .none
 
             case .onboardingCompleted:
-                state.isOnboardingCompleted = true
-                userDefaultsClient.setOnboardingCompleted(true)
+                state.isFirstLaunching = false
+                userDefaultsClient.setFirstLaunching(false)
                 return .none
 
             case .homeScreenImageSet:
