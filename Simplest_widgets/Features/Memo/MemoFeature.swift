@@ -35,6 +35,9 @@ struct MemoFeature {
         var isLoading: Bool = false
         var errorMessage: String?
 
+        // Deep Link Navigation
+        var shouldNavigateToStorage: Bool = false
+
         // Computed
         var isSmallWidget: Bool {
             widgetPosition.first == "1" || widgetPosition == "00"
@@ -88,6 +91,10 @@ struct MemoFeature {
 
         // Error
         case clearError
+
+        // Deep Link Navigation
+        case navigateToStorage
+        case storageNavigationCompleted
     }
 
     @Dependency(\.coreDataClient) var coreDataClient
@@ -280,6 +287,14 @@ struct MemoFeature {
 
             case .clearError:
                 state.errorMessage = nil
+                return .none
+
+            case .navigateToStorage:
+                state.shouldNavigateToStorage = true
+                return .none
+
+            case .storageNavigationCompleted:
+                state.shouldNavigateToStorage = false
                 return .none
             }
         }

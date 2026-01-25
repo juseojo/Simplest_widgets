@@ -29,9 +29,6 @@ struct AppView: View {
         .onAppear {
             store.send(.onAppear)
         }
-        .onOpenURL { url in
-            store.send(.deepLinkReceived(url))
-        }
     }
 }
 
@@ -39,9 +36,10 @@ struct AppView: View {
 
 struct MainView: View {
     @Bindable var store: StoreOf<AppFeature>
+    @State private var navigationPath = NavigationPath()
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navigationPath) {
             ScrollView {
                 VStack(spacing: 0) {
                     Text("Simplest Widgets")
@@ -93,10 +91,32 @@ struct MainView: View {
                     DdayView(store: store.scope(state: \.dday, action: \.dday))
                 }
             }
+            .navigationDestination(for: MemoDestination.self) { destination in
+                MemoStorageViewWithDeepLink(
+                    store: store.scope(state: \.memo, action: \.memo),
+                    destination: destination
+                )
+            }
             .navigationDestination(for: String.self) { destination in
                 if destination == "ChangeImage" {
                     HomeScreenSelectionView(store: store)
                 }
+            }
+        }
+        .onChange(of: store.selectedDestination) { oldValue, newValue in
+            // Deep link로 인한 네비게이션 처리
+            if let destination = newValue {
+                navigationPath.append(destination)
+                // 네비게이션 후 selectedDestination 초기화
+                store.send(.destinationSelected(nil))
+            }
+        }
+        .onChange(of: store.memoDestination) { oldValue, newValue in
+            // Memo 딥링크로 인한 네비게이션 처리
+            if let destination = newValue {
+                navigationPath.append(destination)
+                // 네비게이션 후 memoDestination 초기화
+                store.send(.memoDestinationSelected(nil))
             }
         }
     }

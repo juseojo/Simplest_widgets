@@ -30,18 +30,18 @@
 		E9AAC5FB2D9169A8006ACFCD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = E9AAC5F92D9169A8006ACFCD /* Localizable.xcstrings */; };
 		E9AAC5FC2D9169A8006ACFCD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = E9AAC5F92D9169A8006ACFCD /* Localizable.xcstrings */; };
 		E9AAC5FD2D9169A8006ACFCD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = E9AAC5F92D9169A8006ACFCD /* Localizable.xcstrings */; };
-		E9TCA0112F25500000000011 /* Simplest_widgets/Shared/Models/DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0012F25500000000001 /* Simplest_widgets/Shared/Models/DeviceModel.swift */; };
-		E9TCA0122F25500000000012 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0022F25500000000002 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift */; };
-		E9TCA0132F25500000000013 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0032F25500000000003 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift */; };
-		E9TCA0142F25500000000014 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0042F25500000000004 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift */; };
-		E9TCA0212F25500000000021 /* Simplest_widgets/Shared/Models/DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0012F25500000000001 /* Simplest_widgets/Shared/Models/DeviceModel.swift */; };
-		E9TCA0222F25500000000022 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0022F25500000000002 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift */; };
-		E9TCA0232F25500000000023 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0032F25500000000003 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift */; };
-		E9TCA0242F25500000000024 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0042F25500000000004 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift */; };
-		E9TCA0312F25500000000031 /* Simplest_widgets/Shared/Models/DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0012F25500000000001 /* Simplest_widgets/Shared/Models/DeviceModel.swift */; };
-		E9TCA0322F25500000000032 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0022F25500000000002 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift */; };
-		E9TCA0332F25500000000033 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0032F25500000000003 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift */; };
-		E9TCA0342F25500000000034 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0042F25500000000004 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift */; };
+		E9TCA0112F25500000000011 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0012F25500000000001 /* Simplest_widgets/Shared/Models/DeviceModel.swift */; };
+		E9TCA0122F25500000000012 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0022F25500000000002 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift */; };
+		E9TCA0132F25500000000013 /* ImageStorage+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0032F25500000000003 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift */; };
+		E9TCA0142F25500000000014 /* LegacyCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0042F25500000000004 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift */; };
+		E9TCA0212F25500000000021 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0012F25500000000001 /* Simplest_widgets/Shared/Models/DeviceModel.swift */; };
+		E9TCA0222F25500000000022 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0022F25500000000002 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift */; };
+		E9TCA0232F25500000000023 /* ImageStorage+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0032F25500000000003 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift */; };
+		E9TCA0242F25500000000024 /* LegacyCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0042F25500000000004 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift */; };
+		E9TCA0312F25500000000031 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0012F25500000000001 /* Simplest_widgets/Shared/Models/DeviceModel.swift */; };
+		E9TCA0322F25500000000032 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0022F25500000000002 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift */; };
+		E9TCA0332F25500000000033 /* ImageStorage+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0032F25500000000003 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift */; };
+		E9TCA0342F25500000000034 /* LegacyCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0042F25500000000004 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,7 +71,7 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		E99659562CE86B540093E8BA /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
@@ -80,7 +80,7 @@
 				E92015FC2D549BF800BF7033 /* Dday_widgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -98,10 +98,10 @@
 		E99659432CE86B520093E8BA /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		E99C68B62D0D5902009B9738 /* Temperature_widgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Temperature_widgetExtension.entitlements; sourceTree = "<group>"; };
 		E9AAC5F92D9169A8006ACFCD /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
-		E9TCA0012F25500000000001 /* Simplest_widgets/Shared/Models/DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simplest_widgets/Shared/Models/DeviceModel.swift; sourceTree = SOURCE_ROOT; };
-		E9TCA0022F25500000000002 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Simplest_widgets/Shared/Extensions/Date+Extensions.swift"; sourceTree = SOURCE_ROOT; };
-		E9TCA0032F25500000000003 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift"; sourceTree = SOURCE_ROOT; };
-		E9TCA0042F25500000000004 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift; sourceTree = SOURCE_ROOT; };
+		E9TCA0012F25500000000001 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
+		E9TCA0022F25500000000002 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		E9TCA0032F25500000000003 /* ImageStorage+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageStorage+Shared.swift"; sourceTree = "<group>"; };
+		E9TCA0042F25500000000004 /* LegacyCompatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyCompatibility.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -239,16 +239,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E9F3CB312F26021D00F07D91 /* Recovered References */ = {
+		E9F3CB312F26021D00F07D91 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				E9TCA0012F25500000000001 /* Simplest_widgets/Shared/Models/DeviceModel.swift */,
-				E9TCA0022F25500000000002 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift */,
-				E9TCA0032F25500000000003 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift */,
-				E9TCA0042F25500000000004 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift */,
+				E9TCA0012F25500000000001 /* DeviceModel.swift */,
+				E9TCA0022F25500000000002 /* Date+Extensions.swift */,
+				E9TCA0032F25500000000003 /* ImageStorage+Shared.swift */,
+				E9TCA0042F25500000000004 /* LegacyCompatibility.swift */,
 			);
-			name = "Recovered References";
-			sourceTree = "<group>";
+			name = Shared;
+			path = Shared;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -354,7 +355,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
-				LastUpgradeCheck = 1610;
+				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					E92015EE2D549BF600BF7033 = {
 						CreatedOnToolsVersion = 16.2;
@@ -436,10 +437,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9TCA0112F25500000000011 /* Simplest_widgets/Shared/Models/DeviceModel.swift in Sources */,
-				E9TCA0122F25500000000012 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift in Sources */,
-				E9TCA0132F25500000000013 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift in Sources */,
-				E9TCA0142F25500000000014 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift in Sources */,
+				E9TCA0112F25500000000011 /* DeviceModel.swift in Sources */,
+				E9TCA0122F25500000000012 /* Date+Extensions.swift in Sources */,
+				E9TCA0132F25500000000013 /* ImageStorage+Shared.swift in Sources */,
+				E9TCA0142F25500000000014 /* LegacyCompatibility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,10 +448,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9TCA0212F25500000000021 /* Simplest_widgets/Shared/Models/DeviceModel.swift in Sources */,
-				E9TCA0222F25500000000022 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift in Sources */,
-				E9TCA0232F25500000000023 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift in Sources */,
-				E9TCA0242F25500000000024 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift in Sources */,
+				E9TCA0212F25500000000021 /* DeviceModel.swift in Sources */,
+				E9TCA0222F25500000000022 /* Date+Extensions.swift in Sources */,
+				E9TCA0232F25500000000023 /* ImageStorage+Shared.swift in Sources */,
+				E9TCA0242F25500000000024 /* LegacyCompatibility.swift in Sources */,
 				E95389512D40DF06003B25CC /* Memo_dataModel.xcdatamodeld in Sources */,
 				E953896E2D40ECDE003B25CC /* Memos+CoreDataProperties.swift in Sources */,
 				E953896F2D40ECDE003B25CC /* Memos+CoreDataClass.swift in Sources */,
@@ -471,10 +472,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9TCA0312F25500000000031 /* Simplest_widgets/Shared/Models/DeviceModel.swift in Sources */,
-				E9TCA0322F25500000000032 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift in Sources */,
-				E9TCA0332F25500000000033 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift in Sources */,
-				E9TCA0342F25500000000034 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift in Sources */,
+				E9TCA0312F25500000000031 /* DeviceModel.swift in Sources */,
+				E9TCA0322F25500000000032 /* Date+Extensions.swift in Sources */,
+				E9TCA0332F25500000000033 /* ImageStorage+Shared.swift in Sources */,
+				E9TCA0342F25500000000034 /* LegacyCompatibility.swift in Sources */,
 				E95389532D40DF06003B25CC /* Memo_dataModel.xcdatamodeld in Sources */,
 				E953896A2D40ECDE003B25CC /* Memos+CoreDataProperties.swift in Sources */,
 				E953896B2D40ECDE003B25CC /* Memos+CoreDataClass.swift in Sources */,
@@ -510,7 +511,6 @@
 				CODE_SIGN_ENTITLEMENTS = Dday_widgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 95366L65VG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Dday_widget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Dday_widget;
@@ -543,7 +543,6 @@
 				CODE_SIGN_ENTITLEMENTS = Dday_widgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 95366L65VG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Dday_widget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Dday_widget;
@@ -576,7 +575,6 @@
 				CODE_SIGN_ENTITLEMENTS = Memo_widgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 95366L65VG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Memo_widget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Memo_widget;
@@ -609,7 +607,6 @@
 				CODE_SIGN_ENTITLEMENTS = Memo_widgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 95366L65VG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Memo_widget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Memo_widget;
@@ -639,6 +636,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -669,6 +667,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 95366L65VG;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -693,6 +692,7 @@
 				NEW_SETTING = "";
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -704,6 +704,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -734,6 +735,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 95366L65VG;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -751,6 +753,7 @@
 				MTL_FAST_MATH = YES;
 				NEW_SETTING = "";
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
@@ -767,7 +770,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Simplest_widgets/Preview Content\"";
-				DEVELOPMENT_TEAM = 95366L65VG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Simplest-widgets-Info.plist";
@@ -811,7 +813,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Simplest_widgets/Preview Content\"";
-				DEVELOPMENT_TEAM = 95366L65VG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Simplest-widgets-Info.plist";
@@ -853,7 +854,6 @@
 				CODE_SIGN_ENTITLEMENTS = Temperature_widgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 95366L65VG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Temperature_widget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Temperature_widget;
@@ -887,7 +887,6 @@
 				CODE_SIGN_ENTITLEMENTS = Temperature_widgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 95366L65VG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Temperature_widget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Temperature_widget;
