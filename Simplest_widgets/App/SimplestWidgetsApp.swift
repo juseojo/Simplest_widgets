@@ -18,6 +18,9 @@ struct SimplestWidgetsApp: App {
     var body: some Scene {
         WindowGroup {
             AppView(store: SimplestWidgetsApp.store)
+                .onOpenURL { url in
+                    SimplestWidgetsApp.store.send(.deepLinkReceived(url))
+                }
         }
     }
 }

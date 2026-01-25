@@ -10,13 +10,9 @@
 		E92015F02D549BF600BF7033 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99659412CE86B520093E8BA /* WidgetKit.framework */; };
 		E92015F12D549BF600BF7033 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99659432CE86B520093E8BA /* SwiftUI.framework */; };
 		E92015FC2D549BF800BF7033 /* Dday_widgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E92015EF2D549BF600BF7033 /* Dday_widgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		E920163B2D55E25000BF7033 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C689C2D0C192D009B9738 /* Utils.swift */; };
-		E920163C2D55E25800BF7033 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C68B72D1006F2009B9738 /* Model.swift */; };
 		E9220FA92D2FDCCA005AD332 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99659412CE86B520093E8BA /* WidgetKit.framework */; };
 		E9220FAA2D2FDCCA005AD332 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99659432CE86B520093E8BA /* SwiftUI.framework */; };
 		E9220FB72D2FDCCC005AD332 /* Memo_widgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E9220FA82D2FDCCA005AD332 /* Memo_widgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		E92210132D368BC6005AD332 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C68B72D1006F2009B9738 /* Model.swift */; };
-		E92210142D368BDA005AD332 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C689C2D0C192D009B9738 /* Utils.swift */; };
 		E95389512D40DF06003B25CC /* Memo_dataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E953894F2D40DF06003B25CC /* Memo_dataModel.xcdatamodeld */; };
 		E95389522D40DF06003B25CC /* Memo_dataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E953894F2D40DF06003B25CC /* Memo_dataModel.xcdatamodeld */; };
 		E95389532D40DF06003B25CC /* Memo_dataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E953894F2D40DF06003B25CC /* Memo_dataModel.xcdatamodeld */; };
@@ -30,14 +26,22 @@
 		E99659422CE86B520093E8BA /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99659412CE86B520093E8BA /* WidgetKit.framework */; };
 		E99659442CE86B520093E8BA /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99659432CE86B520093E8BA /* SwiftUI.framework */; };
 		E99659552CE86B540093E8BA /* Temperature_widgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E996593F2CE86B520093E8BA /* Temperature_widgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		E99C68A22D0C192D009B9738 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C689C2D0C192D009B9738 /* Utils.swift */; };
-		E99C68B52D0D4C0F009B9738 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C689C2D0C192D009B9738 /* Utils.swift */; };
-		E99C68B82D1006F5009B9738 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C68B72D1006F2009B9738 /* Model.swift */; };
-		E99C68B92D1006F5009B9738 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C68B72D1006F2009B9738 /* Model.swift */; };
 		E9AAC5FA2D9169A8006ACFCD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = E9AAC5F92D9169A8006ACFCD /* Localizable.xcstrings */; };
 		E9AAC5FB2D9169A8006ACFCD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = E9AAC5F92D9169A8006ACFCD /* Localizable.xcstrings */; };
 		E9AAC5FC2D9169A8006ACFCD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = E9AAC5F92D9169A8006ACFCD /* Localizable.xcstrings */; };
 		E9AAC5FD2D9169A8006ACFCD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = E9AAC5F92D9169A8006ACFCD /* Localizable.xcstrings */; };
+		E9TCA0112F25500000000011 /* Simplest_widgets/Shared/Models/DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0012F25500000000001 /* Simplest_widgets/Shared/Models/DeviceModel.swift */; };
+		E9TCA0122F25500000000012 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0022F25500000000002 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift */; };
+		E9TCA0132F25500000000013 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0032F25500000000003 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift */; };
+		E9TCA0142F25500000000014 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0042F25500000000004 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift */; };
+		E9TCA0212F25500000000021 /* Simplest_widgets/Shared/Models/DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0012F25500000000001 /* Simplest_widgets/Shared/Models/DeviceModel.swift */; };
+		E9TCA0222F25500000000022 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0022F25500000000002 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift */; };
+		E9TCA0232F25500000000023 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0032F25500000000003 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift */; };
+		E9TCA0242F25500000000024 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0042F25500000000004 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift */; };
+		E9TCA0312F25500000000031 /* Simplest_widgets/Shared/Models/DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0012F25500000000001 /* Simplest_widgets/Shared/Models/DeviceModel.swift */; };
+		E9TCA0322F25500000000032 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0022F25500000000002 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift */; };
+		E9TCA0332F25500000000033 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0032F25500000000003 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift */; };
+		E9TCA0342F25500000000034 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0042F25500000000004 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,10 +96,12 @@
 		E996593F2CE86B520093E8BA /* Temperature_widgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Temperature_widgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E99659412CE86B520093E8BA /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		E99659432CE86B520093E8BA /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		E99C689C2D0C192D009B9738 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		E99C68B62D0D5902009B9738 /* Temperature_widgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Temperature_widgetExtension.entitlements; sourceTree = "<group>"; };
-		E99C68B72D1006F2009B9738 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		E9AAC5F92D9169A8006ACFCD /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		E9TCA0012F25500000000001 /* Simplest_widgets/Shared/Models/DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simplest_widgets/Shared/Models/DeviceModel.swift; sourceTree = SOURCE_ROOT; };
+		E9TCA0022F25500000000002 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Simplest_widgets/Shared/Extensions/Date+Extensions.swift"; sourceTree = SOURCE_ROOT; };
+		E9TCA0032F25500000000003 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift"; sourceTree = SOURCE_ROOT; };
+		E9TCA0042F25500000000004 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -112,19 +118,6 @@
 				Info.plist,
 			);
 			target = E9220FA72D2FDCCA005AD332 /* Memo_widgetExtension */;
-		};
-		E9834B942F25481000CF8C34 /* Exceptions for "Simplest_widgets" folder in "Simplest_widgets" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Legacy/ContentView.swift,
-				Legacy/Dday_view.swift,
-				Legacy/Memo_view.swift,
-				Legacy/OnBoarding_view.swift,
-				Legacy/Simplest_widgetsApp.swift,
-				Legacy/SpeechRecognizer.swift,
-				Legacy/TemperatureBar_view.swift,
-			);
-			target = E97614822CE5DD4B00C90A58 /* Simplest_widgets */;
 		};
 		E99659592CE86B540093E8BA /* Exceptions for "Temperature_widget" folder in "Temperature_widgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
@@ -154,9 +147,6 @@
 		};
 		E97614852CE5DD4B00C90A58 /* Simplest_widgets */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				E9834B942F25481000CF8C34 /* Exceptions for "Simplest_widgets" folder in "Simplest_widgets" target */,
-			);
 			path = Simplest_widgets;
 			sourceTree = "<group>";
 		};
@@ -222,11 +212,10 @@
 				E97614852CE5DD4B00C90A58 /* Simplest_widgets */,
 				E99659452CE86B520093E8BA /* Temperature_widget */,
 				E9220FAB2D2FDCCA005AD332 /* Memo_widget */,
-				E99C68B72D1006F2009B9738 /* Model.swift */,
-				E99C689C2D0C192D009B9738 /* Utils.swift */,
 				E92015F22D549BF600BF7033 /* Dday_widget */,
 				E99659402CE86B520093E8BA /* Frameworks */,
 				E97614842CE5DD4B00C90A58 /* Products */,
+				E9F3CB312F26021D00F07D91 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -248,6 +237,17 @@
 				E99659432CE86B520093E8BA /* SwiftUI.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E9F3CB312F26021D00F07D91 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				E9TCA0012F25500000000001 /* Simplest_widgets/Shared/Models/DeviceModel.swift */,
+				E9TCA0022F25500000000002 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift */,
+				E9TCA0032F25500000000003 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift */,
+				E9TCA0042F25500000000004 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -436,8 +436,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E920163C2D55E25800BF7033 /* Model.swift in Sources */,
-				E920163B2D55E25000BF7033 /* Utils.swift in Sources */,
+				E9TCA0112F25500000000011 /* Simplest_widgets/Shared/Models/DeviceModel.swift in Sources */,
+				E9TCA0122F25500000000012 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift in Sources */,
+				E9TCA0132F25500000000013 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift in Sources */,
+				E9TCA0142F25500000000014 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,8 +447,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E92210142D368BDA005AD332 /* Utils.swift in Sources */,
-				E92210132D368BC6005AD332 /* Model.swift in Sources */,
+				E9TCA0212F25500000000021 /* Simplest_widgets/Shared/Models/DeviceModel.swift in Sources */,
+				E9TCA0222F25500000000022 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift in Sources */,
+				E9TCA0232F25500000000023 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift in Sources */,
+				E9TCA0242F25500000000024 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift in Sources */,
 				E95389512D40DF06003B25CC /* Memo_dataModel.xcdatamodeld in Sources */,
 				E953896E2D40ECDE003B25CC /* Memos+CoreDataProperties.swift in Sources */,
 				E953896F2D40ECDE003B25CC /* Memos+CoreDataClass.swift in Sources */,
@@ -457,11 +461,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E99C68B92D1006F5009B9738 /* Model.swift in Sources */,
 				E953896C2D40ECDE003B25CC /* Memos+CoreDataProperties.swift in Sources */,
 				E953896D2D40ECDE003B25CC /* Memos+CoreDataClass.swift in Sources */,
 				E95389522D40DF06003B25CC /* Memo_dataModel.xcdatamodeld in Sources */,
-				E99C68A22D0C192D009B9738 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,8 +471,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E99C68B82D1006F5009B9738 /* Model.swift in Sources */,
-				E99C68B52D0D4C0F009B9738 /* Utils.swift in Sources */,
+				E9TCA0312F25500000000031 /* Simplest_widgets/Shared/Models/DeviceModel.swift in Sources */,
+				E9TCA0322F25500000000032 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift in Sources */,
+				E9TCA0332F25500000000033 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift in Sources */,
+				E9TCA0342F25500000000034 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift in Sources */,
 				E95389532D40DF06003B25CC /* Memo_dataModel.xcdatamodeld in Sources */,
 				E953896A2D40ECDE003B25CC /* Memos+CoreDataProperties.swift in Sources */,
 				E953896B2D40ECDE003B25CC /* Memos+CoreDataClass.swift in Sources */,
