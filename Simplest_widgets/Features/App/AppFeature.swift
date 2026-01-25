@@ -32,6 +32,14 @@ enum AppTab: String, CaseIterable, Equatable {
     }
 }
 
+// MARK: - Memo Destination (for deep links)
+
+enum MemoDestination: Equatable {
+    case storage
+    case storageWithWrite
+    case storageWithMic
+}
+
 // MARK: - DeepLink
 
 enum DeepLink: Equatable {
@@ -74,20 +82,19 @@ struct AppFeature {
         var isFirstLaunching: Bool = true
         var hasHomeScreenImage: Bool = false
         var selectedDestination: AppTab? = nil
+        var memoDestination: MemoDestination? = nil
 
         // Child Features
         var memo: MemoFeature.State = MemoFeature.State()
         var temperature: TemperatureFeature.State = TemperatureFeature.State()
         var dday: DdayFeature.State = DdayFeature.State()
-
-        // Deep Link
-        var deepLinkMemoType: String? = nil  // "write" or "mic"
     }
 
     enum Action {
         case onAppear
         case deepLinkReceived(URL)
         case destinationSelected(AppTab?)
+        case memoDestinationSelected(MemoDestination?)
         case onboardingCompleted
         case homeScreenImageSet
 
@@ -122,26 +129,31 @@ struct AppFeature {
 
                 switch deepLink {
                 case .memo:
-                    state.selectedDestination = .memo
-                    state.deepLinkMemoType = nil
+                    // 메모 위젯 배경 탭 → MemoStorageView로 바로 이동
+                    state.memoDestination = .storage
+                    return .none
                 case .memoWrite:
-                    state.selectedDestination = .memo
-                    state.deepLinkMemoType = "write"
-                    return .send(.memo(.startWriting))
+                    // 작성 버튼 탭 → MemoStorageView로 이동 후 작성 시작
+                    state.memoDestination = .storageWithWrite
+                    return .none
                 case .memoMic:
-                    state.selectedDestination = .memo
-                    state.deepLinkMemoType = "mic"
-                    return .send(.memo(.startRecording))
+                    // 마이크 버튼 탭 → MemoStorageView로 이동 후 녹음 시작
+                    state.memoDestination = .storageWithMic
+                    return .none
                 case .temperature:
                     state.selectedDestination = .temperature
+                    return .none
                 case .dday:
                     state.selectedDestination = .dday
+                    return .none
                 }
-                return .none
 
             case let .destinationSelected(tab):
                 state.selectedDestination = tab
-                state.deepLinkMemoType = nil
+                return .none
+
+            case let .memoDestinationSelected(destination):
+                state.memoDestination = destination
                 return .none
 
             case .onboardingCompleted:

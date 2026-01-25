@@ -472,6 +472,35 @@ struct MemoStorageView: View {
         .onAppear {
             store.send(.fetchMemos)
         }
+        .onChange(of: store.isWriting) { _, isWriting in
+            if isWriting {
+                isTextFieldFocused = true
+            }
+        }
+    }
+}
+
+// MARK: - Memo Storage View with Deep Link
+
+struct MemoStorageViewWithDeepLink: View {
+    @Bindable var store: StoreOf<MemoFeature>
+    let destination: MemoDestination
+
+    var body: some View {
+        MemoStorageView(store: store)
+            .onAppear {
+                store.send(.fetchMemos)
+
+                // 딥링크 액션 즉시 처리
+                switch destination {
+                case .storage:
+                    break // 저장소만 표시
+                case .storageWithWrite:
+                    store.send(.startWriting)
+                case .storageWithMic:
+                    store.send(.startRecording)
+                }
+            }
     }
 }
 
