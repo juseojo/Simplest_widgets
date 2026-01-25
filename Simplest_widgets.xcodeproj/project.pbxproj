@@ -26,6 +26,7 @@
 		E953896D2D40ECDE003B25CC /* Memos+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95389682D40ECDE003B25CC /* Memos+CoreDataClass.swift */; };
 		E953896E2D40ECDE003B25CC /* Memos+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95389692D40ECDE003B25CC /* Memos+CoreDataProperties.swift */; };
 		E953896F2D40ECDE003B25CC /* Memos+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95389682D40ECDE003B25CC /* Memos+CoreDataClass.swift */; };
+		E9834B4E2F2541A400CF8C34 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = E9834B4D2F2541A400CF8C34 /* ComposableArchitecture */; };
 		E99659422CE86B520093E8BA /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99659412CE86B520093E8BA /* WidgetKit.framework */; };
 		E99659442CE86B520093E8BA /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99659432CE86B520093E8BA /* SwiftUI.framework */; };
 		E99659552CE86B540093E8BA /* Temperature_widgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E996593F2CE86B520093E8BA /* Temperature_widgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -66,7 +67,7 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		E99659562CE86B540093E8BA /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
@@ -75,7 +76,7 @@
 				E92015FC2D549BF800BF7033 /* Dday_widgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -112,6 +113,19 @@
 			);
 			target = E9220FA72D2FDCCA005AD332 /* Memo_widgetExtension */;
 		};
+		E9834B942F25481000CF8C34 /* Exceptions for "Simplest_widgets" folder in "Simplest_widgets" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Legacy/ContentView.swift,
+				Legacy/Dday_view.swift,
+				Legacy/Memo_view.swift,
+				Legacy/OnBoarding_view.swift,
+				Legacy/Simplest_widgetsApp.swift,
+				Legacy/SpeechRecognizer.swift,
+				Legacy/TemperatureBar_view.swift,
+			);
+			target = E97614822CE5DD4B00C90A58 /* Simplest_widgets */;
+		};
 		E99659592CE86B540093E8BA /* Exceptions for "Temperature_widget" folder in "Temperature_widgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -120,16 +134,6 @@
 			target = E996593E2CE86B520093E8BA /* Temperature_widgetExtension */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		E9A6159B2CF08B3E007C2274 /* Exceptions for "Simplest_widgets" folder in "Copy Bundle Resources" phase from "Simplest_widgets" target */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = E97614812CE5DD4B00C90A58 /* Resources */;
-			membershipExceptions = (
-				PhotoPicker.swift,
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		E92015F22D549BF600BF7033 /* Dday_widget */ = {
@@ -151,7 +155,7 @@
 		E97614852CE5DD4B00C90A58 /* Simplest_widgets */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				E9A6159B2CF08B3E007C2274 /* Exceptions for "Simplest_widgets" folder in "Copy Bundle Resources" phase from "Simplest_widgets" target */,
+				E9834B942F25481000CF8C34 /* Exceptions for "Simplest_widgets" folder in "Simplest_widgets" target */,
 			);
 			path = Simplest_widgets;
 			sourceTree = "<group>";
@@ -189,6 +193,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9834B4E2F2541A400CF8C34 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,6 +318,7 @@
 			);
 			name = Simplest_widgets;
 			packageProductDependencies = (
+				E9834B4D2F2541A400CF8C34 /* ComposableArchitecture */,
 			);
 			productName = Simplest_widgets;
 			productReference = E97614832CE5DD4B00C90A58 /* Simplest_widgets.app */;
@@ -374,6 +380,9 @@
 			);
 			mainGroup = E976147A2CE5DD4B00C90A58;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				E9834B4C2F2541A400CF8C34 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E97614842CE5DD4B00C90A58 /* Products */;
 			projectDirPath = "";
@@ -574,7 +583,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-
 				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "sj-dev.Simplest-widgets.Memo-widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -608,7 +616,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-
 				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "sj-dev.Simplest-widgets.Memo-widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -777,7 +784,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-
 				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "sj-dev.Simplest-widgets";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -822,7 +828,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-
 				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "sj-dev.Simplest-widgets";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -890,7 +895,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-
 				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "sj-dev.Simplest-widgets.Temperature-widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -954,6 +958,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E9834B4C2F2541A400CF8C34 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.23.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E9834B4D2F2541A400CF8C34 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E9834B4C2F2541A400CF8C34 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		E953894F2D40DF06003B25CC /* Memo_dataModel.xcdatamodeld */ = {

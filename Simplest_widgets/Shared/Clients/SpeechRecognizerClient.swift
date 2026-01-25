@@ -122,7 +122,15 @@ extension SpeechRecognizerClient: DependencyKey {
                 await actor.requestAuthorization()
             },
             startTranscribing: {
-                actor.startTranscribing()
+                AsyncStream { continuation in
+                    Task {
+                        let stream = await actor.startTranscribing()
+                        for await value in stream {
+                            continuation.yield(value)
+                        }
+                        continuation.finish()
+                    }
+                }
             },
             stopTranscribing: {
                 await actor.stopTranscribing()
