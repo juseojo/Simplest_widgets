@@ -20,7 +20,9 @@ struct AppView: View {
                 }
             } else if !store.hasHomeScreenImage {
                 // 홈 화면 이미지 선택
-                HomeScreenSelectionView(store: store)
+                NavigationStack {
+                    HomeScreenSelectionView(store: store)
+                }
             } else {
                 // 메인 화면
                 MainView(store: store)
@@ -149,6 +151,7 @@ struct HomeScreenSelectionView: View {
     @State private var isPickerPresented = false
     @State private var selectedImageData: Data?
     @State private var showToast = false
+    @State private var showOnboarding = false
 
     var body: some View {
         let deviceModel = DeviceRepository.getCurrentDeviceModel()
@@ -211,6 +214,18 @@ struct HomeScreenSelectionView: View {
                         .shadow(radius: 10)
                 }
                 .animation(.easeInOut(duration: 1), value: showToast)
+            }
+        }
+        .toolbar {
+            Button {
+                showOnboarding = true
+            } label: {
+                Image(systemName: "questionmark.circle")
+            }
+        }
+        .sheet(isPresented: $showOnboarding) {
+            OnboardingView {
+                showOnboarding = false
             }
         }
     }
