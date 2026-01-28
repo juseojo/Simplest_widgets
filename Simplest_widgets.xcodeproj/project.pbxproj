@@ -30,18 +30,18 @@
 		E9AAC5FB2D9169A8006ACFCD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = E9AAC5F92D9169A8006ACFCD /* Localizable.xcstrings */; };
 		E9AAC5FC2D9169A8006ACFCD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = E9AAC5F92D9169A8006ACFCD /* Localizable.xcstrings */; };
 		E9AAC5FD2D9169A8006ACFCD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = E9AAC5F92D9169A8006ACFCD /* Localizable.xcstrings */; };
-		E9TCA0112F25500000000011 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0012F25500000000001 /* Simplest_widgets/Shared/Models/DeviceModel.swift */; };
-		E9TCA0122F25500000000012 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0022F25500000000002 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift */; };
-		E9TCA0132F25500000000013 /* ImageStorage+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0032F25500000000003 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift */; };
-		E9TCA0142F25500000000014 /* LegacyCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0042F25500000000004 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift */; };
-		E9TCA0212F25500000000021 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0012F25500000000001 /* Simplest_widgets/Shared/Models/DeviceModel.swift */; };
-		E9TCA0222F25500000000022 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0022F25500000000002 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift */; };
-		E9TCA0232F25500000000023 /* ImageStorage+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0032F25500000000003 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift */; };
-		E9TCA0242F25500000000024 /* LegacyCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0042F25500000000004 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift */; };
-		E9TCA0312F25500000000031 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0012F25500000000001 /* Simplest_widgets/Shared/Models/DeviceModel.swift */; };
-		E9TCA0322F25500000000032 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0022F25500000000002 /* Simplest_widgets/Shared/Extensions/Date+Extensions.swift */; };
-		E9TCA0332F25500000000033 /* ImageStorage+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0032F25500000000003 /* Simplest_widgets/Shared/Extensions/ImageStorage+Shared.swift */; };
-		E9TCA0342F25500000000034 /* LegacyCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0042F25500000000004 /* Simplest_widgets/Shared/Extensions/LegacyCompatibility.swift */; };
+		E9TCA0112F25500000000011 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0012F25500000000001 /* DeviceModel.swift */; };
+		E9TCA0122F25500000000012 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0022F25500000000002 /* Date+Extensions.swift */; };
+		E9TCA0132F25500000000013 /* ImageStorage+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0032F25500000000003 /* ImageStorage+Shared.swift */; };
+		E9TCA0142F25500000000014 /* LegacyCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0042F25500000000004 /* LegacyCompatibility.swift */; };
+		E9TCA0212F25500000000021 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0012F25500000000001 /* DeviceModel.swift */; };
+		E9TCA0222F25500000000022 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0022F25500000000002 /* Date+Extensions.swift */; };
+		E9TCA0232F25500000000023 /* ImageStorage+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0032F25500000000003 /* ImageStorage+Shared.swift */; };
+		E9TCA0242F25500000000024 /* LegacyCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0042F25500000000004 /* LegacyCompatibility.swift */; };
+		E9TCA0312F25500000000031 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0012F25500000000001 /* DeviceModel.swift */; };
+		E9TCA0322F25500000000032 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0022F25500000000002 /* Date+Extensions.swift */; };
+		E9TCA0332F25500000000033 /* ImageStorage+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0032F25500000000003 /* ImageStorage+Shared.swift */; };
+		E9TCA0342F25500000000034 /* LegacyCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0042F25500000000004 /* LegacyCompatibility.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -215,7 +215,7 @@
 				E92015F22D549BF600BF7033 /* Dday_widget */,
 				E99659402CE86B520093E8BA /* Frameworks */,
 				E97614842CE5DD4B00C90A58 /* Products */,
-				E9F3CB312F26021D00F07D91 /* Recovered References */,
+				E9F3CB312F26021D00F07D91 /* Shared */,
 			);
 			sourceTree = "<group>";
 		};
@@ -247,7 +247,6 @@
 				E9TCA0032F25500000000003 /* ImageStorage+Shared.swift */,
 				E9TCA0042F25500000000004 /* LegacyCompatibility.swift */,
 			);
-			name = Shared;
 			path = Shared;
 			sourceTree = SOURCE_ROOT;
 		};
@@ -521,7 +520,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "sj-dev.Simplest-widgets.Dday-widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -553,7 +552,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "sj-dev.Simplest-widgets.Dday-widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -585,7 +584,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "sj-dev.Simplest-widgets.Memo-widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -617,7 +616,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "sj-dev.Simplest-widgets.Memo-widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -790,7 +789,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "sj-dev.Simplest-widgets";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -833,7 +832,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "sj-dev.Simplest-widgets";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -865,7 +864,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "sj-dev.Simplest-widgets.Temperature-widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -898,7 +897,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "sj-dev.Simplest-widgets.Temperature-widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
