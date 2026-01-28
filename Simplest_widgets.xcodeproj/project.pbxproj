@@ -10,13 +10,9 @@
 		E92015F02D549BF600BF7033 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99659412CE86B520093E8BA /* WidgetKit.framework */; };
 		E92015F12D549BF600BF7033 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99659432CE86B520093E8BA /* SwiftUI.framework */; };
 		E92015FC2D549BF800BF7033 /* Dday_widgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E92015EF2D549BF600BF7033 /* Dday_widgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		E920163B2D55E25000BF7033 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C689C2D0C192D009B9738 /* Utils.swift */; };
-		E920163C2D55E25800BF7033 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C68B72D1006F2009B9738 /* Model.swift */; };
 		E9220FA92D2FDCCA005AD332 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99659412CE86B520093E8BA /* WidgetKit.framework */; };
 		E9220FAA2D2FDCCA005AD332 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99659432CE86B520093E8BA /* SwiftUI.framework */; };
 		E9220FB72D2FDCCC005AD332 /* Memo_widgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E9220FA82D2FDCCA005AD332 /* Memo_widgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		E92210132D368BC6005AD332 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C68B72D1006F2009B9738 /* Model.swift */; };
-		E92210142D368BDA005AD332 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C689C2D0C192D009B9738 /* Utils.swift */; };
 		E95389512D40DF06003B25CC /* Memo_dataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E953894F2D40DF06003B25CC /* Memo_dataModel.xcdatamodeld */; };
 		E95389522D40DF06003B25CC /* Memo_dataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E953894F2D40DF06003B25CC /* Memo_dataModel.xcdatamodeld */; };
 		E95389532D40DF06003B25CC /* Memo_dataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E953894F2D40DF06003B25CC /* Memo_dataModel.xcdatamodeld */; };
@@ -26,17 +22,26 @@
 		E953896D2D40ECDE003B25CC /* Memos+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95389682D40ECDE003B25CC /* Memos+CoreDataClass.swift */; };
 		E953896E2D40ECDE003B25CC /* Memos+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95389692D40ECDE003B25CC /* Memos+CoreDataProperties.swift */; };
 		E953896F2D40ECDE003B25CC /* Memos+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95389682D40ECDE003B25CC /* Memos+CoreDataClass.swift */; };
+		E9834B4E2F2541A400CF8C34 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = E9834B4D2F2541A400CF8C34 /* ComposableArchitecture */; };
 		E99659422CE86B520093E8BA /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99659412CE86B520093E8BA /* WidgetKit.framework */; };
 		E99659442CE86B520093E8BA /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99659432CE86B520093E8BA /* SwiftUI.framework */; };
 		E99659552CE86B540093E8BA /* Temperature_widgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E996593F2CE86B520093E8BA /* Temperature_widgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		E99C68A22D0C192D009B9738 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C689C2D0C192D009B9738 /* Utils.swift */; };
-		E99C68B52D0D4C0F009B9738 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C689C2D0C192D009B9738 /* Utils.swift */; };
-		E99C68B82D1006F5009B9738 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C68B72D1006F2009B9738 /* Model.swift */; };
-		E99C68B92D1006F5009B9738 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C68B72D1006F2009B9738 /* Model.swift */; };
 		E9AAC5FA2D9169A8006ACFCD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = E9AAC5F92D9169A8006ACFCD /* Localizable.xcstrings */; };
 		E9AAC5FB2D9169A8006ACFCD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = E9AAC5F92D9169A8006ACFCD /* Localizable.xcstrings */; };
 		E9AAC5FC2D9169A8006ACFCD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = E9AAC5F92D9169A8006ACFCD /* Localizable.xcstrings */; };
 		E9AAC5FD2D9169A8006ACFCD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = E9AAC5F92D9169A8006ACFCD /* Localizable.xcstrings */; };
+		E9TCA0112F25500000000011 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0012F25500000000001 /* DeviceModel.swift */; };
+		E9TCA0122F25500000000012 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0022F25500000000002 /* Date+Extensions.swift */; };
+		E9TCA0132F25500000000013 /* ImageStorage+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0032F25500000000003 /* ImageStorage+Shared.swift */; };
+		E9TCA0142F25500000000014 /* LegacyCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0042F25500000000004 /* LegacyCompatibility.swift */; };
+		E9TCA0212F25500000000021 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0012F25500000000001 /* DeviceModel.swift */; };
+		E9TCA0222F25500000000022 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0022F25500000000002 /* Date+Extensions.swift */; };
+		E9TCA0232F25500000000023 /* ImageStorage+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0032F25500000000003 /* ImageStorage+Shared.swift */; };
+		E9TCA0242F25500000000024 /* LegacyCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0042F25500000000004 /* LegacyCompatibility.swift */; };
+		E9TCA0312F25500000000031 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0012F25500000000001 /* DeviceModel.swift */; };
+		E9TCA0322F25500000000032 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0022F25500000000002 /* Date+Extensions.swift */; };
+		E9TCA0332F25500000000033 /* ImageStorage+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0032F25500000000003 /* ImageStorage+Shared.swift */; };
+		E9TCA0342F25500000000034 /* LegacyCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9TCA0042F25500000000004 /* LegacyCompatibility.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,10 +96,12 @@
 		E996593F2CE86B520093E8BA /* Temperature_widgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Temperature_widgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E99659412CE86B520093E8BA /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		E99659432CE86B520093E8BA /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		E99C689C2D0C192D009B9738 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		E99C68B62D0D5902009B9738 /* Temperature_widgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Temperature_widgetExtension.entitlements; sourceTree = "<group>"; };
-		E99C68B72D1006F2009B9738 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		E9AAC5F92D9169A8006ACFCD /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		E9TCA0012F25500000000001 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
+		E9TCA0022F25500000000002 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		E9TCA0032F25500000000003 /* ImageStorage+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageStorage+Shared.swift"; sourceTree = "<group>"; };
+		E9TCA0042F25500000000004 /* LegacyCompatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyCompatibility.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -121,16 +128,6 @@
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		E9A6159B2CF08B3E007C2274 /* Exceptions for "Simplest_widgets" folder in "Copy Bundle Resources" phase from "Simplest_widgets" target */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = E97614812CE5DD4B00C90A58 /* Resources */;
-			membershipExceptions = (
-				PhotoPicker.swift,
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		E92015F22D549BF600BF7033 /* Dday_widget */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -150,9 +147,6 @@
 		};
 		E97614852CE5DD4B00C90A58 /* Simplest_widgets */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				E9A6159B2CF08B3E007C2274 /* Exceptions for "Simplest_widgets" folder in "Copy Bundle Resources" phase from "Simplest_widgets" target */,
-			);
 			path = Simplest_widgets;
 			sourceTree = "<group>";
 		};
@@ -189,6 +183,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9834B4E2F2541A400CF8C34 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,11 +212,10 @@
 				E97614852CE5DD4B00C90A58 /* Simplest_widgets */,
 				E99659452CE86B520093E8BA /* Temperature_widget */,
 				E9220FAB2D2FDCCA005AD332 /* Memo_widget */,
-				E99C68B72D1006F2009B9738 /* Model.swift */,
-				E99C689C2D0C192D009B9738 /* Utils.swift */,
 				E92015F22D549BF600BF7033 /* Dday_widget */,
 				E99659402CE86B520093E8BA /* Frameworks */,
 				E97614842CE5DD4B00C90A58 /* Products */,
+				E9F3CB312F26021D00F07D91 /* Shared */,
 			);
 			sourceTree = "<group>";
 		};
@@ -244,6 +238,17 @@
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
+		};
+		E9F3CB312F26021D00F07D91 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				E9TCA0012F25500000000001 /* DeviceModel.swift */,
+				E9TCA0022F25500000000002 /* Date+Extensions.swift */,
+				E9TCA0032F25500000000003 /* ImageStorage+Shared.swift */,
+				E9TCA0042F25500000000004 /* LegacyCompatibility.swift */,
+			);
+			path = Shared;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -313,6 +318,7 @@
 			);
 			name = Simplest_widgets;
 			packageProductDependencies = (
+				E9834B4D2F2541A400CF8C34 /* ComposableArchitecture */,
 			);
 			productName = Simplest_widgets;
 			productReference = E97614832CE5DD4B00C90A58 /* Simplest_widgets.app */;
@@ -348,7 +354,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
-				LastUpgradeCheck = 1610;
+				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					E92015EE2D549BF600BF7033 = {
 						CreatedOnToolsVersion = 16.2;
@@ -374,6 +380,9 @@
 			);
 			mainGroup = E976147A2CE5DD4B00C90A58;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				E9834B4C2F2541A400CF8C34 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E97614842CE5DD4B00C90A58 /* Products */;
 			projectDirPath = "";
@@ -427,8 +436,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E920163C2D55E25800BF7033 /* Model.swift in Sources */,
-				E920163B2D55E25000BF7033 /* Utils.swift in Sources */,
+				E9TCA0112F25500000000011 /* DeviceModel.swift in Sources */,
+				E9TCA0122F25500000000012 /* Date+Extensions.swift in Sources */,
+				E9TCA0132F25500000000013 /* ImageStorage+Shared.swift in Sources */,
+				E9TCA0142F25500000000014 /* LegacyCompatibility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,8 +447,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E92210142D368BDA005AD332 /* Utils.swift in Sources */,
-				E92210132D368BC6005AD332 /* Model.swift in Sources */,
+				E9TCA0212F25500000000021 /* DeviceModel.swift in Sources */,
+				E9TCA0222F25500000000022 /* Date+Extensions.swift in Sources */,
+				E9TCA0232F25500000000023 /* ImageStorage+Shared.swift in Sources */,
+				E9TCA0242F25500000000024 /* LegacyCompatibility.swift in Sources */,
 				E95389512D40DF06003B25CC /* Memo_dataModel.xcdatamodeld in Sources */,
 				E953896E2D40ECDE003B25CC /* Memos+CoreDataProperties.swift in Sources */,
 				E953896F2D40ECDE003B25CC /* Memos+CoreDataClass.swift in Sources */,
@@ -448,11 +461,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E99C68B92D1006F5009B9738 /* Model.swift in Sources */,
 				E953896C2D40ECDE003B25CC /* Memos+CoreDataProperties.swift in Sources */,
 				E953896D2D40ECDE003B25CC /* Memos+CoreDataClass.swift in Sources */,
 				E95389522D40DF06003B25CC /* Memo_dataModel.xcdatamodeld in Sources */,
-				E99C68A22D0C192D009B9738 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,8 +471,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E99C68B82D1006F5009B9738 /* Model.swift in Sources */,
-				E99C68B52D0D4C0F009B9738 /* Utils.swift in Sources */,
+				E9TCA0312F25500000000031 /* DeviceModel.swift in Sources */,
+				E9TCA0322F25500000000032 /* Date+Extensions.swift in Sources */,
+				E9TCA0332F25500000000033 /* ImageStorage+Shared.swift in Sources */,
+				E9TCA0342F25500000000034 /* LegacyCompatibility.swift in Sources */,
 				E95389532D40DF06003B25CC /* Memo_dataModel.xcdatamodeld in Sources */,
 				E953896A2D40ECDE003B25CC /* Memos+CoreDataProperties.swift in Sources */,
 				E953896B2D40ECDE003B25CC /* Memos+CoreDataClass.swift in Sources */,
@@ -497,7 +510,6 @@
 				CODE_SIGN_ENTITLEMENTS = Dday_widgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 95366L65VG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Dday_widget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Dday_widget;
@@ -508,7 +520,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "sj-dev.Simplest-widgets.Dday-widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -530,7 +542,6 @@
 				CODE_SIGN_ENTITLEMENTS = Dday_widgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 95366L65VG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Dday_widget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Dday_widget;
@@ -541,7 +552,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "sj-dev.Simplest-widgets.Dday-widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -563,7 +574,6 @@
 				CODE_SIGN_ENTITLEMENTS = Memo_widgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 95366L65VG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Memo_widget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Memo_widget;
@@ -574,8 +584,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "sj-dev.Simplest-widgets.Memo-widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -597,7 +606,6 @@
 				CODE_SIGN_ENTITLEMENTS = Memo_widgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 95366L65VG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Memo_widget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Memo_widget;
@@ -608,8 +616,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "sj-dev.Simplest-widgets.Memo-widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -628,6 +635,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -658,6 +666,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 95366L65VG;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -682,6 +691,7 @@
 				NEW_SETTING = "";
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -693,6 +703,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -723,6 +734,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 95366L65VG;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -740,6 +752,7 @@
 				MTL_FAST_MATH = YES;
 				NEW_SETTING = "";
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
@@ -756,7 +769,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Simplest_widgets/Preview Content\"";
-				DEVELOPMENT_TEAM = 95366L65VG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Simplest-widgets-Info.plist";
@@ -777,8 +789,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "sj-dev.Simplest-widgets";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -801,7 +812,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Simplest_widgets/Preview Content\"";
-				DEVELOPMENT_TEAM = 95366L65VG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Simplest-widgets-Info.plist";
@@ -822,8 +832,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "sj-dev.Simplest-widgets";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -844,7 +853,6 @@
 				CODE_SIGN_ENTITLEMENTS = Temperature_widgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 95366L65VG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Temperature_widget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Temperature_widget;
@@ -856,7 +864,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "sj-dev.Simplest-widgets.Temperature-widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -878,7 +886,6 @@
 				CODE_SIGN_ENTITLEMENTS = Temperature_widgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 95366L65VG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Temperature_widget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Temperature_widget;
@@ -890,8 +897,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "sj-dev.Simplest-widgets.Temperature-widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -954,6 +960,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E9834B4C2F2541A400CF8C34 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.23.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E9834B4D2F2541A400CF8C34 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E9834B4C2F2541A400CF8C34 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		E953894F2D40DF06003B25CC /* Memo_dataModel.xcdatamodeld */ = {
