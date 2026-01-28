@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat: TCA 아키텍처 기반 구조 추가\n\n- 디렉토리 구조 생성 \\(App, Features, Shared\\)\n- 공유 모델 추가 \\(WidgetPosition, DeviceModel, MemoModel\\)\n- Dependency Client 구현 \\(UserDefaults, CoreData, ImageStorage, SpeechRecognizer\\)\n- Feature Reducer 구현 \\(App, Memo, Temperature, Dday, Onboarding\\)\n- Feature View 구현 \\(AppView, MemoView, TemperatureView, DdayView\\)\n- Extension 추가 \\(Date, UserDefaults\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(ls:*)",
+      "Bash(xcodebuild:*)"
+    ]
+  }
+}
